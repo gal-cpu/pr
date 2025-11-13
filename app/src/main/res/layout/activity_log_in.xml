@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LogIn">
+
+    <TextView
+        android:id="@+id/LogInTitle"
+        android:layout_width="203dp"
+        android:layout_height="104dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="224dp"
+        android:layout_marginBottom="43dp"
+        android:text="Welcome \nBack"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toTopOf="@+id/Id"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.8" />
+
+    <EditText
+        android:id="@+id/Id"
+        android:layout_width="316dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="121dp"
+        android:drawableStart="@drawable/icon_id"
+        android:drawablePadding="16dp"
+        android:hint="Id"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.607">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/Phone"
+        android:layout_width="316dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="121dp"
+        android:drawableStart="@drawable/icon_phone"
+        android:drawablePadding="16dp"
+        android:hint="Phone"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.516"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.717">
+
+    </EditText>
+
+    <EditText
+        android:id="@+id/Password"
+        android:layout_width="316dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="220dp"
+        android:drawableStart="@drawable/icon_password"
+        android:drawablePadding="16dp"
+        android:hint="Password"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.483"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Id"
+        app:layout_constraintVertical_bias="1.0">
+
+
+    </EditText>
+
+    <Button
+        android:id="@+id/btSendLogIn"
+        android:layout_width="185dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="140dp"
+        android:backgroundTint="#CEB0FA"
+        android:onClick="onClickContinueLogIn"
+        android:text="Continue"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/Id"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btBackLogIn"
+        android:layout_width="127dp"
+        android:layout_height="36dp"
+        android:backgroundTint="#CEB0FA"
+        android:onClick="onClickBackLogIn"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.882" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
