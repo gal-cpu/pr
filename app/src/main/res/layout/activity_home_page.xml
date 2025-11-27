@@ -49,12 +49,12 @@
 
     <Button
         android:id="@+id/details"
-        android:layout_width="190dp"
-        android:layout_height="50dp"
+        android:layout_width="168dp"
+        android:layout_height="42dp"
         android:layout_marginBottom="186dp"
         android:backgroundTint="#DAECFB"
-        android:text="אודות האתר"
         android:onClick="onClickAudot"
+        android:text="אודות האתר"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.497"
