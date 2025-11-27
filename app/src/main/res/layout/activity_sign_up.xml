@@ -10,129 +10,201 @@
 
     <TextView
         android:id="@+id/SignUpTitle"
-        android:layout_width="242dp"
-        android:layout_height="97dp"
+        android:layout_width="274dp"
+        android:layout_height="107dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="120dp"
+        android:layout_marginBottom="27dp"
         android:text="Create \nan account"
         android:textSize="40dp"
         android:textStyle="bold"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.094"
+        app:layout_constraintBottom_toTopOf="@+id/etFname"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <EditText
-        android:id="@+id/Id"
-        android:layout_width="316dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="29dp"
+        android:id="@+id/etFname"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="16dp"
         android:drawableStart="@drawable/icon_id"
         android:drawablePadding="16dp"
-        android:hint="Id"
+        android:hint="FirstName"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/etLname"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.329">
+        app:layout_constraintTop_toBottomOf="@+id/SignUpTitle">
 
     </EditText>
 
-    <EditText
-        android:id="@+id/FullName"
+    <TextView
+        android:id="@+id/TvFnameMessage"
         android:layout_width="316dp"
-        android:layout_height="50dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="2dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/etLname"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etFname"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/etLname"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="19dp"
         android:drawableStart="@drawable/icon_user"
         android:drawablePadding="16dp"
-        android:hint="Full name"
+        android:hint="LastName"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Id"
-        app:layout_constraintVertical_bias="0.041">
+        app:layout_constraintTop_toBottomOf="@+id/etFname">
 
     </EditText>
 
-    <EditText
-        android:id="@+id/Email"
+    <TextView
+        android:id="@+id/TvLnameMessage"
         android:layout_width="316dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="14dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="6dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/etEmail"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etLname"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/etEmail"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="14dp"
         android:drawableStart="@drawable/icon_email"
         android:drawablePadding="16dp"
         android:hint="Email"
         android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/etPhone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/FullName"
-        app:layout_constraintVertical_bias="0.016">
+        app:layout_constraintTop_toBottomOf="@+id/etLname">
 
     </EditText>
 
-    <EditText
-        android:id="@+id/Phone"
+
+    <TextView
+        android:id="@+id/TvEmailMessage"
         android:layout_width="316dp"
-        android:layout_height="50dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/etPhone"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etEmail"
+        app:layout_constraintVertical_bias="0.7" />
+
+    <EditText
+        android:id="@+id/etPhone"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="12dp"
         android:drawableStart="@drawable/icon_phone"
         android:drawablePadding="16dp"
         android:hint="Phone"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Email"
-        app:layout_constraintVertical_bias="0.059">
+        app:layout_constraintTop_toBottomOf="@+id/etEmail">
 
     </EditText>
 
-    <EditText
-        android:id="@+id/Password"
+    <TextView
+        android:id="@+id/TvPhoneMessage"
         android:layout_width="316dp"
-        android:layout_height="50dp"
-        android:layout_marginTop="76dp"
+        android:layout_height="20dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/etPassword"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPhone"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/etPassword"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="27dp"
         android:drawableStart="@drawable/icon_password"
         android:drawablePadding="16dp"
         android:hint="Password"
-        android:inputType="textPersonName"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btSendSignUP"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/Email"
-        app:layout_constraintVertical_bias="0.0">
+        app:layout_constraintTop_toBottomOf="@+id/etPhone">
 
     </EditText>
 
-    <Button
-        android:id="@+id/btSendSignUP"
-        android:layout_width="185dp"
-        android:layout_height="44dp"
-        android:backgroundTint="#CEB0FA"
-        android:onClick="onClickContinueSignUp"
-        android:text="Continue"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <TextView
+        android:id="@+id/TvPasswordMessage"
+        android:layout_width="316dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="16dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/btSendSignUP"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.847" />
+        app:layout_constraintTop_toBottomOf="@+id/etPassword"
+        app:layout_constraintVertical_bias="1.0" />
 
     <Button
-        android:id="@+id/btBackLogIn"
-        android:layout_width="127dp"
-        android:layout_height="36dp"
+        android:id="@+id/btSendSignUP"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="7dp"
         android:backgroundTint="#CEB0FA"
-        android:onClick="onClickBackSignUp"
+        android:text="Continue"
+        app:layout_constraintBottom_toTopOf="@+id/btBackSignUp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPassword" />
+
+    <Button
+        android:id="@+id/btBackSignUp"
+        android:layout_width="127dp"
+        android:layout_height="39dp"
+        android:backgroundTint="#CEB0FA"
         android:text="Back"
+        android:onClick="onClickBackSignUp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.91" />
+        app:layout_constraintVertical_bias="0.92" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

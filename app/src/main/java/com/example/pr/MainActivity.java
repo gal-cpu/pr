@@ -1,8 +1,10 @@
 package com.example.pr;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
+import android.view.View;
 import android.widget.MediaController;
 import android.widget.VideoView;
 
@@ -20,5 +22,17 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_main);
+    }
+
+    public void onClickBookPage(View view)
+    {
+        Intent go= new Intent(MainActivity.this, Book_page.class);
+        startActivity(go);
+    }
+
+    public void onClickToysPage(View view)
+    {
+        Intent go= new Intent(MainActivity.this, activity_toys_page.class);
+        startActivity(go);
     }
 }

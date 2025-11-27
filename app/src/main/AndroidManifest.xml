@@ -12,6 +12,21 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".activity_devices_page"
+            android:exported="false" />
+        <activity
+            android:name=".activity_tools_page"
+            android:exported="false" />
+        <activity
+            android:name=".activity_toys_page"
+            android:exported="false" />
+        <activity
+            android:name=".Book_page"
+            android:exported="false" />
+        <activity
+            android:name=".transition_page"
+            android:exported="false" />
+        <activity
             android:name=".LogIn"
             android:exported="false" />
         <activity
