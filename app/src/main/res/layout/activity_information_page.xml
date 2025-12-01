@@ -28,6 +28,7 @@
         android:text="Information of\nthe website"
         android:textColor="@color/white"
         android:textSize="40dp"
+        android:onClick="informationPageBack"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.495"
@@ -52,25 +53,55 @@
         android:id="@+id/textView3"
         android:layout_width="match_parent"
         android:layout_height="58dp"
-        android:gravity="center"
-        android:textSize="50dp"
-        android:textColor="#C4B0D3"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
+        android:gravity="center"
         android:text="אודות האתר"
-        tools:layout_editor_absoluteX="36dp"
-        tools:layout_editor_absoluteY="297dp" />
+        android:textColor="#C4B0D3"
+        android:textSize="50dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5"
+        app:layout_constraintVertical_bias="0.044" />
 
     <TextView
         android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:gravity="right"
+        android:layout_width="354dp"
+        android:layout_height="353dp"
         android:layout_marginStart="32dp"
         android:layout_marginEnd="32dp"
-        android:text="מטרת האתר:\n הר"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="369dp" />
+        android:gravity="right"
+        android:text="מטרת האתר:\nהמטרה שלנו היא לספק לכל משתמש גישה למוצרים דיגיטליים איכותיים ממגוון רחב של מוכרים, תוך שילוב ממשק ידידותי ויכולת ניווט פשוטה. האפליקציה מרכזת במקום אחד מגוון קטגוריות של מוצרים דיגיטליים ומאפשרת למשתמשים לבצע רכישות בצורה יעילה ומהירה, ללא צורך בתיווך או הליכים מורכבים\n איך משתמשים באפליקציה:\n
+1.הרשמה או התחברות
+נכנסים לאפליקציה, נרשמים באמצעות כתובת אימייל או חשבון קיים, ומקבלים גישה מלאה לכל הפיצ׳רים.
+2.	חיפוש מוצרים
+ניתן לחפש מוצרים דרך שורת החיפוש או לדפדף בין הקטגוריות השונות עד למציאת הפריט הרצוי.
+3.	צפייה בפרטי מוצר
+כל מוצר מגיע עם תיאור מפורט, תמונות, ומידע על המוכר..
+4.	הוספה לסל ורכישה
+ברגע שבוחרים מוצר, מוסיפים אותו לסל, ובסיום ממשיכים לתשלום מאובטח. לאחר הרכישה ניתן להוריד את המוצר ישירות מהממשק
+ "
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.891" />
+
+    <Button
+        android:id="@+id/btBackLogIn"
+        android:layout_width="127dp"
+        android:layout_height="36dp"
+        android:backgroundTint="#CEB0FA"
+        android:onClick="onClickBackLogIn"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.962" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

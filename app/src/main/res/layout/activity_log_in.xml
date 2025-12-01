@@ -23,7 +23,7 @@
         app:layout_constraintVertical_bias="0.342" />
 
     <EditText
-        android:id="@+id/erEmailLogIn"
+        android:id="@+id/etEmailLogIn"
         android:layout_width="316dp"
         android:layout_height="50dp"
         android:layout_marginStart="32dp"
@@ -53,7 +53,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/erEmailLogIn"
+        app:layout_constraintTop_toBottomOf="@+id/etEmailLogIn"
         app:layout_constraintVertical_bias="0.057" />
 
 
@@ -84,19 +84,32 @@
         android:layout_marginBottom="20dp"
         android:text=""
         android:textColor="#FF0202"
-        app:layout_constraintBottom_toTopOf="@+id/btSendLogIn"
+        app:layout_constraintBottom_toTopOf="@+id/btnSendLogIn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.494"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/etPasswordLogIn"
         app:layout_constraintVertical_bias="0.363" />
 
+    <TextView
+        android:id="@+id/TvNotExistMessage"
+        android:layout_width="316dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="20dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/btnSendLogIn"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.494"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etPasswordLogIn"
+        app:layout_constraintVertical_bias="1.0" />
+
     <Button
-        android:id="@+id/btSendLogIn"
+        android:id="@+id/btnSendLogIn"
         android:layout_width="185dp"
         android:layout_height="44dp"
         android:backgroundTint="#CEB0FA"
-        android:onClick="onClickContinueLogIn"
         android:text="Continue"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -105,16 +118,16 @@
         app:layout_constraintVertical_bias="0.812" />
 
     <Button
-        android:id="@+id/btBackLogIn"
-        android:layout_width="127dp"
-        android:layout_height="36dp"
-        android:backgroundTint="#CEB0FA"
-        android:onClick="onClickBackLogIn"
-        android:text="Back"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.882" />
+    android:id="@+id/btBackLogIn"
+    android:layout_width="127dp"
+    android:layout_height="36dp"
+    android:backgroundTint="#CEB0FA"
+
+    android:text="Back"
+    app:layout_constraintBottom_toBottomOf="parent"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent"
+    app:layout_constraintVertical_bias="0.882" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

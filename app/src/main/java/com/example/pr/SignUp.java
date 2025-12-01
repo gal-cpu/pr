@@ -28,7 +28,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private static final String TAG = "RegisterActivity";
 
     private EditText etEmail, etPassword, etFName, etLName, etPhone;
-    private Button btnRegister, btnGoBack;
+    private Button btnRegister;
 
     DatabaseService databaseService;
 
@@ -63,7 +63,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         etPhone = findViewById(R.id.etPhone);
 
         btnRegister = findViewById(R.id.btSendSignUP);
-        btnGoBack = findViewById(R.id.btBackSignUp);
 
         /// set the click listener
         btnRegister.setOnClickListener(this);
@@ -191,7 +190,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 registerUser(fName, lName, phone, email, password);
 
             }
-
         }
     }
 
