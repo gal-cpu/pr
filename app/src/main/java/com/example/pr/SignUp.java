@@ -1,6 +1,8 @@
 package com.example.pr;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -31,6 +33,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private Button btnRegister;
 
     DatabaseService databaseService;
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences sharedpreferences;
+
+
 
 
     @Override
@@ -43,6 +49,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+
 
         databaseService = DatabaseService.getInstance();
 
@@ -188,6 +198,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                 /// Register user
                 registerUser(fName, lName, phone, email, password);
+                SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                editor.putString("email", email);
+
+                editor.putString("password", password);
+
+                editor.commit();
 
             }
         }
@@ -208,12 +225,24 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void createUserInDatabase(User user) {
+        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+        editor.putString("email", email);
+
+        editor.putString("password", password);
+
+        editor.commit();
+
         databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<String>() {
             @Override
             public void onCompleted(String uid) {
                 Log.d(TAG, "createUserInDatabase: User created successfully");
                 /// save the user to shared preferences
                 user.setId(uid);
+
+
+
+
                 Log.d(TAG, "createUserInDatabase: Redirecting to MainActivity");
                 /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
                 Intent mainIntent = new Intent(SignUp.this, MainActivity.class);

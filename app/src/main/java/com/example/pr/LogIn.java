@@ -1,6 +1,7 @@
 package com.example.pr;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -28,6 +29,10 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     String emailUserInput, passwordUserInput,mNotExist="", memail="", mpassword="";
     DatabaseService databaseService;
 
+    public static final String MyPREFERENCES = "MyPrefs" ;
+    SharedPreferences sharedpreferences;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,9 +46,19 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         });
         databaseService = DatabaseService.getInstance();
 
+        sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
+
+
+
         etEmail=findViewById(R.id.etEmailLogIn);
         etPassword=findViewById(R.id.etPasswordLogIn);
         btnLogIn=findViewById(R.id.btnSendLogIn);
+
+        emailUserInput=sharedpreferences.getString("email","");
+        passwordUserInput=sharedpreferences.getString("password","");
+        etEmail.setText(emailUserInput);
+        etPassword.setText(passwordUserInput);
+
 
         btnLogIn.setOnClickListener(this);
     }
@@ -53,6 +68,15 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                     @Override
                     public void onCompleted(String userId) {
                        // saveUserById(userId);
+
+
+                        SharedPreferences.Editor editor = sharedpreferences.edit();
+
+                        editor.putString("email", emailUserInput);
+
+                        editor.putString("password", passwordUserInput);
+
+                        editor.commit();
                         Intent go= new Intent(LogIn.this, MainActivity.class);
                         startActivity(go);
                     }
@@ -114,7 +138,14 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             if (emailcheck == true && passwordcheck == true)
             {
                 loginUser(emailUserInput, passwordUserInput);
+
+
             }
         }
+    }
+    public void btnBackLogIn(View view)
+    {
+        Intent go= new Intent(LogIn.this, HomePage.class);
+        startActivity(go);
     }
 }
