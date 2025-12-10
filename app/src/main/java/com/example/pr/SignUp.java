@@ -22,7 +22,6 @@ import com.example.pr.services.DatabaseService;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
-
     String fname, lname, email, phone, password, mfname="", mlname="", memail="", mphone="", mpassword="";
     TextView tvfname, tvlname, tvemail, tvphone, tvpassword;
     boolean fnamecheck=true, lnamecheck=true, emailcheck=false, phonecheck=false, passwordcheck=false;
