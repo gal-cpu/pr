@@ -49,7 +49,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
 
-
         etEmail=findViewById(R.id.etEmailLogIn);
         etPassword=findViewById(R.id.etPasswordLogIn);
         btnLogIn=findViewById(R.id.btnSendLogIn);
@@ -138,8 +137,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             if (emailcheck == true && passwordcheck == true)
             {
                 loginUser(emailUserInput, passwordUserInput);
-
-
             }
         }
     }

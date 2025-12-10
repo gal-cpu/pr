@@ -39,7 +39,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     private Button btnGallery, btnTakePic, btnAddItem;
     private  Double itemPrice, rate, sumRate, numCount;
     private ImageView imageView;
-    private ImageButton btnBack;
+    private Button btnBack;
 
     private DatabaseService databaseService;
 
@@ -71,9 +71,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
         /// get the instance of the database service
         databaseService = DatabaseService.getInstance();
-
-
-
 
 
         /// register the activity result launcher for capturing image from camera

@@ -41,4 +41,10 @@ public class HomePage extends AppCompatActivity {
         Intent go= new Intent(HomePage.this, Information_page.class);
         startActivity(go);
     }
+
+    public void onClickAdminPage(View view)
+    {
+        Intent go= new Intent(HomePage.this, AdminPage.class);
+        startActivity(go);
+    }
 }

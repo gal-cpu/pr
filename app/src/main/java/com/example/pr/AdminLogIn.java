@@ -10,15 +10,13 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.database.ChildEvent;
-
-public class AdminPage extends AppCompatActivity {
+public class AdminLogIn extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_admin_page);
+        setContentView(R.layout.activity_admin_log_in);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -26,9 +24,9 @@ public class AdminPage extends AppCompatActivity {
         });
     }
 
-    public void GoToAddItem(View view)
+    public void btnBackLogInAdmin(View view)
     {
-        Intent go= new Intent(AdminPage.this, AddItem.class);
+        Intent go= new Intent(AdminLogIn.this, HomePage.class);
         startActivity(go);
     }
 }
