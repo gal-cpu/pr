@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddItem">
+
+
+    <TextView
+        android:id="@+id/SignUpTitle"
+        android:layout_width="248dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="27dp"
+        android:drawableEnd="@drawable/icon_add_item"
+        android:text="Add Item"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.128"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.239" />
+
+    <EditText
+        android:id="@+id/etItemName"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="16dp"
+        android:drawableStart="@drawable/icon_id"
+        android:drawablePadding="16dp"
+        android:hint="Item Name"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/etItemType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/SignUpTitle">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/TvFnameMessage"
+        android:layout_width="316dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="2dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/etItemType"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemName"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/etItemType"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="19dp"
+        android:drawableStart="@drawable/icon_type"
+        android:drawablePadding="16dp"
+        android:hint="Item Type"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/etItemNote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemName">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/TvLnameMessage"
+        android:layout_width="316dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="6dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/etItemNote"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemType"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/etItemNote"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="14dp"
+        android:drawableStart="@drawable/icon_note"
+        android:drawablePadding="16dp"
+        android:hint="Item Note"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toTopOf="@+id/etItemPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemType">
+
+    </EditText>
+
+
+    <TextView
+        android:id="@+id/TvEmailMessage"
+        android:layout_width="316dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="10dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/etItemPrice"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemNote"
+        app:layout_constraintVertical_bias="0.7" />
+
+    <EditText
+        android:id="@+id/etItemPrice"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="12dp"
+        android:drawableStart="@drawable/icon_price"
+        android:drawablePadding="16dp"
+        android:hint="Item Price"
+        android:inputType="number"
+        app:layout_constraintBottom_toTopOf="@+id/etItemAddImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemNote">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/TvPhoneMessage"
+        android:layout_width="316dp"
+        android:layout_height="20dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/etItemAddImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.505"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemPrice"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <EditText
+        android:id="@+id/etItemAddImage"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="47dp"
+        android:layout_marginEnd="47dp"
+        android:layout_marginBottom="27dp"
+        android:drawableStart="@drawable/icon_image"
+        android:drawablePadding="16dp"
+        android:hint="Image"
+        android:inputType="textPassword"
+        app:layout_constraintBottom_toTopOf="@+id/btSendSignUP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemPrice">
+
+    </EditText>
+
+    <TextView
+        android:id="@+id/TvPasswordMessage"
+        android:layout_width="316dp"
+        android:layout_height="20dp"
+        android:layout_marginBottom="16dp"
+        android:text=""
+        android:textColor="#FF0202"
+        app:layout_constraintBottom_toTopOf="@+id/btSendSignUP"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.515"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemAddImage"
+        app:layout_constraintVertical_bias="1.0" />
+
+    <Button
+        android:id="@+id/btSendSignUP"
+        android:layout_width="205dp"
+        android:layout_height="44dp"
+        android:layout_marginBottom="7dp"
+        android:backgroundTint="#CEB0FA"
+        android:text="Create"
+        app:layout_constraintBottom_toTopOf="@+id/btnCreate"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/etItemAddImage" />
+
+    <Button
+        android:id="@+id/btnCreate"
+        android:layout_width="127dp"
+        android:layout_height="39dp"
+        android:backgroundTint="#CEB0FA"
+        android:text="Back"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.927" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

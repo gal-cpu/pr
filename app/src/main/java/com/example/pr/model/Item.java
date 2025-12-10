@@ -5,19 +5,25 @@ public class Item
     protected String id;
     protected String pName; //שם המוצר
     protected String pNote; //הערה בהתאם למוצר
+
     protected String type; //סוג המוצר
-    protected String rate; //דירוג המוצר
+    protected double rate;
+    protected  double sumRate;//דירוג המוצר
+
+    protected int numCounter;
     protected String image; //תמונה של המוצר
-    protected String price; //מחיר המוצר
+    protected double price; //מחיר המוצר
 
 
-    public Item(String id, String image, String pName, String pNote, String price, String rate, String type) {
+    public Item(String id, String image, int numCounter, String pName, String pNote, double price, double rate, double sumRate, String type) {
         this.id = id;
         this.image = image;
+        this.numCounter = numCounter;
         this.pName = pName;
         this.pNote = pNote;
         this.price = price;
         this.rate = rate;
+        this.sumRate = sumRate;
         this.type = type;
     }
 
@@ -57,20 +63,37 @@ public class Item
         this.pNote = pNote;
     }
 
-    public String getPrice() {
+
+    public int getNumCounter() {
+        return numCounter;
+    }
+
+    public void setNumCounter(int numCounter) {
+        this.numCounter = numCounter;
+    }
+
+    public double getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(double price) {
         this.price = price;
     }
 
-    public String getRate() {
+    public double getRate() {
         return rate;
     }
 
-    public void setRate(String rate) {
+    public void setRate(double rate) {
         this.rate = rate;
+    }
+
+    public double getSumRate() {
+        return sumRate;
+    }
+
+    public void setSumRate(double sumRate) {
+        this.sumRate = sumRate;
     }
 
     public String getType() {
@@ -88,9 +111,11 @@ public class Item
                 ", pName='" + pName + '\'' +
                 ", pNote='" + pNote + '\'' +
                 ", type='" + type + '\'' +
-                ", rate='" + rate + '\'' +
+                ", rate=" + rate +
+                ", sumRate=" + sumRate +
+                ", numCounter=" + numCounter +
                 ", image='" + image + '\'' +
-                ", price='" + price + '\'' +
+                ", price=" + price +
                 '}';
     }
 }
