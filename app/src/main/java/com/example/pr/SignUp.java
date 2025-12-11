@@ -244,10 +244,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
                 Log.d(TAG, "createUserInDatabase: Redirecting to MainActivity");
                 /// Redirect to MainActivity and clear back stack to prevent user from going back to register screen
-                Intent mainIntent = new Intent(SignUp.this, MainActivity.class);
+                Intent mainIntent = new Intent(SignUp.this, LogIn.class);
                 /// clear the back stack (clear history) and start the MainActivity
                 mainIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(mainIntent);
+                finish();
             }
 
             @Override

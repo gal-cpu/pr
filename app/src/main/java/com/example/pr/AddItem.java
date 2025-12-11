@@ -15,6 +15,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -35,9 +36,12 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
     }
 
+    TextView tvPname, tvPtype, tvPnote, tvPprice;
+    String mPname="", mPtype="", mPnote="", mPprice="";
+    boolean namecheck=true, notecheck=true, typecheck=false, pricecheck=true;
     private EditText etItemName,etItemType, etItemNote, etItemPrice;
     private Button btnGallery, btnTakePic, btnAddItem;
-    private  Double itemPrice, rate, sumRate, numCount;
+    private  Double rate, sumRate, numCount;
     private ImageView imageView;
     private Button btnBack;
 
@@ -117,45 +121,83 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 String imageBase64 = ImageUtil.convertTo64Base(imageView);
                 double price = Double.parseDouble(itemPrice);
 
+
+                if (itemName.length()>1 && itemName.length()<=10)
+                {
+                    for (int i=0; i<=10;i++)
+                    {
+
+                        if(itemName.contains(i+""))
+                        {
+                            namecheck=false;
+                            mPname="no digits";
+                        }
+                    }
+                }
+                else
+                {
+                    mPname="the length should be at least 2";
+                }
+
+                    if(itemType.contains("book") && itemType.contains("toy") && itemType.contains("tools") && itemType.contains("device"))
+                    {
+                        typecheck=true;
+                    }
+                    else
+                    {
+                        mPtype="book/toy/tools/device";
+                    }
+
+                    if (itemNote.isEmpty())
+                    {
+                        mPnote="the length should be at least 1";
+                        notecheck=false;
+                    }
+
+                if (itemPrice.isEmpty())
+                {
+                    mPnote="the price should be above 0";
+                    pricecheck=false;
+                }
+
+
                 if (itemName.isEmpty() || itemNote.isEmpty() || itemPrice.isEmpty() || itemType.isEmpty())
                 {
                     Toast.makeText(AddItem.this, "אנא מלא את כל השדות", Toast.LENGTH_SHORT).show();
                 }
-                else
+                if (namecheck == true && typecheck == true && notecheck == true && pricecheck == true)
                 {
                     Toast.makeText(AddItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
+
+                    String id = databaseService.generateItemId();
+
+                    Item newItem = new Item(id, imageBase64, 0, itemName, itemNote, price, 0.0, 0.0, itemType);
+
+
+
+                    /// generate a new id for the item
+
+                    /// save the item to the database and get the result in the callback
+                    databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<Void>() {
+                        @Override
+                        public void onCompleted(Void object) {
+                            Log.d("TAG", "Item added successfully");
+                            Toast.makeText(AddItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
+                            /// clear the input fields after adding the item for the next item
+                            Log.d("TAG", "Clearing input fields");
+                            Intent intent = new Intent(AddItem.this, AdminPage.class);
+                           startActivity(intent);
+                        }
+
+                        @Override
+                        public void onFailed(Exception e)
+                        {
+                            Log.e("TAG", "Failed to add item", e);
+                            Toast.makeText(AddItem.this, "Failed to add item", Toast.LENGTH_SHORT).show();
+                        }
+                    });
                 }
-
-                /// generate a new id for the item
-                String id = databaseService.generateItemId();
-
-
-                Item newItem = new Item(id, imageBase64, 0,  itemName, itemNote, 0.0, 0.0, 0.0, itemType);
-
-                /// save the item to the database and get the result in the callback
-                databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<Void>() {
-                    @Override
-                    public void onCompleted(Void object) {
-                        Log.d("TAG", "Item added successfully");
-                        Toast.makeText(AddItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
-                        /// clear the input fields after adding the item for the next item
-                        Log.d("TAG", "Clearing input fields");
-
-                        Intent intent = new Intent(AddItem.this, AdminPage.class);
-                        startActivity(intent);
-
-
-                    }
-
-                    @Override
-                    public void onFailed(Exception e) {
-                        Log.e("TAG", "Failed to add item", e);
-                        Toast.makeText(AddItem.this, "Failed to add food", Toast.LENGTH_SHORT).show();
-                    }
-                });
             }
-
-
         });
     }
 

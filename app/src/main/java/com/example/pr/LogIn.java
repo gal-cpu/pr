@@ -68,7 +68,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                     public void onCompleted(String userId) {
                        // saveUserById(userId);
 
-
                         SharedPreferences.Editor editor = sharedpreferences.edit();
 
                         editor.putString("email", emailUserInput);
@@ -76,8 +75,19 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                         editor.putString("password", passwordUserInput);
 
                         editor.commit();
-                        Intent go= new Intent(LogIn.this, MainActivity.class);
-                        startActivity(go);
+
+                        if(emailUserInput.equals("galmizrahi2008@gmail.com")&& passwordUserInput.equals("gal1212"))
+                        {
+                            Intent go= new Intent(LogIn.this, AdminPage.class);
+                            startActivity(go);
+                            finish();
+                        }
+                        else
+                        {
+                            Intent go= new Intent(LogIn.this, MainActivity.class);
+                            startActivity(go);
+                            finish();
+                        }
                     }
 
                     @Override
