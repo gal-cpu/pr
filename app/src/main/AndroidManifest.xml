@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".ItemListActivity"
+            android:exported="false" />
+        <activity
             android:name=".AdminLogIn"
             android:exported="false" />
         <activity

@@ -110,11 +110,7 @@ public class Item
                 "id='" + id + '\'' +
                 ", pName='" + pName + '\'' +
                 ", pNote='" + pNote + '\'' +
-                ", type='" + type + '\'' +
-                ", rate=" + rate +
-                ", sumRate=" + sumRate +
-                ", numCounter=" + numCounter +
-                ", image='" + image + '\'' +
+                ", rate=" + rate +'\'' +
                 ", price=" + price +
                 '}';
     }
