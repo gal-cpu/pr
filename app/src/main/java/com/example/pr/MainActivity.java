@@ -27,12 +27,14 @@ public class MainActivity extends AppCompatActivity {
     public void onClickBookPage(View view)
     {
         Intent go= new Intent(MainActivity.this, Book_page.class);
+        go.putExtra("type", "book");
         startActivity(go);
     }
 
     public void onClickToysPage(View view)
     {
         Intent go= new Intent(MainActivity.this, activity_toys_page.class);
+        go.putExtra("type", "toy");
         startActivity(go);
     }
 }

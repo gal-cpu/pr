@@ -1,7 +1,9 @@
 package com.example.pr;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -25,10 +27,19 @@ public class Book_page extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ItemsAdapter2 itemsAdapter2;
-
+    Intent takeit;
+    String extra;
     private ArrayList<Item> allItems = new ArrayList<>();
-
     DatabaseService databaseService;
+
+    private ArrayList<Item> filteredItems = new ArrayList<>(); // רשימה מסוננת של מוצרים
+
+
+    private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
+
+
+    private SearchView searchView;
+
 
 
     @Override
@@ -41,6 +52,12 @@ public class Book_page extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+
+        // קבלת שם הקטגוריה מ-Intent
+        selectedCategory = getIntent().getStringExtra("type");
+
+        takeit=getIntent();
 
         databaseService = DatabaseService.getInstance();
 
@@ -58,6 +75,8 @@ public class Book_page extends AppCompatActivity {
 
     }
 
+
+
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
@@ -67,7 +86,7 @@ public class Book_page extends AppCompatActivity {
                 // Log.d(TAG, "onCompleted: " + items);
                 allItems.clear();
                 allItems.addAll(items);
-                //    filterItemsByCategory();
+                 filterItemsByCategory();
                 //קריאה לסינון המוצרים אחרי טעינת המוצרים מחדש
 
                 Log.d(TAG, "onCompleted: " + allItems);
@@ -90,5 +109,31 @@ public class Book_page extends AppCompatActivity {
             }
         });
     }
+
+    private void filterItemsByCategory() {
+        filteredItems.clear();  // מחיקת המוצרים הקודמים ברשימה
+        if (selectedCategory != null && !selectedCategory.isEmpty()) {
+            if (selectedCategory.equals("כל המוצרים"))
+            {
+                // אם בחרנו בקטגוריה "כל המוצרים", נציג את כל המוצרים
+                filteredItems.addAll(allItems);
+            } else {
+                // אם נבחרה קטגוריה מסוימת, נבצע סינון
+                for (Item item : allItems)
+                {
+                    if (item.getType().equalsIgnoreCase(selectedCategory))
+                    {
+                        filteredItems.add(item);
+                    }
+                }
+            }
+        } else {
+            // אם לא נבחרה קטגוריה, נציג את כל המוצרים
+            filteredItems.addAll(allItems);
+        }
+        itemsAdapter2.notifyDataSetChanged();
+    }
+
+
 
 }

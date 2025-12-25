@@ -89,6 +89,11 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
         btnBack = findViewById(R.id.btnAddItemBack);
 
+        tvPname=findViewById(R.id.TvPnameMessage);
+        tvPtype=findViewById(R.id.TvPtypeMessage);
+        tvPnote=findViewById(R.id.TvPnoteMessage);
+        tvPprice=findViewById(R.id.TvPpriceMessage);
+
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(AddItem.this, AdminPage.class);
             startActivity(intent);
@@ -122,24 +127,15 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 double price = Double.parseDouble(itemPrice);
 
 
-                if (itemName.length()>1 && itemName.length()<=10)
+                if (itemName.length()<1)
                 {
-                    for (int i=0; i<=10;i++)
-                    {
-
-                        if(itemName.contains(i+""))
-                        {
-                            namecheck=false;
-                            mPname="no digits";
-                        }
-                    }
-                }
-                else
-                {
-                    mPname="the length should be at least 2";
+                    namecheck=false;
+                    mPname="This field cannot be empty";
                 }
 
-                    if(itemType.contains("book") && itemType.contains("toy") && itemType.contains("tools") && itemType.contains("device"))
+                tvPname.setText(mPname);
+
+                    if(itemType.contains("book") || itemType.contains("toy") || itemType.contains("tools") || itemType.contains("device"))
                     {
                         typecheck=true;
                     }
@@ -148,17 +144,24 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                         mPtype="book/toy/tools/device";
                     }
 
-                    if (itemNote.isEmpty())
+                tvPtype.setText(mPtype);
+
+
+                if (itemNote.isEmpty())
                     {
                         mPnote="the length should be at least 1";
                         notecheck=false;
                     }
+                tvPnote.setText(mPnote);
+
 
                 if (itemPrice.isEmpty())
                 {
-                    mPnote="the price should be above 0";
+                    mPnote="the price should be above 0$";
                     pricecheck=false;
                 }
+
+                tvPprice.setText(mPnote);
 
 
                 if (itemName.isEmpty() || itemNote.isEmpty() || itemPrice.isEmpty() || itemType.isEmpty())
@@ -201,7 +204,8 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
-    private void InitViews() {
+    private void InitViews()
+    {
         etItemName = findViewById(R.id.etItemName);
         etItemNote = findViewById(R.id.etItemNote);
         etItemPrice = findViewById(R.id.etItemPrice);
