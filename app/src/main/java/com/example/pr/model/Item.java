@@ -1,5 +1,7 @@
 package com.example.pr.model;
 
+import androidx.annotation.NonNull;
+
 public class Item
 {
     protected String id;
@@ -104,6 +106,7 @@ public class Item
         this.type = type;
     }
 
+    @NonNull
     @Override
     public String toString() {
         return "Item{" +

@@ -14,6 +14,7 @@ import com.example.pr.R;
 import com.example.pr.model.Item;
 import com.example.pr.util.ImageUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -26,8 +27,8 @@ public class ItemsAdapter2 extends RecyclerView.Adapter<ItemsAdapter2.ViewHolder
     /// @see Item
     private final List<Item> itemList;
 
-    public ItemsAdapter2(List<Item> itemList) {
-        this.itemList = itemList;
+    public ItemsAdapter2() {
+        this.itemList = new ArrayList<>();
     }
 
     /// create a view holder for the adapter
@@ -55,10 +56,10 @@ public class ItemsAdapter2 extends RecyclerView.Adapter<ItemsAdapter2.ViewHolder
 
         holder.tvName.setText(item.getpName());
 
-        holder.tvPrice.setText(item.getPrice()+"");
+        holder.tvPrice.setText("Price: "+item.getPrice()+"$");
 
 
-        holder.tvRate.setText(item.getRate()+"");
+        holder.tvRate.setText("Rate: "+item.getRate()+"");
 
 
         holder.ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
@@ -71,6 +72,16 @@ public class ItemsAdapter2 extends RecyclerView.Adapter<ItemsAdapter2.ViewHolder
         return itemList.size();
     }
 
+    public void setItems(List<Item> filteredItems) {
+        this.itemList.clear();
+        this.itemList.addAll(filteredItems);
+        notifyDataSetChanged();
+    }
+
+    public List<Item> getItemList() {
+        return itemList;
+    }
+
     /// View holder for the items adapter
     /// @see RecyclerView.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -80,10 +91,7 @@ public class ItemsAdapter2 extends RecyclerView.Adapter<ItemsAdapter2.ViewHolder
         public ViewHolder(View itemView) {
             super(itemView);
 
-
-
             tvName = itemView.findViewById(R.id.tvItemName);
-       ;
             tvPrice = itemView.findViewById(R.id.tvPrice);
             tvRate = itemView.findViewById(R.id.tvRate);
             ivItem = itemView.findViewById(R.id.ivItem);

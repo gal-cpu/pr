@@ -27,19 +27,10 @@ public class Book_page extends AppCompatActivity {
 
     private RecyclerView recyclerView;
     private ItemsAdapter2 itemsAdapter2;
-    Intent takeit;
-    String extra;
-    private ArrayList<Item> allItems = new ArrayList<>();
     DatabaseService databaseService;
-
-    private ArrayList<Item> filteredItems = new ArrayList<>(); // רשימה מסוננת של מוצרים
-
-
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
-
-
     private SearchView searchView;
-
+    private List<Item> allItems;
 
 
     @Override
@@ -57,24 +48,18 @@ public class Book_page extends AppCompatActivity {
         // קבלת שם הקטגוריה מ-Intent
         selectedCategory = getIntent().getStringExtra("type");
 
-        takeit=getIntent();
-
         databaseService = DatabaseService.getInstance();
 
         recyclerView = findViewById(R.id.rcItemes);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
-        itemsAdapter2 = new ItemsAdapter2(allItems);
-
+        itemsAdapter2 = new ItemsAdapter2();
         recyclerView.setAdapter(itemsAdapter2);
 
         fetchItemsFromFirebase();
 
     }
-
 
 
     private void fetchItemsFromFirebase() {
@@ -84,19 +69,9 @@ public class Book_page extends AppCompatActivity {
             @Override
             public void onCompleted(List<Item> items) {
                 // Log.d(TAG, "onCompleted: " + items);
-                allItems.clear();
-                allItems.addAll(items);
-                 filterItemsByCategory();
-                //קריאה לסינון המוצרים אחרי טעינת המוצרים מחדש
-
-                Log.d(TAG, "onCompleted: " + allItems);
-
-
-                itemsAdapter2.notifyDataSetChanged();
-
-                // עדכון התצוגה על פי חיפוש
-                // String query = ((SearchView) findViewById(R.id.searchView)).getQuery().toString();
-                // itemsAdapter.filter(query);
+                allItems = items;
+                itemsAdapter2.setItems(items);
+                filterItemsByCategory();
             }
 
             @Override
@@ -111,29 +86,18 @@ public class Book_page extends AppCompatActivity {
     }
 
     private void filterItemsByCategory() {
-        filteredItems.clear();  // מחיקת המוצרים הקודמים ברשימה
+        ArrayList<Item> filteredItems = new ArrayList<>();
         if (selectedCategory != null && !selectedCategory.isEmpty()) {
-            if (selectedCategory.equals("כל המוצרים"))
-            {
-                // אם בחרנו בקטגוריה "כל המוצרים", נציג את כל המוצרים
-                filteredItems.addAll(allItems);
-            } else {
-                // אם נבחרה קטגוריה מסוימת, נבצע סינון
-                for (Item item : allItems)
-                {
-                    if (item.getType().equalsIgnoreCase(selectedCategory))
-                    {
-                        filteredItems.add(item);
-                    }
+            // אם נבחרה קטגוריה מסוימת, נבצע סינון
+            for (Item item : allItems) {
+                if (item.getType().equals(selectedCategory)) {
+                    filteredItems.add(item);
                 }
             }
         } else {
             // אם לא נבחרה קטגוריה, נציג את כל המוצרים
             filteredItems.addAll(allItems);
         }
-        itemsAdapter2.notifyDataSetChanged();
+        itemsAdapter2.setItems(filteredItems);
     }
-
-
-
 }
