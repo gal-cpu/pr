@@ -60,6 +60,7 @@
         android:text="List of users"
         android:textColor="#FFFFFF"
         android:textSize="20dp"
+        android:onClick="OnClickUsersTable"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

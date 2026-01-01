@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.R;
 import com.example.pr.model.Item;
+import com.example.pr.model.User;
 import com.example.pr.util.ImageUtil;
 
 import java.util.ArrayList;
@@ -20,15 +21,15 @@ import java.util.List;
 
 /// Adapter for the items recycler view
 /// @see RecyclerView
-/// @see Item
-public class ItemsAdapter2 extends RecyclerView.Adapter<ItemsAdapter2.ViewHolder> {
+/// @see User
+public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
-    /// list of items
-    /// @see Item
-    private final List<Item> itemList;
+    /// list of users
+    /// @see User
+    private final List<User> userList;
 
-    public ItemsAdapter2() {
-        this.itemList = new ArrayList<>();
+    public UsersAdapter() {
+        this.userList = new ArrayList<>();
     }
 
     /// create a view holder for the adapter
@@ -41,7 +42,7 @@ public class ItemsAdapter2 extends RecyclerView.Adapter<ItemsAdapter2.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         /// inflate the item_selected_item layout
         /// @see R.layout.item_selected_item
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_one_user, parent, false);
         return new ViewHolder(view);
     }
 
@@ -51,52 +52,54 @@ public class ItemsAdapter2 extends RecyclerView.Adapter<ItemsAdapter2.ViewHolder
     /// @see ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-        Item item = itemList.get(position);
-        if (item == null) return;
+        User user = userList.get(position);
+        if (user == null) return;
 
-        holder.tvName.setText(item.getpName());
+        holder.tvFname.setText("Name: "+user.getfName());
 
-        holder.tvPrice.setText("Price: "+item.getPrice()+"$");
+        holder.tvLname.setText("Last Name: "+user.getlName());
 
+        holder.tvEmail.setText("Email: "+user.getEmail());
 
-        holder.tvRate.setText("Rate: "+item.getRate()+"");
+        holder.tvPhone.setText("Phone: "+user.getPhone()+"");
 
+        holder.tvPassword.setText("Password: "+user.getPassword());
 
-        holder.ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
+//        holder.ivUser.setImageBitmap(ImageUtil.convertFrom64base(R.drawable.icon_user));
+
     }
 
     /// get the number of items in the list
     /// @return the number of items in the list
     @Override
     public int getItemCount() {
-        return itemList.size();
+        return userList.size();
     }
 
-    public void setItems(List<Item> filteredItems) {
-        this.itemList.clear();
-        this.itemList.addAll(filteredItems);
+    public void setUsers(List<User> filteredUsers) {
+        this.userList.clear();
+        this.userList.addAll(filteredUsers);
         notifyDataSetChanged();
     }
-
-    public List<Item> getItemList() {
-        return itemList;
+    public List<User> getUserList() {
+        return userList;
     }
 
     /// View holder for the items adapter
     /// @see RecyclerView.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView tvName,tvPrice,tvRate;
-        public final ImageView ivItem;
+        public final TextView tvFname,tvLname,tvEmail,tvPhone,tvPassword;
+        public final ImageView ivUser;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
-            tvName = itemView.findViewById(R.id.tvItemName);
-            tvPrice = itemView.findViewById(R.id.tvPrice);
-            tvRate = itemView.findViewById(R.id.tvRate);
-            ivItem = itemView.findViewById(R.id.ivItem);
-
-
+            tvFname = itemView.findViewById(R.id.tvFname);
+            tvLname = itemView.findViewById(R.id.tvLname);
+            tvEmail = itemView.findViewById(R.id.tvEmail);
+            tvPhone = itemView.findViewById(R.id.tvPhone);
+            tvPassword = itemView.findViewById(R.id.tvPassword);
+            ivUser = itemView.findViewById(R.id.ivUser);
         }
     }
 }

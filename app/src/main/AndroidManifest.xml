@@ -12,6 +12,12 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".OneUser"
+            android:exported="false" />
+        <activity
+            android:name=".TableUsers"
+            android:exported="false" />
+        <activity
             android:name=".Item_page"
             android:exported="false" />
         <activity

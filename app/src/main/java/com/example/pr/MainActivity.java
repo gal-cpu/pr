@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity {
         go.putExtra("type", "book");
         startActivity(go);
     }
-
     public void onClickToysPage(View view)
     {
         Intent go= new Intent(MainActivity.this, Book_page.class);

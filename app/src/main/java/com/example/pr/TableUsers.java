@@ -13,30 +13,30 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.UsersAdapter;
-import com.example.pr.adapers.ItemsAdapter;
 import com.example.pr.model.Item;
+import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Book_page extends AppCompatActivity {
+public class TableUsers extends AppCompatActivity {
+
 
     private static final String TAG = "ItemsActivity";
 
     private RecyclerView recyclerView;
-    private ItemsAdapter itemsAdapter;
+    private UsersAdapter usersAdapter;
     DatabaseService databaseService;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
     private SearchView searchView;
-    private List<Item> allItems;
-
+    private List<User> allIusers;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_book_page);
+        setContentView(R.layout.activity_table_users);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
@@ -45,7 +45,7 @@ public class Book_page extends AppCompatActivity {
 
 
         // קבלת שם הקטגוריה מ-Intent
-        selectedCategory = getIntent().getStringExtra("type");
+        //selectedCategory = getIntent().getStringExtra("type");
 
         databaseService = DatabaseService.getInstance();
 
@@ -53,52 +53,31 @@ public class Book_page extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        itemsAdapter = new ItemsAdapter(new ItemsAdapter.ItemClickListener() {
-            @Override
-            public void onClick(Item item) {
-
-            }
-        });
-        recyclerView.setAdapter(itemsAdapter);
+        usersAdapter = new UsersAdapter();
+        recyclerView.setAdapter(usersAdapter);
 
         fetchItemsFromFirebase();
     }
+
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
-        databaseService.getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
+        databaseService.getUserList(new DatabaseService.DatabaseCallback<List<User>>() {
             @Override
-            public void onCompleted(List<Item> items) {
-                // Log.d(TAG, "onCompleted: " + items);
-                allItems = items;
-                itemsAdapter.setItem(items);
-                filterItemsByCategory();
+            public void onCompleted(List<User> users) {
+                // Log.d(TAG, "onCompleted: " + users);
+                allIusers = users;
+                usersAdapter.setUsers(users);
             }
 
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "Failed to load items: ", e);
-                new android.app.AlertDialog.Builder(Book_page.this)
+                new android.app.AlertDialog.Builder(TableUsers.this)
                         .setMessage("נראה שקרתה תקלה בטעינת המוצרים, נסה שוב מאוחר יותר")
                         .setPositiveButton("אוקי", null)
                         .show();
             }
         });
-    }
-
-    private void filterItemsByCategory() {
-        ArrayList<Item> filteredItems = new ArrayList<>();
-        if (selectedCategory != null && !selectedCategory.isEmpty()) {
-            // אם נבחרה קטגוריה מסוימת, נבצע סינון
-            for (Item item : allItems) {
-                if (item.getType().equals(selectedCategory)) {
-                    filteredItems.add(item);
-                }
-            }
-        } else {
-            // אם לא נבחרה קטגוריה, נציג את כל המוצרים
-            filteredItems.addAll(allItems);
-        }
-        itemsAdapter.setItem(filteredItems);
     }
 }
