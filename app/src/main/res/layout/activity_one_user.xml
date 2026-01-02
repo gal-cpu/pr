@@ -7,11 +7,10 @@
     android:layout_height="250dp"
     tools:context=".OneUser">
 
-
     <ImageView
         android:id="@+id/ivbackground"
         android:layout_width="392dp"
-        android:layout_height="219dp"
+        android:layout_height="249dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
@@ -31,14 +30,26 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.172"
-        app:srcCompat="@drawable/icon_user" />
+        app:srcCompat="@drawable/icon_user_table" />
+
+
+    <TextView
+        android:id="@+id/tvISAdmin"
+        android:layout_width="117dp"
+        android:layout_height="28dp"
+        android:gravity="center"
+        android:text="TextView"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.034"
+        app:layout_constraintStart_toStartOf="@+id/ivbackground"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/tvFname"
         android:layout_width="225dp"
         android:layout_height="33dp"
         android:gravity="start"
-
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
@@ -81,7 +92,7 @@
         android:text="TextView"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.066"
+        app:layout_constraintHorizontal_bias="0.077"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.718" />
@@ -99,6 +110,47 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.718" />
 
+    <Button
+        android:id="@+id/btnEdit"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:text="Edit"
+        android:onClick="onClickEdit"
+        android:backgroundTint="#00fefc"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.059"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <Button
+        android:id="@+id/btnAdmin"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:text="Admin"
+        android:onClick="onClickAdmin"
+        android:backgroundTint="#00fe00"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.976" />
+
+    <Button
+        android:id="@+id/btnRemove"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
+        android:text="Remove"
+        android:onClick="onClickRemove"
+        android:backgroundTint="#fd0000"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.919"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.975" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,5 +1,6 @@
 package com.example.pr.adapers;
 
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,7 +11,10 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 
+import com.example.pr.OneUser;
 import com.example.pr.R;
+import com.example.pr.TableUsers;
+import com.example.pr.UpdateUser;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.util.ImageUtil;
@@ -64,9 +68,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         holder.tvPhone.setText("Phone: "+user.getPhone()+"");
 
         holder.tvPassword.setText("Password: "+user.getPassword());
-
-//        holder.ivUser.setImageBitmap(ImageUtil.convertFrom64base(R.drawable.icon_user));
-
+        if (user.getAdmin()) {
+            holder.tvIsAdmin.setText("Admin");
+            holder.ivUser.setImageResource(R.drawable.icon_admin_table);
+        }
+        else {
+            holder.tvIsAdmin.setText("User");
+        }
     }
 
     /// get the number of items in the list
@@ -75,7 +83,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     public int getItemCount() {
         return userList.size();
     }
-
     public void setUsers(List<User> filteredUsers) {
         this.userList.clear();
         this.userList.addAll(filteredUsers);
@@ -88,7 +95,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     /// View holder for the items adapter
     /// @see RecyclerView.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView tvFname,tvLname,tvEmail,tvPhone,tvPassword;
+        public final TextView tvFname,tvLname,tvEmail,tvPhone,tvPassword,tvIsAdmin;
         public final ImageView ivUser;
 
         public ViewHolder(View itemView) {
@@ -100,6 +107,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             tvPhone = itemView.findViewById(R.id.tvPhone);
             tvPassword = itemView.findViewById(R.id.tvPassword);
             ivUser = itemView.findViewById(R.id.ivUser);
+            tvIsAdmin = itemView.findViewById(R.id.tvISAdmin);
         }
     }
 }

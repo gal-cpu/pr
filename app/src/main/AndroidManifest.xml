@@ -12,6 +12,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".update_users"
+            android:exported="false" />
+        <activity
+            android:name=".Update_user"
+            android:exported="false" />
+        <activity
+            android:name=".UpdateUser"
+            android:exported="false" />
+        <activity
+            android:name=".AditUser"
+            android:exported="false" />
+        <activity
             android:name=".OneUser"
             android:exported="false" />
         <activity

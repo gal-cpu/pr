@@ -8,14 +8,16 @@ public class User
     protected String email;
     protected String phone;
     protected String password;
+    protected boolean admin;
 
-    public User(String id, String fName, String lName, String email, String phone, String password) {
+    public User(String id, String fName, String lName, String email, String phone, String password, boolean admin) {
         this.email = email;
         this.fName = fName;
         this.id = id;
         this.lName = lName;
         this.password = password;
         this.phone = phone;
+        this.admin=admin;
     }
 
     public User() {
@@ -23,6 +25,9 @@ public class User
 
     public String getEmail() {
         return email;
+    }
+    public boolean getAdmin() {
+        return admin;
     }
 
     public String getfName() {
@@ -48,7 +53,9 @@ public class User
     public void setEmail(String email) {
         this.email = email;
     }
-
+    public void setAdmin(Boolean admin) {
+        this.admin = admin;
+    }
     public void setfName(String fName) {
         this.fName = fName;
     }
@@ -56,7 +63,6 @@ public class User
     public void setId(String id) {
         this.id = id;
     }
-
     public void setlName(String lName) {
         this.lName = lName;
     }
@@ -74,6 +80,7 @@ public class User
         return "User{" +
                 "email='" + email + '\'' +
                 ", id='" + id + '\'' +
+                ", isAdmin=" + admin +
                 ", fName='" + fName + '\'' +
                 ", lName='" + lName + '\'' +
                 ", phone='" + phone + '\'' +

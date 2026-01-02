@@ -215,7 +215,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
 
         /// create a new user object
-        User user = new User("54", fname, lname, email, phone, password);
+        User user = new User("54", fname, lname, email, phone, password, false);
 
 
         /// proceed to create the user

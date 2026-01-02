@@ -1,7 +1,10 @@
 package com.example.pr;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
+import android.view.View;
 import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
@@ -22,12 +25,11 @@ import java.util.List;
 
 public class TableUsers extends AppCompatActivity {
 
-
     private static final String TAG = "ItemsActivity";
-
     private RecyclerView recyclerView;
     private UsersAdapter usersAdapter;
     DatabaseService databaseService;
+    private UsersAdapter adapter;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
     private SearchView searchView;
     private List<User> allIusers;
@@ -44,9 +46,6 @@ public class TableUsers extends AppCompatActivity {
         });
 
 
-        // קבלת שם הקטגוריה מ-Intent
-        //selectedCategory = getIntent().getStringExtra("type");
-
         databaseService = DatabaseService.getInstance();
 
         recyclerView = findViewById(R.id.rcItemes);
@@ -54,6 +53,7 @@ public class TableUsers extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         usersAdapter = new UsersAdapter();
+
         recyclerView.setAdapter(usersAdapter);
 
         fetchItemsFromFirebase();
@@ -69,7 +69,6 @@ public class TableUsers extends AppCompatActivity {
                 allIusers = users;
                 usersAdapter.setUsers(users);
             }
-
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "Failed to load items: ", e);
