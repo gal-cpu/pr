@@ -88,7 +88,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 });
 
         btnBack = findViewById(R.id.btnAddItemBack);
-
         tvPname=findViewById(R.id.TvPnameMessage);
         tvPtype=findViewById(R.id.TvPtypeMessage);
         tvPnote=findViewById(R.id.TvPnoteMessage);

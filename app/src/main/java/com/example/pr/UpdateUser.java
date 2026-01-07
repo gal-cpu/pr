@@ -69,7 +69,6 @@ public class UpdateUser extends AppCompatActivity {
         phoneField.setText(selectedUser.getPhone());
         isAdminCheckBox.setChecked(selectedUser.getAdmin());
     }
-
     private void updateUser() {
         if (selectedUser == null) return;
 

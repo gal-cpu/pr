@@ -31,9 +31,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     /// list of users
     /// @see User
     private final List<User> userList;
-
+    private OnUserClickListener Listener;
+    public interface OnUserClickListener{
+        void onUserClick(User user);
+    }
     public UsersAdapter() {
         this.userList = new ArrayList<>();
+        //this.Listener=listener;
     }
 
     /// create a view holder for the adapter
@@ -49,6 +53,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_one_user, parent, false);
         return new ViewHolder(view);
     }
+
 
     /// bind the view holder with the data
     /// @param holder the view holder
@@ -74,7 +79,9 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         }
         else {
             holder.tvIsAdmin.setText("User");
+            holder.ivUser.setImageResource(R.drawable.icon_user_table);
         }
+        //holder.bind(user, Listener);
     }
 
     /// get the number of items in the list
@@ -98,6 +105,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         public final TextView tvFname,tvLname,tvEmail,tvPhone,tvPassword,tvIsAdmin;
         public final ImageView ivUser;
 
+        public static class MyViewHolder extends RecyclerView.ViewHolder{
+            public MyViewHolder(@NonNull View itemView) {
+                super(itemView);
+            }
+            public void bind(final User user, final OnUserClickListener listener){
+                itemView.setOnClickListener(v -> listener.onUserClick(user));
+            }
+        }
         public ViewHolder(View itemView) {
             super(itemView);
 

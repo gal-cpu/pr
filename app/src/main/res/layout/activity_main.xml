@@ -140,6 +140,7 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="220dp"
         android:backgroundTint="#D8BFFA"
+        android:onClick="onClickDevicesPage"
         android:drawableLeft="@drawable/icon_devices"
         android:text="Devices"
         app:layout_constraintBottom_toBottomOf="parent"

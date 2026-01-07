@@ -36,4 +36,10 @@ public class MainActivity extends AppCompatActivity {
         go.putExtra("type", "toy");
         startActivity(go);
     }
+
+    public void onClickDevicesPage(View view) {
+        Intent go= new Intent(MainActivity.this, Book_page.class);
+        go.putExtra("type", "device");
+        startActivity(go);
+    }
 }

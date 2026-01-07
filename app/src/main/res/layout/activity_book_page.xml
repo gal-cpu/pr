@@ -22,11 +22,11 @@
         app:srcCompat="@drawable/image_transition_page" />
 
     <TextView
-        android:id="@+id/textView5"
+        android:id="@+id/tvTitleIteams"
         android:layout_width="211dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="Books store"
+        android:text=""
         android:textColor="@color/white"
         android:textSize="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -38,7 +38,7 @@
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/ivTitleIteams"
         android:layout_width="93dp"
         android:layout_height="95dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -47,7 +47,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.143"
-        app:srcCompat="@drawable/icon_books_page" />
+        />
 
     <EditText
         android:id="@+id/edSearch"

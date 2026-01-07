@@ -58,7 +58,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         etEmail.setText(emailUserInput);
         etPassword.setText(passwordUserInput);
 
-
         btnLogIn.setOnClickListener(this);
     }
 
