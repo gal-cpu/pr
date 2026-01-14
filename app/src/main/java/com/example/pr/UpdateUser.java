@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -20,6 +22,7 @@ import com.example.pr.services.DatabaseService;
 
 public class UpdateUser extends AppCompatActivity {
     private EditText emailField, passwordField, firstnameField, lastnameField,phoneField;
+    private TextView title;
     private CheckBox isAdminCheckBox;
     private Button updateBtn, deleteBtn;
     private String selectedUser;
@@ -36,6 +39,8 @@ public class UpdateUser extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        title=findViewById(R.id.tvUser);
+
         databaseService=DatabaseService.getInstance();
 
         selectedUser = getIntent().getSerializableExtra("USER_UID").toString();
@@ -58,7 +63,6 @@ public class UpdateUser extends AppCompatActivity {
 
         initViews();
         setupListeners();
-
         populateFields();
 
     }
@@ -72,13 +76,19 @@ public class UpdateUser extends AppCompatActivity {
         updateBtn = findViewById(R.id.updateUserBtn);
         deleteBtn = findViewById(R.id.deleteUserBtn);
     }
-
     private void setupListeners() {
         updateBtn.setOnClickListener(v -> updateUser());
         deleteBtn.setOnClickListener(v -> deleteUser());
     }
     private void populateFields() {
-        if (current_user == null) return;
+        //if (current_user == null) return;
+
+        if (current_user.getAdmin()) {
+            title.setText("Admin");
+        }
+        else {
+            title.setText("User");
+        }
 
         emailField.setText(current_user.getEmail());
         passwordField.setText(current_user.getPassword());
