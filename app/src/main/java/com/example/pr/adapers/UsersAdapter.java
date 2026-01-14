@@ -1,6 +1,5 @@
 package com.example.pr.adapers;
 
-import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,16 +7,13 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 
-import com.example.pr.OneUser;
 import com.example.pr.R;
-import com.example.pr.TableUsers;
-import com.example.pr.UpdateUser;
-import com.example.pr.model.Item;
 import com.example.pr.model.User;
-import com.example.pr.util.ImageUtil;
+import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,14 +26,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
     /// list of users
     /// @see User
-    private final List<User> userList;
-    private OnUserClickListener Listener;
-    public interface OnUserClickListener{
+    ///
+    ///
+    ///
+    public interface OnUserClickListener {
         void onUserClick(User user);
+        void onLongUserClick(User user);
     }
-    public UsersAdapter() {
-        this.userList = new ArrayList<>();
-        //this.Listener=listener;
+
+    private final List<User> userList;
+    private final OnUserClickListener onUserClickListener;
+    public UsersAdapter(@Nullable final OnUserClickListener onUserClickListener) {
+        userList = new ArrayList<>();
+        this.onUserClickListener = onUserClickListener;
     }
 
     /// create a view holder for the adapter
@@ -61,6 +62,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     /// @see ViewHolder
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+
+
         User user = userList.get(position);
         if (user == null) return;
 
@@ -81,6 +84,21 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
             holder.tvIsAdmin.setText("User");
             holder.ivUser.setImageResource(R.drawable.icon_user_table);
         }
+
+
+        holder.itemView.setOnClickListener(v -> {
+            if (onUserClickListener != null) {
+                onUserClickListener.onUserClick(user);
+            }
+        });
+
+        holder.itemView.setOnLongClickListener(v -> {
+            if (onUserClickListener != null) {
+                onUserClickListener.onLongUserClick(user);
+            }
+            return true;
+        });
+
         //holder.bind(user, Listener);
     }
 
@@ -99,20 +117,36 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         return userList;
     }
 
+    public void setUserList(List<User> users) {
+        userList.clear();
+        userList.addAll(users);
+        notifyDataSetChanged();
+    }
+
+    public void addUser(User user) {
+        userList.add(user);
+        notifyItemInserted(userList.size() - 1);
+    }
+    public void updateUser(User user) {
+        int index = userList.indexOf(user);
+        if (index == -1) return;
+        userList.set(index, user);
+        notifyItemChanged(index);
+    }
+
+    public void removeUser(User user) {
+        int index = userList.indexOf(user);
+        if (index == -1) return;
+        userList.remove(index);
+        notifyItemRemoved(index);
+    }
+
     /// View holder for the items adapter
     /// @see RecyclerView.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public final TextView tvFname,tvLname,tvEmail,tvPhone,tvPassword,tvIsAdmin;
         public final ImageView ivUser;
 
-        public static class MyViewHolder extends RecyclerView.ViewHolder{
-            public MyViewHolder(@NonNull View itemView) {
-                super(itemView);
-            }
-            public void bind(final User user, final OnUserClickListener listener){
-                itemView.setOnClickListener(v -> listener.onUserClick(user));
-            }
-        }
         public ViewHolder(View itemView) {
             super(itemView);
 

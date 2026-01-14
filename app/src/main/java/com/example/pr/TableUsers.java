@@ -52,7 +52,27 @@ public class TableUsers extends AppCompatActivity {
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        usersAdapter = new UsersAdapter();
+
+        usersAdapter = new UsersAdapter(new UsersAdapter.OnUserClickListener() {
+            @Override
+            public void onUserClick(User user) {
+                // Handle user click
+                Log.d(TAG, "User clicked: " + user);
+                Intent intent = new Intent(TableUsers.this, UpdateUser.class);
+                intent.putExtra("USER_UID", user.getId());
+                startActivity(intent);
+            }
+
+            @Override
+            public void onLongUserClick(User user) {
+                // Handle long user click
+                Log.d(TAG, "User long clicked: " + user);
+
+            }
+
+
+        });
+        recyclerView.setAdapter(usersAdapter);
 
         recyclerView.setAdapter(usersAdapter);
 
