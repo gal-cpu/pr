@@ -45,9 +45,7 @@ public class UpdateUser extends AppCompatActivity {
             databaseService.getUser(selectedUser, new DatabaseService.DatabaseCallback<User>() {
                 @Override
                 public void onCompleted(User user) {
-
                     current_user=user;
-
                 }
 
                 @Override
@@ -97,7 +95,7 @@ public class UpdateUser extends AppCompatActivity {
         String firstname = firstnameField.getText().toString().trim();
         String lastname = lastnameField.getText().toString().trim();
         String phone = phoneField.getText().toString().trim();
-        //Boolean isAdmin = isAdminCheckBox.isChecked();
+        Boolean isAdmin = isAdminCheckBox.isChecked();
 
         if (email.isEmpty() || password.isEmpty() || phone.isEmpty() ||  lastname.isEmpty() || firstname.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
@@ -110,7 +108,7 @@ public class UpdateUser extends AppCompatActivity {
         current_user.setfName(firstname);
         current_user.setlName(lastname);
         current_user.setPhone(phone);
-        //selectedUser.setAdmin(isAdmin);
+        current_user.setAdmin(isAdmin);
 
 
         // Save user

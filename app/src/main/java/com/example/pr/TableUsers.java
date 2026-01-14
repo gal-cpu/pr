@@ -70,7 +70,6 @@ public class TableUsers extends AppCompatActivity {
 
             }
 
-
         });
         recyclerView.setAdapter(usersAdapter);
 
