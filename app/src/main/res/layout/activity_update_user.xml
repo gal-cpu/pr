@@ -43,7 +43,7 @@
             android:layout_marginLeft="75dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text=""
+            android:text="User"
             android:textColor="#B187F2"
             android:textSize="40dp" />
 
@@ -69,7 +69,7 @@
                 app:hintTextColor="#1A237E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/FirstName"
+                    android:id="@+id/FirstNameUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -93,7 +93,7 @@
                 app:hintTextColor="#1A237E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/LastName"
+                    android:id="@+id/LastNameUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -116,7 +116,7 @@
                 app:hintTextColor="#1A237E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Email"
+                    android:id="@+id/EmailUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -140,7 +140,7 @@
                 app:hintTextColor="#1A237E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Phone"
+                    android:id="@+id/PhoneUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -184,7 +184,7 @@
                 app:passwordToggleEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/Password"
+                    android:id="@+id/PasswordUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword"
@@ -203,7 +203,7 @@
                 app:cardElevation="2dp">
 
                 <CheckBox
-                    android:id="@+id/isAdminCheckBox"
+                    android:id="@+id/isAdminCheckBoxUpdate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:padding="8dp"

@@ -70,7 +70,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         etFName = findViewById(R.id.etFname);
         etLName = findViewById(R.id.etLname);
         etPhone = findViewById(R.id.etPhone);
-
         btnRegister = findViewById(R.id.btSendSignUP);
 
         /// set the click listener
@@ -85,11 +84,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             Log.d(TAG, "onClick: Register button clicked");
 
             /// get the input from the user
-            String email = etEmail.getText().toString();
-            String password = etPassword.getText().toString();
-            String fName = etFName.getText().toString();
-            String lName = etLName.getText().toString();
-            String phone = etPhone.getText().toString();
+             email = etEmail.getText().toString();
+             password = etPassword.getText().toString();
+             fname = etFName.getText().toString();
+             lname = etLName.getText().toString();
+             phone = etPhone.getText().toString();
 
 
             tvfname=findViewById(R.id.TvFnameMessage);
@@ -196,7 +195,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 Log.d(TAG, "onClick: Registering user...");
 
                 /// Register user
-                registerUser(fName, lName, phone, email, password);
+                registerUser(fname, lname, phone, email, password);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
                 editor.putString("email", email);

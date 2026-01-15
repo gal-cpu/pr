@@ -76,7 +76,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         holder.tvPhone.setText("Phone: "+user.getPhone()+"");
 
         holder.tvPassword.setText("Password: "+user.getPassword());
-        if (user.getAdmin()) {
+        if (user.gatIsAd()) {
             holder.tvIsAdmin.setText("Admin");
             holder.ivUser.setImageResource(R.drawable.icon_admin_table);
         }

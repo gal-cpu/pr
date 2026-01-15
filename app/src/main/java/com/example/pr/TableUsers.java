@@ -67,7 +67,6 @@ public class TableUsers extends AppCompatActivity {
             public void onLongUserClick(User user) {
                 // Handle long user click
                 Log.d(TAG, "User long clicked: " + user);
-
             }
 
         });

@@ -22,12 +22,11 @@ import com.example.pr.services.DatabaseService;
 
 public class UpdateUser extends AppCompatActivity {
     private EditText emailField, passwordField, firstnameField, lastnameField,phoneField;
-    private TextView title;
     private CheckBox isAdminCheckBox;
     private Button updateBtn, deleteBtn;
-    private String selectedUser;
+    private String selectedUserId="";
     DatabaseService  databaseService;
-    User current_user;
+    User current_user=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,18 +38,21 @@ public class UpdateUser extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        title=findViewById(R.id.tvUser);
 
+        initViews();
         databaseService=DatabaseService.getInstance();
 
-        selectedUser = getIntent().getSerializableExtra("USER_UID").toString();
+        selectedUserId = getIntent().getSerializableExtra("USER_UID").toString();
 
-        if(selectedUser!=null) {
+        if(selectedUserId!="") {
 
-            databaseService.getUser(selectedUser, new DatabaseService.DatabaseCallback<User>() {
+            databaseService.getUser(selectedUserId, new DatabaseService.DatabaseCallback<User>() {
                 @Override
                 public void onCompleted(User user) {
                     current_user=user;
+                    setupListeners();
+                    populateFields();
+
                 }
 
                 @Override
@@ -61,18 +63,20 @@ public class UpdateUser extends AppCompatActivity {
 
         }
 
-        initViews();
-        setupListeners();
-        populateFields();
+        else {    Toast.makeText(UpdateUser.this,
+                "jkj"+ selectedUserId,
+                Toast.LENGTH_SHORT).show(); }
+
+
 
     }
     private void initViews() {
-        emailField = findViewById(R.id.Email);
-        passwordField = findViewById(R.id.Password);
-        firstnameField = findViewById(R.id.FirstName);
-        lastnameField = findViewById(R.id.LastName);
-        phoneField=findViewById(R.id.Phone);
-        isAdminCheckBox= findViewById(R.id.isAdminCheckBox);
+        emailField = findViewById(R.id.EmailUpdate);
+        passwordField = findViewById(R.id.PasswordUpdate);
+        firstnameField = findViewById(R.id.FirstNameUpdate);
+        lastnameField = findViewById(R.id.LastNameUpdate);
+        phoneField=findViewById(R.id.PhoneUpdate);
+        isAdminCheckBox= findViewById(R.id.isAdminCheckBoxUpdate);
         updateBtn = findViewById(R.id.updateUserBtn);
         deleteBtn = findViewById(R.id.deleteUserBtn);
     }
@@ -81,24 +85,19 @@ public class UpdateUser extends AppCompatActivity {
         deleteBtn.setOnClickListener(v -> deleteUser());
     }
     private void populateFields() {
-        //if (current_user == null) return;
 
-        if (current_user.getAdmin()) {
-            title.setText("Admin");
-        }
-        else {
-            title.setText("User");
-        }
+        if (current_user != null) {
 
-        emailField.setText(current_user.getEmail());
-        passwordField.setText(current_user.getPassword());
-        firstnameField.setText(current_user.getfName());
-        lastnameField.setText(current_user.getlName());
-        phoneField.setText(current_user.getPhone());
-        isAdminCheckBox.setChecked(current_user.getAdmin());
+            emailField.setText(current_user.getEmail() + "");
+            passwordField.setText(current_user.getPassword());
+            firstnameField.setText(current_user.getfName());
+            lastnameField.setText(current_user.getlName());
+            phoneField.setText(current_user.getPhone());
+            isAdminCheckBox.setChecked(current_user.gatIsAd());
+        }
     }
     private void updateUser() {
-        if (selectedUser == null) return;
+        if (selectedUserId == null) return;
 
         String email = emailField.getText().toString().trim();
         String password = passwordField.getText().toString().trim();
@@ -118,8 +117,7 @@ public class UpdateUser extends AppCompatActivity {
         current_user.setfName(firstname);
         current_user.setlName(lastname);
         current_user.setPhone(phone);
-        current_user.setAdmin(isAdmin);
-
+        current_user.setIsAd(isAdmin);
 
         // Save user
         DatabaseService.getInstance().updateUser(current_user, new DatabaseService.DatabaseCallback<Void>() {
@@ -144,13 +142,12 @@ public class UpdateUser extends AppCompatActivity {
     }
 
 private void deleteUser() {
-    if (selectedUser == null) return;
+    if (selectedUserId == null) return;
 
     DatabaseService.getInstance().deleteUser(current_user.getId(), new DatabaseService.DatabaseCallback<Void>() {
         @Override
         public void onCompleted(Void v) {
             Toast.makeText(UpdateUser.this, "User deleted", Toast.LENGTH_SHORT).show();
-
             Intent intent = new Intent(UpdateUser.this, TableUsers.class);
             startActivity(intent);
             finish();
