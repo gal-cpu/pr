@@ -8,8 +8,7 @@ public class User
     protected String email;
     protected String phone;
     protected String password;
-    protected boolean isAd=false;
-
+    protected boolean isAd;
 
     public User(String email, String fName, String id, String lName, String password, String phone, boolean isAd) {
         this.email = email;
@@ -18,7 +17,7 @@ public class User
         this.lName = lName;
         this.password = password;
         this.phone = phone;
-        this.isAd = false;
+        this.isAd = isAd;
     }
 
     public User() {
@@ -71,8 +70,6 @@ public class User
     public void setPhone(String phone) {
         this.phone = phone;
     }
-
-
 
 
     @Override
