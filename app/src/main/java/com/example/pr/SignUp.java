@@ -24,7 +24,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
     String fname, lname, email, phone, password, mfname="", mlname="", memail="", mphone="", mpassword="";
     TextView tvfname, tvlname, tvemail, tvphone, tvpassword;
-    boolean fnamecheck=true, lnamecheck=true, emailcheck=false, phonecheck=false, passwordcheck=false;
+    boolean fnamecheck=true, lnamecheck=true, emailcheck=false, phonecheck=false, passwordcheck=false, isAd=false;
 
     private static final String TAG = "RegisterActivity";
 
@@ -34,8 +34,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     DatabaseService databaseService;
     public static final String MyPREFERENCES = "MyPrefs" ;
     SharedPreferences sharedpreferences;
-
-
 
 
     @Override
@@ -51,17 +49,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
-
-
         databaseService = DatabaseService.getInstance();
-
 
         initViews();
 
         /// get the views
 
     }
-
 
     private void initViews() {
 
@@ -74,9 +68,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         /// set the click listener
         btnRegister.setOnClickListener(this);
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -89,7 +81,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
              fname = etFName.getText().toString();
              lname = etLName.getText().toString();
              phone = etPhone.getText().toString();
-
+             isAd=false;
 
             tvfname=findViewById(R.id.TvFnameMessage);
             tvlname=findViewById(R.id.TvLnameMessage);
@@ -191,11 +183,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 /// Validate input
                 //   Log.d(TAG, "onClick: Validating input...");
 
-
                 Log.d(TAG, "onClick: Registering user...");
 
                 /// Register user
-                registerUser(fname, lname, phone, email, password);
+                registerUser(fname, lname, phone, email, password, isAd);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
                 editor.putString("email", email);
@@ -203,19 +194,17 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 editor.putString("password", password);
 
                 editor.commit();
-
             }
         }
     }
 
     /// Register the user
-    private void registerUser(String fname, String lname, String phone, String email, String password) {
+    private void registerUser(String fname, String lname, String phone, String email, String password, boolean isAd) {
         Log.d(TAG, "registerUser: Registering user...");
 
 
         /// create a new user object
-        User user = new User("54", fname, lname, email, phone, password, false);
-
+        User user = new User(email, fname, "54", lname,password, phone, false);
 
         /// proceed to create the user
         createUserInDatabase(user);
@@ -237,8 +226,6 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 Log.d(TAG, "createUserInDatabase: User created successfully");
                 /// save the user to shared preferences
                 user.setId(uid);
-
-
 
 
                 Log.d(TAG, "createUserInDatabase: Redirecting to MainActivity");

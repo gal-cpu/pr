@@ -52,7 +52,6 @@ public class UpdateUser extends AppCompatActivity {
                     current_user=user;
                     setupListeners();
                     populateFields();
-
                 }
 
                 @Override
@@ -64,11 +63,8 @@ public class UpdateUser extends AppCompatActivity {
         }
 
         else {    Toast.makeText(UpdateUser.this,
-                "jkj"+ selectedUserId,
+                " "+ selectedUserId,
                 Toast.LENGTH_SHORT).show(); }
-
-
-
     }
     private void initViews() {
         emailField = findViewById(R.id.EmailUpdate);
@@ -161,5 +157,4 @@ private void deleteUser() {
         }
     });
 }
-
 }

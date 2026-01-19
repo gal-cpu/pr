@@ -24,14 +24,13 @@
         android:id="@+id/ivUser"
         android:layout_width="89dp"
         android:layout_height="74dp"
-        android:layout_weight="1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.055"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.172"
-        app:srcCompat="@drawable/icon_user_table" />
+        />
 
 
     <TextView

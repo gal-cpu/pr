@@ -18,20 +18,15 @@ public class User
         this.lName = lName;
         this.password = password;
         this.phone = phone;
-        this.isAd = isAd;
-    }
-
-    public boolean gatIsAd() {
-        return isAd;
-    }
-
-    public void setIsAd(boolean ad) {
-        isAd = ad;
+        this.isAd = false;
     }
 
     public User() {
     }
-
+    public boolean gatIsAd() {return isAd;
+    }
+    public void setIsAd(boolean ad) {isAd = ad;
+    }
     public String getEmail() {
         return email;
     }
@@ -43,7 +38,6 @@ public class User
     public String getId() {
         return id;
     }
-
     public String getlName() {
         return lName;
     }
@@ -59,7 +53,6 @@ public class User
     public void setEmail(String email) {
         this.email = email;
     }
-
     public void setfName(String fName) {
         this.fName = fName;
     }
