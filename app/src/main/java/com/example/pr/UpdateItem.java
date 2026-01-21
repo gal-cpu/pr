@@ -1,14 +1,10 @@
 package com.example.pr;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -17,39 +13,39 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
-public class UpdateUser extends AppCompatActivity {
-    private EditText emailField, passwordField, firstnameField, lastnameField,phoneField;
-    private CheckBox isAdminCheckBox;
+public class UpdateItem extends AppCompatActivity {
+
+    private EditText namelField, typeField, noteField, priceField;
     private Button updateBtn, deleteBtn;
-    private String selectedUserId="";
-    DatabaseService  databaseService;
-    User current_user=null;
+    private String selectedItemId="";
+    DatabaseService databaseService;
+    User current_item=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_update_user);
+        setContentView(R.layout.activity_update_item);
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-
         initViews();
         databaseService=DatabaseService.getInstance();
 
-        selectedUserId = getIntent().getSerializableExtra("USER_UID").toString();
+        selectedItemId = getIntent().getSerializableExtra("Item_UID").toString();
 
-        if(selectedUserId!="") {
+        if(selectedItemId!="") {
 
-            databaseService.getUser(selectedUserId, new DatabaseService.DatabaseCallback<User>() {
+            databaseService.getUser(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
                 @Override
-                public void onCompleted(User user) {
-                    current_user=user;
+                public void onCompleted(Item item) {
+                    current_item=item;
                     setupListeners();
                     populateFields();
                 }
@@ -62,29 +58,28 @@ public class UpdateUser extends AppCompatActivity {
 
         }
 
-        else {    Toast.makeText(UpdateUser.this,
-                " "+ selectedUserId,
+        else {    Toast.makeText(UpdateIem.this,
+                " "+ selectedItemId,
                 Toast.LENGTH_SHORT).show(); }
     }
     private void initViews() {
-        emailField = findViewById(R.id.EmailUpdate);
-        passwordField = findViewById(R.id.PasswordUpdate);
-        firstnameField = findViewById(R.id.FirstNameUpdate);
-        lastnameField = findViewById(R.id.LastNameUpdate);
-        phoneField=findViewById(R.id.PhoneUpdate);
-        isAdminCheckBox= findViewById(R.id.isAdminCheckBoxUpdate);
+        namelField = findViewById(R.id.ItemNameUpdate);
+        typeField = findViewById(R.id.ItemTypeUpdate);
+        noteField = findViewById(R.id.ItemNoteUpdate);
+        priceField = findViewById(R.id.ItemPriceUpdate);
+
         updateBtn = findViewById(R.id.updateUserBtn);
-        deleteBtn = findViewById(R.id.deleteUserBtn);
+        deleteBtn = findViewById(R.id.deleteItemBtn);
     }
     private void setupListeners() {
-        updateBtn.setOnClickListener(v -> updateUser());
-        deleteBtn.setOnClickListener(v -> deleteUser());
+        updateBtn.setOnClickListener(v -> updateItem());
+        deleteBtn.setOnClickListener(v -> deleteItem());
     }
     private void populateFields() {
 
-        if (current_user != null) {
+        if (current_item != null) {
 
-            emailField.setText(current_user.getEmail() + "");
+            namelField.setText(current_item.getEmail() + "");
             passwordField.setText(current_user.getPassword());
             firstnameField.setText(current_user.getfName());
             lastnameField.setText(current_user.getlName());
@@ -137,24 +132,24 @@ public class UpdateUser extends AppCompatActivity {
         });
     }
 
-private void deleteUser() {
-    if (selectedUserId == null) return;
+    private void deleteUser() {
+        if (selectedUserId == null) return;
 
-    DatabaseService.getInstance().deleteUser(current_user.getId(), new DatabaseService.DatabaseCallback<Void>() {
-        @Override
-        public void onCompleted(Void v) {
-            Toast.makeText(UpdateUser.this, "User deleted", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(UpdateUser.this, TableUsers.class);
-            startActivity(intent);
-            finish();
-        }
+        DatabaseService.getInstance().deleteUser(current_user.getId(), new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void v) {
+                Toast.makeText(UpdateUser.this, "User deleted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UpdateUser.this, TableUsers.class);
+                startActivity(intent);
+                finish();
+            }
 
-        @Override
-        public void onFailed(Exception e) {
-            Toast.makeText(UpdateUser.this,
-                    "Delete failed: " + e.getMessage(),
-                    Toast.LENGTH_SHORT).show();
-        }
-    });
-}
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(UpdateUser.this,
+                        "Delete failed: " + e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 }

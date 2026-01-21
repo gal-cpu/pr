@@ -5,9 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-   >
+    tools:context=".UpdateItem">
 
-    <!-- Header Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/headerCard"
         android:layout_width="0dp"
@@ -37,13 +36,13 @@
         app:layout_constraintTop_toBottomOf="@id/headerCard">
 
         <TextView
-            android:id="@+id/tvUser"
+            android:id="@+id/tvItemTitle"
             android:layout_width="192dp"
             android:layout_height="53dp"
             android:layout_marginLeft="75dp"
             android:layout_marginTop="20dp"
             android:gravity="center"
-            android:text="User"
+            android:text="Item"
             android:textColor="#B187F2"
             android:textSize="40dp" />
 
@@ -54,12 +53,12 @@
             android:orientation="vertical"
             android:padding="24dp">
 
-            <!-- FirstName Input -->
+            <!-- ItemName Input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="First Name"
+                android:hint="Item Name"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -69,7 +68,7 @@
                 app:hintTextColor="#1A237E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/FirstNameUpdate"
+                    android:id="@+id/ItemNameUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -78,12 +77,12 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <!-- LastName Input -->
+            <!-- ItemType Input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Last Name"
+                android:hint="Item Type"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -93,7 +92,7 @@
                 app:hintTextColor="#1A237E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/LastNameUpdate"
+                    android:id="@+id/ItemTypeUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp"
@@ -106,7 +105,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="Email"
+                android:hint="Item Note"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -116,7 +115,7 @@
                 app:hintTextColor="#1A237E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/EmailUpdate"
+                    android:id="@+id/ItemNoteUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress"
@@ -130,7 +129,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
-                android:hint="phone"
+                android:hint="Item Price"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -140,7 +139,7 @@
                 app:hintTextColor="#1A237E">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/PhoneUpdate"
+                    android:id="@+id/ItemPriceUpdate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone"
@@ -150,87 +149,123 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <!-- Password Input -->
-            <com.google.android.material.textfield.TextInputLayout
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="Password"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxStrokeColor="#1A237E"
-                app:hintTextColor="#1A237E"
-                app:passwordToggleEnabled="true">
+                android:orientation="horizontal">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/PasswordUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    android:padding="16dp"
-                    android:textSize="16sp" />
+                <LinearLayout
+                    android:layout_width="240dp"
+                    android:layout_height="140dp"
+                    android:orientation="vertical">
 
-            </com.google.android.material.textfield.TextInputLayout>
+                    <TextView
+                        android:id="@+id/addPic"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="27dp"
+                        android:drawableEnd="@drawable/icon_image"
+                        android:text="Add picture"
+                        android:textSize="30dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.134"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.732" />
 
-            <!-- Admin Checkbox -->
-            <androidx.cardview.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="24dp"
-                app:cardBackgroundColor="#F5F5F5"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="2dp">
 
-                <CheckBox
-                    android:id="@+id/isAdminCheckBoxUpdate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="8dp"
-                    android:text="Admin User"
-                    android:textSize="16sp" />
-            </androidx.cardview.widget.CardView>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="56dp"
+                        android:orientation="horizontal">
 
-            <!-- Action Buttons -->
+                        <Button
+                            android:id="@+id/btnTakePic"
+                            android:layout_width="110dp"
+                            android:layout_height="39dp"
+                            android:backgroundTint="#94E0F4"
+                            android:text="camera"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.023"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.768" />
+
+                        <!-- Action Buttons -->
+
+                        <Button
+                            android:id="@+id/btnGallery"
+                            android:layout_width="110dp"
+                            android:layout_height="39dp"
+                            android:layout_marginLeft="20dp"
+                            android:backgroundTint="#94E0F4"
+                            android:text="gallery"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.471"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            app:layout_constraintVertical_bias="0.768" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <ImageView
+                    android:id="@+id/imageViewPicture"
+                    android:layout_width="105dp"
+                    android:layout_height="92dp"
+                    android:layout_marginTop="17dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.879"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.749"
+                    tools:srcCompat="@tools:sample/avatars" />
+
+            </LinearLayout>
+
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
+                android:layout_marginTop="30dp"
                 android:orientation="horizontal"
                 android:weightSum="2">
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/updateUserBtn"
+                    android:id="@+id/updatItemrBtn"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
+                    android:layout_marginTop="8dp"
                     android:layout_marginEnd="8dp"
                     android:layout_weight="1"
-                    android:text="Update User"
-                    android:layout_marginBottom="2dp"
+                    android:text="Update Item"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:backgroundTint="#4283FF"
-                    app:cornerRadius="14dp"
+                    app:cornerRadius="12dp"
                     app:elevation="4dp"
                     app:icon="@android:drawable/ic_menu_edit"
                     app:iconGravity="textStart"
                     app:iconTint="#FFFFFF" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/deleteUserBtn"
+                    android:id="@+id/deleteItemBtn"
                     android:layout_width="0dp"
                     android:layout_height="56dp"
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="8dp"
                     android:layout_weight="1"
-                    android:text="Delete User"
+                    android:text="Delete Item"
                     android:textColor="#FFFFFF"
                     android:textSize="16sp"
                     android:textStyle="bold"
                     app:backgroundTint="#FF1616"
-                    app:cornerRadius="14dp"
+                    app:cornerRadius="12dp"
                     app:elevation="4dp"
                     app:icon="@android:drawable/ic_menu_delete"
                     app:iconGravity="textStart"
@@ -241,5 +276,6 @@
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>

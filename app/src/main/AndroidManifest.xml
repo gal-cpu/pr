@@ -12,6 +12,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".UpdateItem"
+            android:exported="false" />
+        <activity
             android:name=".update_users"
             android:exported="false" />
         <activity
