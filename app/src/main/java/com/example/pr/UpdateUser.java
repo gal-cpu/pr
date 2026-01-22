@@ -22,6 +22,9 @@ import com.example.pr.services.DatabaseService;
 
 public class UpdateUser extends AppCompatActivity {
     private EditText emailField, passwordField, firstnameField, lastnameField,phoneField;
+    private boolean fnamecheck=true, lnamecheck=true, phonecheck=false;
+    private TextView tvfname, tvlname, tvemail, tvphone, tvpassword;
+    private String mfname="", mlname="", mphone="";
     private CheckBox isAdminCheckBox;
     private Button updateBtn, deleteBtn;
     private String selectedUserId="";
@@ -67,6 +70,10 @@ public class UpdateUser extends AppCompatActivity {
                 Toast.LENGTH_SHORT).show(); }
     }
     private void initViews() {
+        tvfname=findViewById(R.id.TvFnameMessageUpdate);
+        tvlname=findViewById(R.id.TvLnameMessageUpdate);
+        tvphone=findViewById(R.id.TvPhoneMessageUpdate);
+
         emailField = findViewById(R.id.EmailUpdate);
         passwordField = findViewById(R.id.PasswordUpdate);
         firstnameField = findViewById(R.id.FirstNameUpdate);
@@ -85,7 +92,9 @@ public class UpdateUser extends AppCompatActivity {
         if (current_user != null) {
 
             emailField.setText(current_user.getEmail() + "");
+            emailField.setEnabled(false);
             passwordField.setText(current_user.getPassword());
+            passwordField.setEnabled(false);
             firstnameField.setText(current_user.getfName());
             lastnameField.setText(current_user.getlName());
             phoneField.setText(current_user.getPhone());
@@ -95,66 +104,106 @@ public class UpdateUser extends AppCompatActivity {
     private void updateUser() {
         if (selectedUserId == null) return;
 
-        String email = emailField.getText().toString().trim();
-        String password = passwordField.getText().toString().trim();
         String firstname = firstnameField.getText().toString().trim();
         String lastname = lastnameField.getText().toString().trim();
         String phone = phoneField.getText().toString().trim();
         boolean isAdmin = isAdminCheckBox.isChecked();
 
-        if (email.isEmpty() || password.isEmpty() || phone.isEmpty() ||  lastname.isEmpty() || firstname.isEmpty()) {
+        fnamecheck=true; lnamecheck=true; phonecheck=false;
+
+        if (firstname.length() > 1 && firstname.length() <= 10) {
+            for (int i = 0; i <= 10; i++) {
+
+                if (firstname.contains(i + "")) {
+                    fnamecheck = false;
+                    mfname = "no digits";
+                }
+            }
+        } else {
+            fnamecheck=false;
+            mfname = "the length should be 2-10";
+        }
+
+        tvfname.setText(mfname);
+
+        if (lastname.length() > 1 && lastname.length() <= 20) {
+            for (int i = 0; i <= 10; i++) {
+
+                if (lastname.contains(i + "")) {
+                    lnamecheck = false;
+                    mlname = "no digits";
+                }
+            }
+        } else {
+            lnamecheck=false;
+            mlname = "the length should be 2-20";
+        }
+        tvlname.setText(mlname);
+
+        if (phone.length() == 10) {
+            phonecheck = true;
+        } else {
+            mphone = "phone number has 10 digits";
+        }
+        tvphone.setText(mphone);
+
+        // Update user details
+
+        if (phone.isEmpty() || lastname.isEmpty() || firstname.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        // Update user details
-        current_user.setEmail(email);
-        current_user.setPassword(password);
-        current_user.setfName(firstname);
-        current_user.setlName(lastname);
-        current_user.setPhone(phone);
-        current_user.setIsAd(isAdmin);
+        if (fnamecheck==false || lnamecheck==false || phonecheck==false) {
+            return;
+        }
 
-        // Save user
-        DatabaseService.getInstance().updateUser(current_user, new DatabaseService.DatabaseCallback<Void>() {
-            @Override
-            public void onCompleted(Void v) {
-                Toast.makeText(UpdateUser.this,
-                        "User updated successfully",
-                        Toast.LENGTH_SHORT).show();
+            current_user.setfName(firstname);
+            current_user.setlName(lastname);
+            current_user.setPhone(phone);
+            current_user.setAd(isAdmin);
 
-                Intent intent = new Intent(UpdateUser.this, TableUsers.class);
-                startActivity(intent);
-                finish();
-            }
+            // Save user
+            DatabaseService.getInstance().updateUser(current_user, new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void v) {
+                    Toast.makeText(UpdateUser.this,
+                            "User updated successfully",
+                            Toast.LENGTH_SHORT).show();
 
-            @Override
-            public void onFailed(Exception e) {
-                Toast.makeText(UpdateUser.this,
-                        "Failed to update stats: " + e.getMessage(),
-                        Toast.LENGTH_SHORT).show();
-            }
-        });
+                    Intent intent = new Intent(UpdateUser.this, TableUsers.class);
+                    startActivity(intent);
+                    finish();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(UpdateUser.this,
+                            "Failed to update stats: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+
     }
 
 private void deleteUser() {
-    if (selectedUserId == null) return;
+            if (selectedUserId == null) return;
 
-    DatabaseService.getInstance().deleteUser(current_user.getId(), new DatabaseService.DatabaseCallback<Void>() {
-        @Override
-        public void onCompleted(Void v) {
-            Toast.makeText(UpdateUser.this, "User deleted", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent(UpdateUser.this, TableUsers.class);
-            startActivity(intent);
-            finish();
-        }
+            DatabaseService.getInstance().deleteUser(current_user.getId(), new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void v) {
+                    Toast.makeText(UpdateUser.this, "User deleted", Toast.LENGTH_SHORT).show();
+                    Intent intent = new Intent(UpdateUser.this, TableUsers.class);
+                    startActivity(intent);
+                    finish();
+                }
 
-        @Override
-        public void onFailed(Exception e) {
-            Toast.makeText(UpdateUser.this,
-                    "Delete failed: " + e.getMessage(),
-                    Toast.LENGTH_SHORT).show();
-        }
-    });
-}
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(UpdateUser.this,
+                            "Delete failed: " + e.getMessage(),
+                            Toast.LENGTH_SHORT).show();
+                }
+            });
+    }
 }

@@ -71,6 +71,13 @@ public class User
         this.phone = phone;
     }
 
+    public boolean isAd() {
+        return isAd;
+    }
+
+    public void setAd(boolean ad) {
+        isAd = ad;
+    }
 
     @Override
     public String toString() {

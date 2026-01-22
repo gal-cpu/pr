@@ -23,7 +23,7 @@
     <androidx.cardview.widget.CardView
         android:id="@+id/formCard"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginBottom="10dp"
@@ -41,7 +41,7 @@
             android:layout_width="192dp"
             android:layout_height="53dp"
             android:layout_marginLeft="75dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="40dp"
             android:gravity="center"
             android:text="User"
             android:textColor="#B187F2"
@@ -49,8 +49,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="615dp"
-            android:layout_marginTop="90dp"
+            android:layout_height="685dp"
+            android:layout_marginTop="120dp"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -77,6 +77,18 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/TvFnameMessageUpdate"
+                android:layout_width="316dp"
+                android:layout_height="15dp"
+                android:layout_marginBottom="2dp"
+                android:text=""
+                android:textColor="#FF0202"
+                app:layout_constraintBottom_toTopOf="@+id/etLname"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etFname"
+                app:layout_constraintVertical_bias="1.0" />
 
             <!-- LastName Input -->
             <com.google.android.material.textfield.TextInputLayout
@@ -100,8 +112,56 @@
                     android:textSize="16sp" />
             </com.google.android.material.textfield.TextInputLayout>
 
+            <TextView
+                android:id="@+id/TvLnameMessageUpdate"
+                android:layout_width="316dp"
+                android:layout_height="15dp"
+                android:layout_marginBottom="2dp"
+                android:text=""
+                android:textColor="#FF0202"
+                app:layout_constraintBottom_toTopOf="@+id/etLname"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etFname"
+                app:layout_constraintVertical_bias="1.0" />
 
             <!-- Email Input -->
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="16dp"
+                android:hint="Phone"
+                app:boxBackgroundMode="outline"
+                app:boxCornerRadiusBottomEnd="12dp"
+                app:boxCornerRadiusBottomStart="12dp"
+                app:boxCornerRadiusTopEnd="12dp"
+                app:boxCornerRadiusTopStart="12dp"
+                app:boxStrokeColor="#1A237E"
+                app:hintTextColor="#1A237E">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/PhoneUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    android:padding="16dp"
+                    android:textSize="16sp" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/TvPhoneMessageUpdate"
+                android:layout_width="316dp"
+                android:layout_height="20dp"
+                android:layout_marginBottom="2dp"
+                android:text=""
+                android:textColor="#FF0202"
+                app:layout_constraintBottom_toTopOf="@+id/etLname"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/etFname"
+                app:layout_constraintVertical_bias="1.0" />
+            <!-- Phone Input -->
             <com.google.android.material.textfield.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -125,30 +185,6 @@
 
             </com.google.android.material.textfield.TextInputLayout>
 
-            <!-- Phone Input -->
-            <com.google.android.material.textfield.TextInputLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="16dp"
-                android:hint="phone"
-                app:boxBackgroundMode="outline"
-                app:boxCornerRadiusBottomEnd="12dp"
-                app:boxCornerRadiusBottomStart="12dp"
-                app:boxCornerRadiusTopEnd="12dp"
-                app:boxCornerRadiusTopStart="12dp"
-                app:boxStrokeColor="#1A237E"
-                app:hintTextColor="#1A237E">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/PhoneUpdate"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    android:padding="16dp"
-                    android:textSize="16sp" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
 
             <!-- Password Input -->
             <com.google.android.material.textfield.TextInputLayout
@@ -156,6 +192,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Password"
+                android:layout_marginTop="21dp"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
