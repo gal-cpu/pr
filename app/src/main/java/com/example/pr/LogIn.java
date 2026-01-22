@@ -25,8 +25,9 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
      Button btnLogIn;
     EditText etEmail, etPassword;
     TextView tvemail, tvpassword, tvNotExist;
-    boolean emailcheck=false, passwordcheck=false;
+    boolean emailcheck=false, passwordcheck=false, adUser=false;
     String emailUserInput, passwordUserInput,mNotExist="", memail="", mpassword="";
+    User current_user;
     DatabaseService databaseService;
 
     public static final String MyPREFERENCES = "MyPrefs" ;
@@ -55,6 +56,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
         emailUserInput=sharedpreferences.getString("email","");
         passwordUserInput=sharedpreferences.getString("password","");
+
         etEmail.setText(emailUserInput);
         etPassword.setText(passwordUserInput);
 
@@ -65,7 +67,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         databaseService.LoginUser(emailUserInput, passwordUserInput, new DatabaseService.DatabaseCallback<String>() {
                     @Override
                     public void onCompleted(String userId) {
-                       // saveUserById(userId);
+                        //saveUserById(userId);
 
                         SharedPreferences.Editor editor = sharedpreferences.edit();
 
@@ -75,7 +77,9 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
                         editor.commit();
 
-                        if(emailUserInput.equals("galmizrahi2008@gmail.com")&& passwordUserInput.equals("gal1212"))
+                        //current_user=databaseService.getUser(userId);
+
+                        if(adUser)
                         {
                             Intent go= new Intent(LogIn.this, AdminPage.class);
                             startActivity(go);

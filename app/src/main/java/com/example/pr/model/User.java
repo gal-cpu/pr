@@ -5,6 +5,7 @@ public class User
     protected String id;
     protected String fName;
     protected String lName;
+
     protected String email;
     protected String phone;
     protected String password;
