@@ -25,7 +25,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
      Button btnLogIn;
     EditText etEmail, etPassword;
     TextView tvemail, tvpassword, tvNotExist;
-    boolean emailcheck=false, passwordcheck=false, adUser=false;
+    boolean emailcheck=false, passwordcheck=false;
     String emailUserInput, passwordUserInput,mNotExist="", memail="", mpassword="";
     User current_user;
     DatabaseService databaseService;
@@ -54,6 +54,12 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         etPassword=findViewById(R.id.etPasswordLogIn);
         btnLogIn=findViewById(R.id.btnSendLogIn);
 
+        tvNotExist=findViewById(R.id.TvNotExistMessage);
+
+        tvemail=findViewById(R.id.TvEmailMessage);
+        tvpassword=findViewById(R.id.TvPasswordMessage);
+
+
         emailUserInput=sharedpreferences.getString("email","");
         passwordUserInput=sharedpreferences.getString("password","");
 
@@ -77,27 +83,44 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
                         editor.commit();
 
-                        //current_user=databaseService.getUser(userId);
+                        databaseService.getUser(userId, new DatabaseService.DatabaseCallback<User>() {
+                            @Override
+                            public void onCompleted(User user) {
 
-                        if(adUser)
-                        {
-                            Intent go= new Intent(LogIn.this, AdminPage.class);
-                            startActivity(go);
-                            finish();
-                        }
-                        else
-                        {
-                            Intent go= new Intent(LogIn.this, MainActivity.class);
-                            startActivity(go);
-                            finish();
-                        }
+                                current_user=user;
+
+
+
+                                if(current_user.gatIsAd())
+                                {
+                                    Intent go= new Intent(LogIn.this, AdminPage.class);
+                                    startActivity(go);
+
+                                }
+                                else
+                                {
+                                    Intent go= new Intent(LogIn.this, MainActivity.class);
+                                    startActivity(go);
+                                    finish();
+                                }
+
+
+                            }
+
+                            @Override
+                            public void onFailed(Exception e) {
+
+                            }
+                        });
+
+
                     }
 
                     @Override
                     public void onFailed(Exception e) {
                        // SharedPreferencesUtils.signOutUser(LogIn.this);
 
-                        tvNotExist=findViewById(R.id.TvNotExistMessage);
+
                         mNotExist="The user is not found";
                         tvNotExist.setText(mNotExist);
                     }
@@ -110,9 +133,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         if(view==btnLogIn) {
             emailUserInput = etEmail.getText().toString() + "";
             passwordUserInput = etPassword.getText().toString() + "";
-
-            tvemail=findViewById(R.id.TvEmailMessage);
-            tvpassword=findViewById(R.id.TvPasswordMessage);
 
             memail=""; mpassword="";
 
