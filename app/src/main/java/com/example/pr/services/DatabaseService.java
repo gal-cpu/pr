@@ -439,6 +439,27 @@ public class DatabaseService {
         deleteData(ITEMS_PATH + "/" + itemId, callback);
     }
 
+
+    public void updateItem(@NotNull final Item item, @Nullable final DatabaseCallback<Void> callback) {
+        runTransaction(USERS_PATH + "/" + item.getId(), Item.class, currentItem -> item, new DatabaseCallback<Item>() {
+            @Override
+            public void onCompleted(Item object) {
+                if (callback != null) {
+                    callback.onCompleted(null);
+                }
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                if (callback != null) {
+                    callback.onFailed(e);
+                }
+            }
+        });
+    }
+
+
+
     // endregion item section
 
     // region cart section

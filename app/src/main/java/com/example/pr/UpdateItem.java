@@ -1,10 +1,12 @@
 package com.example.pr;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
@@ -16,14 +18,16 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
-/*
+
 public class UpdateItem extends AppCompatActivity {
 
     private EditText namelField, typeField, noteField, priceField;
+    //private String ivTemp;
+    //private ImageView ivItemField;
     private Button updateBtn, deleteBtn;
     private String selectedItemId="";
     DatabaseService databaseService;
-    User current_item=null;
+    Item current_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,12 +46,12 @@ public class UpdateItem extends AppCompatActivity {
 
         if(selectedItemId!="") {
 
-            databaseService.getUser(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
+            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
                 @Override
                 public void onCompleted(Item item) {
-//                    current_item=item;
-//                    setupListeners();
-//                    populateFields();
+                   current_item=item;
+                   setupListeners();
+                   populateFields();
                 }
 
                 @Override
@@ -58,97 +62,97 @@ public class UpdateItem extends AppCompatActivity {
 
         }
 
-      //  else {    Toast.makeText(UpdateIem.this,
-           //     " "+ selectedItemId,
-             //   Toast.LENGTH_SHORT).show(); }
+        else {    Toast.makeText(UpdateItem.this,
+               " "+ selectedItemId,
+                Toast.LENGTH_SHORT).show(); }
     }
     private void initViews() {
         namelField = findViewById(R.id.ItemNameUpdate);
         typeField = findViewById(R.id.ItemTypeUpdate);
         noteField = findViewById(R.id.ItemNoteUpdate);
         priceField = findViewById(R.id.ItemPriceUpdate);
+        //ivItemField=findViewById(R.id.imageViewPicture);
 
         updateBtn = findViewById(R.id.updateUserBtn);
         deleteBtn = findViewById(R.id.deleteItemBtn);
     }
-   // private void setupListeners() {
-   //     updateBtn.setOnClickListener(v -> updateItem());
-    //    deleteBtn.setOnClickListener(v -> deleteItem());
+    private void setupListeners() {
+        updateBtn.setOnClickListener(v -> updateItem());
+        deleteBtn.setOnClickListener(v -> deleteItem());
     }
-    //private void populateFields() {
+    @SuppressLint("SetTextI18n")
+    private void populateFields() {
 
-       // if (current_item != null) {
+        if (current_item != null) {
 
-        //    namelField.setText(current_item.getEmail() + "");
-         //   passwordField.setText(current_user.getPassword());
-        //    firstnameField.setText(current_user.getfName());
-         //   lastnameField.setText(current_user.getlName());
-         //   phoneField.setText(current_user.getPhone());
-         //   isAdminCheckBox.setChecked(current_user.gatIsAd());
-     //   }
+            namelField.setText(current_item.getpName());
+            typeField.setText(current_item.getType());
+            noteField.setText(current_item.getpNote());
+            priceField.setText(current_item.getPrice() + "$");
+
+        }
     }
-  //  private void updateUser() {
-    //    if (selectedUserId == null) return;
+    private void updateItem() {
+        if (selectedItemId == null) return;
 
-    //    String email = emailField.getText().toString().trim();
-      //  String password = passwordField.getText().toString().trim();
-     //   String firstname = firstnameField.getText().toString().trim();
-    //    String lastname = lastnameField.getText().toString().trim();
-     //   String phone = phoneField.getText().toString().trim();
-     //   boolean isAdmin = isAdminCheckBox.isChecked();
+        String name = namelField.getText().toString().trim();
+        String type = typeField.getText().toString().trim();
+        String note = noteField.getText().toString().trim();
+        String price = priceField.getText().toString().trim();
 
-       // if (email.isEmpty() || password.isEmpty() || phone.isEmpty() ||  lastname.isEmpty() || firstname.isEmpty()) {
-        //    Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
-        //    return;
-       // }
-//
-        // Update user details
-       // current_user.setEmail(email);
-      //  current_user.setPassword(password);
-       // current_user.setfName(firstname);
-       // current_user.setlName(lastname);
-       // current_user.setPhone(phone);
-      //  current_user.setIsAd(isAdmin);
 
-        // Save user
-       // DatabaseService.getInstance().updateUser(current_user, new DatabaseService.DatabaseCallback<Void>() {
-         //   @Override
-          //  public void onCompleted(Void v) {
-            //    Toast.makeText(UpdateUser.this,
-            //            "User updated successfully",
-               //         Toast.LENGTH_SHORT).show();
+        if (name.isEmpty() || type.isEmpty() || note.isEmpty() ||  price.isEmpty()) {
+            Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
+            return;
+        }
+        double priceD = Double.parseDouble(price);
 
-             //   Intent intent = new Intent(UpdateUser.this, TableUsers.class);
-            //    startActivity(intent);
-             //   finish();
-          //  }
+        //Update item details
+        current_item.setpName(name);
+        current_item.setType(type);
+        current_item.setpNote(note);
+        current_item.setPrice(priceD);
 
-//            @Override
-//            public void onFailed(Exception e) {
-//                Toast.makeText(UpdateUser.this,
-//                        "Failed to update stats: " + e.getMessage(),
-//                        Toast.LENGTH_SHORT).show();
-//            }
-//        });
-//    }
-//
 
-/*
-    private void deleteUser() {
-        if (selectedUserId == null) return;
-
-        DatabaseService.getInstance().deleteUser(current_user.getId(), new DatabaseService.DatabaseCallback<Void>() {
+         //Save item
+        DatabaseService.getInstance().updateItem(current_item, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void v) {
-                Toast.makeText(UpdateUser.this, "User deleted", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UpdateUser.this, TableUsers.class);
+                Toast.makeText(UpdateItem.this,
+                        "User updated successfully",
+                        Toast.LENGTH_SHORT).show();
+
+                Intent intent = new Intent(UpdateItem.this, TableItems.class);
                 startActivity(intent);
                 finish();
             }
 
             @Override
             public void onFailed(Exception e) {
-                Toast.makeText(UpdateUser.this,
+                Toast.makeText(UpdateItem.this,
+                        "Failed to update stats: " + e.getMessage(),
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+
+    private void deleteItem() {
+        if (selectedItemId == null) return;
+
+        DatabaseService.getInstance().deleteUser(current_item.getId(), new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void v) {
+                Toast.makeText(UpdateItem.this, "User deleted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UpdateItem.this, TableUsers.class);
+                startActivity(intent);
+                finish();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Toast.makeText(UpdateItem.this,
                         "Delete failed: " + e.getMessage(),
                         Toast.LENGTH_SHORT).show();
             }
@@ -156,5 +160,5 @@ public class UpdateItem extends AppCompatActivity {
     }
 
     }
- */
+
 

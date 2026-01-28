@@ -36,4 +36,10 @@ public class AdminPage extends AppCompatActivity {
         Intent go= new Intent(AdminPage.this, TableUsers.class);
         startActivity(go);
     }
+
+
+    public void OnClickItemsTable(View view) {
+        Intent go= new Intent(AdminPage.this, TableItems.class);
+        startActivity(go);
+    }
 }
