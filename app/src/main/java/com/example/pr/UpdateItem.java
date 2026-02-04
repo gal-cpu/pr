@@ -2,9 +2,9 @@ package com.example.pr;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
@@ -16,14 +16,16 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.pr.model.Item;
-import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
+import com.example.pr.util.ImageUtil;
+
+import org.jetbrains.annotations.Nullable;
 
 public class UpdateItem extends AppCompatActivity {
 
     private EditText namelField, typeField, noteField, priceField;
-    //private String ivTemp;
-    //private ImageView ivItemField;
+    private ImageView ivItemField;
+    private @Nullable Bitmap iv;
     private Button updateBtn, deleteBtn;
     private String selectedItemId="";
     DatabaseService databaseService;
@@ -71,9 +73,9 @@ public class UpdateItem extends AppCompatActivity {
         typeField = findViewById(R.id.ItemTypeUpdate);
         noteField = findViewById(R.id.ItemNoteUpdate);
         priceField = findViewById(R.id.ItemPriceUpdate);
-        //ivItemField=findViewById(R.id.imageViewPicture);
+        ivItemField=findViewById(R.id.imageViewPicture);
 
-        updateBtn = findViewById(R.id.updateUserBtn);
+        updateBtn = findViewById(R.id.updatItemrBtn);
         deleteBtn = findViewById(R.id.deleteItemBtn);
     }
     private void setupListeners() {
@@ -88,8 +90,9 @@ public class UpdateItem extends AppCompatActivity {
             namelField.setText(current_item.getpName());
             typeField.setText(current_item.getType());
             noteField.setText(current_item.getpNote());
-            priceField.setText(current_item.getPrice() + "$");
-
+            priceField.setText(current_item.getPrice() + "");
+            iv = ImageUtil.convertFrom64base(current_item.getImage());
+            ivItemField.setImageBitmap(iv);
         }
     }
     private void updateItem() {
@@ -99,6 +102,7 @@ public class UpdateItem extends AppCompatActivity {
         String type = typeField.getText().toString().trim();
         String note = noteField.getText().toString().trim();
         String price = priceField.getText().toString().trim();
+        String StItemIv = ivItemField.toString().trim();
 
 
         if (name.isEmpty() || type.isEmpty() || note.isEmpty() ||  price.isEmpty()) {
@@ -112,14 +116,14 @@ public class UpdateItem extends AppCompatActivity {
         current_item.setType(type);
         current_item.setpNote(note);
         current_item.setPrice(priceD);
-
+        current_item.setImage(StItemIv);
 
          //Save item
         DatabaseService.getInstance().updateItem(current_item, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void v) {
                 Toast.makeText(UpdateItem.this,
-                        "User updated successfully",
+                        "Item updated successfully",
                         Toast.LENGTH_SHORT).show();
 
                 Intent intent = new Intent(UpdateItem.this, TableItems.class);
@@ -135,7 +139,6 @@ public class UpdateItem extends AppCompatActivity {
             }
         });
     }
-
 
 
     private void deleteItem() {

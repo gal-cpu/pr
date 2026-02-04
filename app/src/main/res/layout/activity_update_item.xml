@@ -21,12 +21,12 @@
     <!-- Main Form Card -->
     <androidx.cardview.widget.CardView
         android:id="@+id/formCard"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginRight="10dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
+        android:layout_marginRight="15dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -40,7 +40,7 @@
             android:layout_width="192dp"
             android:layout_height="53dp"
             android:layout_marginLeft="75dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="30dp"
             android:gravity="center"
             android:text="Item"
             android:textColor="#B187F2"
@@ -48,8 +48,8 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="615dp"
-            android:layout_marginTop="90dp"
+            android:layout_height="665dp"
+            android:layout_marginTop="120dp"
             android:orientation="vertical"
             android:padding="24dp">
 
@@ -59,6 +59,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="16dp"
                 android:hint="Item Name"
+                android:layout_marginTop="30dp"
                 app:boxBackgroundMode="outline"
                 app:boxCornerRadiusBottomEnd="12dp"
                 app:boxCornerRadiusBottomStart="12dp"
@@ -149,128 +150,45 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
+
+            <!-- Image + Buttons -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
                 android:orientation="horizontal">
 
-                <LinearLayout
-                    android:layout_width="240dp"
-                    android:layout_height="140dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/addPic"
-                        android:layout_width="wrap_content"
-                        android:layout_height="60dp"
-                        android:layout_marginBottom="27dp"
-                        android:drawableEnd="@drawable/icon_image"
-                        android:text="Add picture"
-                        android:textSize="30dp"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintHorizontal_bias="0.134"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        app:layout_constraintVertical_bias="0.732" />
-
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="56dp"
-                        android:orientation="horizontal">
-
-                        <Button
-                            android:id="@+id/btnTakePic"
-                            android:layout_width="110dp"
-                            android:layout_height="39dp"
-                            android:backgroundTint="#94E0F4"
-                            android:text="camera"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.023"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.768" />
-
-                        <!-- Action Buttons -->
-
-                        <Button
-                            android:id="@+id/btnGallery"
-                            android:layout_width="110dp"
-                            android:layout_height="39dp"
-                            android:layout_marginLeft="20dp"
-                            android:backgroundTint="#94E0F4"
-                            android:text="gallery"
-                            app:layout_constraintBottom_toBottomOf="parent"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintHorizontal_bias="0.471"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.768" />
-
-                    </LinearLayout>
-
-                </LinearLayout>
                 <ImageView
                     android:id="@+id/imageViewPicture"
-                    android:layout_width="105dp"
-                    android:layout_height="92dp"
-                    android:layout_marginTop="17dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.879"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:layout_constraintVertical_bias="0.749"
-                    tools:srcCompat="@tools:sample/avatars" />
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:scaleType="centerCrop"
+                    tools:src="@tools:sample/avatars"/>
 
-            </LinearLayout>
-
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:layout_marginTop="30dp"
-                android:orientation="horizontal"
-                android:weightSum="2">
-
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/updatItemrBtn"
+                <LinearLayout
                     android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="Update Item"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="#4283FF"
-                    app:cornerRadius="12dp"
-                    app:elevation="4dp"
-                    app:icon="@android:drawable/ic_menu_edit"
-                    app:iconGravity="textStart"
-                    app:iconTint="#FFFFFF" />
+                    android:orientation="vertical"
+                    android:paddingStart="16dp">
 
-                <com.google.android.material.button.MaterialButton
-                    android:id="@+id/deleteItemBtn"
-                    android:layout_width="0dp"
-                    android:layout_height="56dp"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_weight="1"
-                    android:text="Delete Item"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    app:backgroundTint="#FF1616"
-                    app:cornerRadius="12dp"
-                    app:elevation="4dp"
-                    app:icon="@android:drawable/ic_menu_delete"
-                    app:iconGravity="textStart"
-                    app:iconTint="#FFFFFF" />
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/updatItemrBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="Update Item"
+                        app:backgroundTint="#4283FF"
+                        app:icon="@android:drawable/ic_menu_edit"/>
 
+                    <com.google.android.material.button.MaterialButton
+                        android:id="@+id/deleteItemBtn"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="12dp"
+                        android:text="Delete Item"
+                        app:backgroundTint="#FF1616"
+                        app:icon="@android:drawable/ic_menu_delete"/>
+                </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>

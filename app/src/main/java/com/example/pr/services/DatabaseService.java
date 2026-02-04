@@ -441,14 +441,13 @@ public class DatabaseService {
 
 
     public void updateItem(@NotNull final Item item, @Nullable final DatabaseCallback<Void> callback) {
-        runTransaction(USERS_PATH + "/" + item.getId(), Item.class, currentItem -> item, new DatabaseCallback<Item>() {
+        runTransaction(ITEMS_PATH + "/" + item.getId(), Item.class, currentItem -> item, new DatabaseCallback<Item>() {
             @Override
             public void onCompleted(Item object) {
                 if (callback != null) {
                     callback.onCompleted(null);
                 }
             }
-
             @Override
             public void onFailed(Exception e) {
                 if (callback != null) {
