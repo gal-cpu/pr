@@ -22,7 +22,7 @@ public class splash extends AppCompatActivity {
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_splash);
 
-        VideoView VideoView= (VideoView) findViewById(R.id.vdSplash);
+        VideoView VideoView = (VideoView) findViewById(R.id.vdSplash);
         VideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash));
 
         //new set media controller
@@ -33,10 +33,10 @@ public class splash extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-                Intent intent= new Intent(splash.this, HomePage.class);
-            startActivity(intent);
-            finish();
+                Intent intent = new Intent(splash.this, HomePage.class);
+                startActivity(intent);
+                finish();
             }
-        },3000);
+        }, 3000);
     }
 }

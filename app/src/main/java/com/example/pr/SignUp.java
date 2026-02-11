@@ -22,9 +22,9 @@ import com.example.pr.services.DatabaseService;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
-    String fname, lname, email, phone, password, mfname="", mlname="", memail="", mphone="", mpassword="";
+    String fname, lname, email, phone, password, mfname = "", mlname = "", memail = "", mphone = "", mpassword = "";
     TextView tvfname, tvlname, tvemail, tvphone, tvpassword;
-    boolean fnamecheck=true, lnamecheck=true, emailcheck=false, phonecheck=false, passwordcheck=false, isAd=false;
+    boolean fnamecheck = true, lnamecheck = true, emailcheck = false, phonecheck = false, passwordcheck = false, isAd = false;
 
     private static final String TAG = "RegisterActivity";
 
@@ -32,7 +32,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     private Button btnRegister;
 
     DatabaseService databaseService;
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
 
 
@@ -76,109 +76,94 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             Log.d(TAG, "onClick: Register button clicked");
 
             /// get the input from the user
-             email = etEmail.getText().toString();
-             password = etPassword.getText().toString();
-             fname = etFName.getText().toString();
-             lname = etLName.getText().toString();
-             phone = etPhone.getText().toString();
-             isAd=false;
+            email = etEmail.getText().toString();
+            password = etPassword.getText().toString();
+            fname = etFName.getText().toString();
+            lname = etLName.getText().toString();
+            phone = etPhone.getText().toString();
+            isAd = false;
 
-            tvfname=findViewById(R.id.TvFnameMessage);
-            tvlname=findViewById(R.id.TvLnameMessage);
-            tvemail=findViewById(R.id.TvEmailMessage);
-            tvphone=findViewById(R.id.TvPhoneMessage);
-            tvpassword=findViewById(R.id.TvPasswordMessage);
-
-
-            mfname=""; mlname=""; memail=""; mphone=""; mpassword="";
-
-            fnamecheck=true; lnamecheck=true; emailcheck=false; phonecheck=false; passwordcheck=false;
-
-            fname=etFName.getText().toString();
-            lname=etLName.getText().toString();
-            email=etEmail.getText().toString();
-            phone=etPhone.getText().toString();
-            password=etPassword.getText().toString();
+            tvfname = findViewById(R.id.TvFnameMessage);
+            tvlname = findViewById(R.id.TvLnameMessage);
+            tvemail = findViewById(R.id.TvEmailMessage);
+            tvphone = findViewById(R.id.TvPhoneMessage);
+            tvpassword = findViewById(R.id.TvPasswordMessage);
 
 
-            if (fname.length()>1 && fname.length()<=10)
-            {
-                for (int i=0; i<=10;i++)
-                {
+            mfname = "";
+            mlname = "";
+            memail = "";
+            mphone = "";
+            mpassword = "";
 
-                    if(fname.contains(i+""))
-                    {
-                        fnamecheck=false;
-                        mfname="no digits";
+            fnamecheck = true;
+            lnamecheck = true;
+            emailcheck = false;
+            phonecheck = false;
+            passwordcheck = false;
+
+            fname = etFName.getText().toString();
+            lname = etLName.getText().toString();
+            email = etEmail.getText().toString();
+            phone = etPhone.getText().toString();
+            password = etPassword.getText().toString();
+
+
+            if (fname.length() > 1 && fname.length() <= 10) {
+                for (int i = 0; i <= 10; i++) {
+
+                    if (fname.contains(i + "")) {
+                        fnamecheck = false;
+                        mfname = "no digits";
                     }
                 }
-            }
-            else
-            {
-                mfname="the length should be 2-10";
+            } else {
+                mfname = "the length should be 2-10";
             }
 
             tvfname.setText(mfname);
 
-            if (lname.length()>1 && lname.length()<=20)
-            {
-                for (int i=0; i<=10;i++)
-                {
+            if (lname.length() > 1 && lname.length() <= 20) {
+                for (int i = 0; i <= 10; i++) {
 
-                    if(lname.contains(i+""))
-                    {
-                        lnamecheck=false;
-                        mlname="no digits";
+                    if (lname.contains(i + "")) {
+                        lnamecheck = false;
+                        mlname = "no digits";
                     }
                 }
-            }
-            else
-            {
-                mlname="the length should be 2-20";
+            } else {
+                mlname = "the length should be 2-20";
             }
             tvlname.setText(mlname);
 
-            if (phone.length()==10)
-            {
-                phonecheck=true;
-            }
-            else
-            {
-                mphone="phone number has 10 digits";
+            if (phone.length() == 10) {
+                phonecheck = true;
+            } else {
+                mphone = "phone number has 10 digits";
             }
             tvphone.setText(mphone);
 
 
-            if (email.length()>=6 && email.length()<=30)
-            {
-                if(email.contains("@gmail.com"))
-                {
-                    emailcheck=true;
+            if (email.length() >= 6 && email.length() <= 30) {
+                if (email.contains("@gmail.com")) {
+                    emailcheck = true;
+                } else {
+                    memail = "@gmail.com does not exist";
                 }
-                else
-                {
-                    memail="@gmail.com does not exist";
-                }
-            }
-            else
-            {
-                memail="the length should be 6-30";
+            } else {
+                memail = "the length should be 6-30";
             }
 
             tvemail.setText(memail);
 
-            if (password.length()<=12 && password.length()>=6)
-            {
-                passwordcheck=true;
-            }
-            else
-            {
-                mpassword="The length should be 6-12";
+            if (password.length() <= 12 && password.length() >= 6) {
+                passwordcheck = true;
+            } else {
+                mpassword = "The length should be 6-12";
             }
             tvpassword.setText(mpassword);
 
-            if (fnamecheck == true && lnamecheck == true && emailcheck == true && phonecheck == true && passwordcheck == true)
-            {
+            if (fnamecheck == true && lnamecheck == true && emailcheck == true && phonecheck == true && passwordcheck == true) {
                 /// Validate input
                 //   Log.d(TAG, "onClick: Validating input...");
 
@@ -202,7 +187,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
         Log.d(TAG, "registerUser: Registering user...");
 
         /// create a new user object
-        User user = new User(email, fname, "54", lname,password, phone, isAd);
+        User user = new User(email, fname, "54", lname, password, phone, isAd);
 
         /// proceed to create the user
         createUserInDatabase(user);
@@ -245,9 +230,9 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             }
         });
     }
-    public void onClickBackSignUp(View view)
-    {
-        Intent go= new Intent(SignUp.this, HomePage.class);
+
+    public void onClickBackSignUp(View view) {
+        Intent go = new Intent(SignUp.this, HomePage.class);
         startActivity(go);
     }
 }

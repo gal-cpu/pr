@@ -24,9 +24,8 @@ public class Information_page extends AppCompatActivity {
         });
     }
 
-    public void informationPageBack(View view)
-    {
-        Intent go= new Intent(Information_page.this, HomePage.class);
+    public void informationPageBack(View view) {
+        Intent go = new Intent(Information_page.this, HomePage.class);
         startActivity(go);
     }
 }

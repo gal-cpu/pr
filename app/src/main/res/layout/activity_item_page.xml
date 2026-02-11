@@ -7,4 +7,112 @@
     android:layout_height="match_parent"
     tools:context=".Item_page">
 
+
+    <!-- Header Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/headerCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="32dp"
+        app:cardCornerRadius="16dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!-- Main Form Card -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/formCard"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/headerCard">
+
+        <TextView
+            android:id="@+id/tvItem"
+            android:layout_width="192dp"
+            android:layout_height="53dp"
+            android:layout_marginLeft="75dp"
+            android:layout_marginTop="40dp"
+            android:gravity="center"
+            android:text="Item"
+            android:textColor="#B187F2"
+            android:textSize="40dp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="685dp"
+            android:layout_marginTop="120dp"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="342dp"
+                android:layout_height="176dp"
+                tools:srcCompat="@tools:sample/avatars" />
+
+            <TextView
+                android:id="@+id/tvNameItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textSize="20dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tvNoteItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:textSize="20dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tvPriceItem"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="TextView" />
+
+            <TextView
+                android:id="@+id/tvRateItem"
+                android:layout_marginTop="15dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:textSize="20dp"
+                android:text="TextView" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/updatItemrBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Buy now"
+                app:icon="@drawable/outline_1x_mobiledata_24"
+                app:backgroundTint="#BDCDFB" />
+
+            <com.google.android.material.button.MaterialButton
+                android:id="@+id/deleteItemBtn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:text="Add to the Cart"
+                app:backgroundTint="#BDCDFB"
+                app:icon="@drawable/baseline_shopping_cart_24" />
+
+        </LinearLayout>
+
+    </androidx.cardview.widget.CardView>
+
 </androidx.constraintlayout.widget.ConstraintLayout>

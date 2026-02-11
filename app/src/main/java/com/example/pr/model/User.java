@@ -1,7 +1,6 @@
 package com.example.pr.model;
 
-public class User
-{
+public class User {
     protected String id;
     protected String fName;
     protected String lName;
@@ -23,10 +22,15 @@ public class User
 
     public User() {
     }
-    public boolean gatIsAd() {return isAd;
+
+    public boolean gatIsAd() {
+        return isAd;
     }
-    public void setIsAd(boolean ad) {isAd = ad;
+
+    public void setIsAd(boolean ad) {
+        isAd = ad;
     }
+
     public String getEmail() {
         return email;
     }
@@ -38,6 +42,7 @@ public class User
     public String getId() {
         return id;
     }
+
     public String getlName() {
         return lName;
     }
@@ -53,6 +58,7 @@ public class User
     public void setEmail(String email) {
         this.email = email;
     }
+
     public void setfName(String fName) {
         this.fName = fName;
     }
@@ -60,6 +66,7 @@ public class User
     public void setId(String id) {
         this.id = id;
     }
+
     public void setlName(String lName) {
         this.lName = lName;
     }

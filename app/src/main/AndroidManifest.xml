@@ -12,22 +12,16 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".CartList"
+            android:exported="false" />
+        <activity
             android:name=".TableItems"
             android:exported="false" />
         <activity
             android:name=".UpdateItem"
             android:exported="false" />
         <activity
-            android:name=".update_users"
-            android:exported="false" />
-        <activity
-            android:name=".Update_user"
-            android:exported="false" />
-        <activity
             android:name=".UpdateUser"
-            android:exported="false" />
-        <activity
-            android:name=".AditUser"
             android:exported="false" />
         <activity
             android:name=".OneUser"
@@ -37,9 +31,6 @@
             android:exported="false" />
         <activity
             android:name=".Item_page"
-            android:exported="false" />
-        <activity
-            android:name=".ItemListActivity"
             android:exported="false" />
         <activity
             android:name=".AdminLogIn"
@@ -54,19 +45,7 @@
             android:name=".Information_page"
             android:exported="false" />
         <activity
-            android:name=".activity_devices_page"
-            android:exported="false" />
-        <activity
-            android:name=".activity_tools_page"
-            android:exported="false" />
-        <activity
-            android:name=".activity_toys_page"
-            android:exported="false" />
-        <activity
             android:name=".Book_page"
-            android:exported="false" />
-        <activity
-            android:name=".transition_page"
             android:exported="false" />
         <activity
             android:name=".LogIn"

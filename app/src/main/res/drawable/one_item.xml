@@ -3,9 +3,7 @@
     <item>
         <shape android:shape="rectangle">
             <corners android:radius="35sp"></corners>
-            <gradient android:type="sweep" android:angle="100"
-                android:startColor="#FFF1F1" android:endColor="#FFF1F1">
-            </gradient>
+            <gradient android:type="sweep" android:angle="100" android:startColor="#FFF1F1" android:endColor="#FFF1F1"></gradient>
         </shape>
     </item>
 </selector>

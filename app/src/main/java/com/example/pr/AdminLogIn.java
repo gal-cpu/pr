@@ -24,9 +24,8 @@ public class AdminLogIn extends AppCompatActivity {
         });
     }
 
-    public void btnBackLogInAdmin(View view)
-    {
-        Intent go= new Intent(AdminLogIn.this, HomePage.class);
+    public void btnBackLogInAdmin(View view) {
+        Intent go = new Intent(AdminLogIn.this, HomePage.class);
         startActivity(go);
     }
 }

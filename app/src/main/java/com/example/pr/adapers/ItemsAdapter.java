@@ -37,6 +37,7 @@ import java.util.List;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
 
     private List<Item> originalItemsList;
+
     public interface ItemClickListener {
         void onClick(Item item);
     }
@@ -59,10 +60,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         Item item = originalItemsList.get(position);
 
-       holder.ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
+        holder.ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
         holder.tvName.setText(item.getpName());
-        holder.tvRate.setText(item.getRate()+"");
-        holder.tvPrice.setText(item.getPrice()+"");
+        holder.tvRate.setText(item.getRate() + "");
+        holder.tvPrice.setText(item.getPrice() + "");
 
 
         holder.itemId = item.getId();
@@ -86,6 +87,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         this.originalItemsList.addAll(filteredUsers);
         notifyDataSetChanged();
     }
+
     public List<Item> getItemList() {
         return originalItemsList;
     }
@@ -103,11 +105,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
             tvRate = itemView.findViewById(R.id.tvRate);
             ivItem = itemView.findViewById(R.id.ivItem);
         }
+
         public void bindItem(final Item item) {
-           ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
+            ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
             tvName.setText(item.getpName());
-            tvRate.setText("Rate: "+item.getRate()+"");
-            tvPrice.setText("Price: "+item.getPrice()+"$");
+            tvRate.setText("Rate: " + item.getRate() + "");
+            tvPrice.setText("Price: " + item.getPrice() + "$");
             itemId = item.getId();
         }
     }

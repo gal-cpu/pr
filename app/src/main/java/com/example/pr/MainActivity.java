@@ -24,21 +24,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
     }
 
-    public void onClickBookPage(View view)
-    {
-        Intent go= new Intent(MainActivity.this, Book_page.class);
+    public void onClickBookPage(View view) {
+        Intent go = new Intent(MainActivity.this, Book_page.class);
         go.putExtra("type", "book");
         startActivity(go);
     }
-    public void onClickToysPage(View view)
-    {
-        Intent go= new Intent(MainActivity.this, Book_page.class);
+
+    public void onClickToysPage(View view) {
+        Intent go = new Intent(MainActivity.this, Book_page.class);
         go.putExtra("type", "toy");
         startActivity(go);
     }
 
     public void onClickDevicesPage(View view) {
-        Intent go= new Intent(MainActivity.this, Book_page.class);
+        Intent go = new Intent(MainActivity.this, Book_page.class);
         go.putExtra("type", "device");
         startActivity(go);
     }

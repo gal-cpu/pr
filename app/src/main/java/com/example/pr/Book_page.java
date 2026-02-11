@@ -26,7 +26,6 @@ import java.util.List;
 public class Book_page extends AppCompatActivity {
 
     private static final String TAG = "ItemsActivity";
-    private RecyclerView recyclerView;
     private ItemsAdapter itemsAdapter;
     private TextView tvTitle;
     private ImageView ivTitleIteams;
@@ -36,7 +35,6 @@ public class Book_page extends AppCompatActivity {
     private List<Item> allItems;
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -54,11 +52,11 @@ public class Book_page extends AppCompatActivity {
 
         databaseService = DatabaseService.getInstance();
 
-        recyclerView = findViewById(R.id.rcItemes);
+        RecyclerView recyclerView = findViewById(R.id.rcItemes);
 
         tvTitle = findViewById(R.id.tvTitleIteams);
 
-        ivTitleIteams=findViewById(R.id.ivTitleIteams);
+        ivTitleIteams = findViewById(R.id.ivTitleIteams);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -72,6 +70,7 @@ public class Book_page extends AppCompatActivity {
 
         fetchItemsFromFirebase();
     }
+
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
@@ -107,16 +106,13 @@ public class Book_page extends AppCompatActivity {
             if (selectedCategory.equals("book")) {
                 ivTitleIteams.setImageResource(R.drawable.icon_books_page);
                 tvTitle.setText("Books store");
-            }
-            else if (selectedCategory.equals("toy")) {
+            } else if (selectedCategory.equals("toy")) {
                 ivTitleIteams.setImageResource(R.drawable.icon_toys_page);
                 tvTitle.setText("Toys store");
-            }
-            else if (selectedCategory.equals("device")) {
+            } else if (selectedCategory.equals("device")) {
                 ivTitleIteams.setImageResource(R.drawable.icon_devices_page);
                 tvTitle.setText("Devices store");
-            }
-            else if(selectedCategory.equals("tools")) {
+            } else if (selectedCategory.equals("tools")) {
                 ivTitleIteams.setImageResource(R.drawable.icon_tools_page);
                 tvTitle.setText("Tools store");
             }

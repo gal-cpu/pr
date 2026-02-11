@@ -2,15 +2,14 @@ package com.example.pr.model;
 
 import androidx.annotation.NonNull;
 
-public class Item
-{
+public class Item {
     protected String id;
     protected String pName; //שם המוצר
     protected String pNote; //הערה בהתאם למוצר
 
     protected String type; //סוג המוצר
     protected double rate;
-    protected  double sumRate;//דירוג המוצר
+    protected double sumRate;//דירוג המוצר
 
     protected int numCounter;
     protected String image; //תמונה של המוצר
@@ -113,7 +112,7 @@ public class Item
                 "id='" + id + '\'' +
                 ", pName='" + pName + '\'' +
                 ", pNote='" + pNote + '\'' +
-                ", rate=" + rate +'\'' +
+                ", rate=" + rate + '\'' +
                 ", price=" + price +
                 '}';
     }

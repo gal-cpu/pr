@@ -25,9 +25,8 @@ public class UpdateItem extends AppCompatActivity {
 
     private EditText namelField, typeField, noteField, priceField;
     private ImageView ivItemField;
-    private @Nullable Bitmap iv;
     private Button updateBtn, deleteBtn;
-    private String selectedItemId="";
+    private String selectedItemId = "";
     DatabaseService databaseService;
     Item current_item;
 
@@ -42,18 +41,18 @@ public class UpdateItem extends AppCompatActivity {
             return insets;
         });
         initViews();
-        databaseService=DatabaseService.getInstance();
+        databaseService = DatabaseService.getInstance();
 
         selectedItemId = getIntent().getSerializableExtra("Item_UID").toString();
 
-        if(selectedItemId!="") {
+        if (selectedItemId != "") {
 
             databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
                 @Override
                 public void onCompleted(Item item) {
-                   current_item=item;
-                   setupListeners();
-                   populateFields();
+                    current_item = item;
+                    setupListeners();
+                    populateFields();
                 }
 
                 @Override
@@ -62,26 +61,29 @@ public class UpdateItem extends AppCompatActivity {
                 }
             });
 
+        } else {
+            Toast.makeText(UpdateItem.this,
+                    " " + selectedItemId,
+                    Toast.LENGTH_SHORT).show();
         }
-
-        else {    Toast.makeText(UpdateItem.this,
-               " "+ selectedItemId,
-                Toast.LENGTH_SHORT).show(); }
     }
+
     private void initViews() {
         namelField = findViewById(R.id.ItemNameUpdate);
         typeField = findViewById(R.id.ItemTypeUpdate);
         noteField = findViewById(R.id.ItemNoteUpdate);
         priceField = findViewById(R.id.ItemPriceUpdate);
-        ivItemField=findViewById(R.id.imageViewPicture);
+        ivItemField = findViewById(R.id.imageViewPicture);
 
         updateBtn = findViewById(R.id.updatItemrBtn);
         deleteBtn = findViewById(R.id.deleteItemBtn);
     }
+
     private void setupListeners() {
         updateBtn.setOnClickListener(v -> updateItem());
         deleteBtn.setOnClickListener(v -> deleteItem());
     }
+
     @SuppressLint("SetTextI18n")
     private void populateFields() {
 
@@ -91,10 +93,11 @@ public class UpdateItem extends AppCompatActivity {
             typeField.setText(current_item.getType());
             noteField.setText(current_item.getpNote());
             priceField.setText(current_item.getPrice() + "");
-            iv = ImageUtil.convertFrom64base(current_item.getImage());
+            @Nullable Bitmap iv = ImageUtil.convertFrom64base(current_item.getImage());
             ivItemField.setImageBitmap(iv);
         }
     }
+
     private void updateItem() {
         if (selectedItemId == null) return;
 
@@ -105,7 +108,7 @@ public class UpdateItem extends AppCompatActivity {
         String StItemIv = ivItemField.toString().trim();
 
 
-        if (name.isEmpty() || type.isEmpty() || note.isEmpty() ||  price.isEmpty()) {
+        if (name.isEmpty() || type.isEmpty() || note.isEmpty() || price.isEmpty()) {
             Toast.makeText(this, "Please fill all fields", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -118,7 +121,7 @@ public class UpdateItem extends AppCompatActivity {
         current_item.setPrice(priceD);
         current_item.setImage(StItemIv);
 
-         //Save item
+        //Save item
         DatabaseService.getInstance().updateItem(current_item, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void v) {
@@ -162,6 +165,6 @@ public class UpdateItem extends AppCompatActivity {
         });
     }
 
-    }
+}
 
 

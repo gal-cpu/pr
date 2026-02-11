@@ -24,21 +24,18 @@ public class HomePage extends AppCompatActivity {
         });
     }
 
-    public void onClicksignUp(View view)
-    {
-        Intent go= new Intent(HomePage.this, SignUp.class);
+    public void onClicksignUp(View view) {
+        Intent go = new Intent(HomePage.this, SignUp.class);
         startActivity(go);
     }
 
-    public void onClickLogIn(View view)
-    {
-        Intent go= new Intent(HomePage.this, LogIn.class);
+    public void onClickLogIn(View view) {
+        Intent go = new Intent(HomePage.this, LogIn.class);
         startActivity(go);
     }
 
-    public void onClickAudot(View view)
-    {
-        Intent go= new Intent(HomePage.this, Information_page.class);
+    public void onClickAudot(View view) {
+        Intent go = new Intent(HomePage.this, Information_page.class);
         startActivity(go);
     }
 }

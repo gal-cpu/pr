@@ -5,7 +5,8 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TableItems">
+    tools:context=".CartList">
+
 
     <ImageView
         android:id="@+id/imageView5"
@@ -51,7 +52,7 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RcItemes"
+        android:id="@+id/RcCart"
         android:layout_width="360dp"
         android:layout_height="519dp"
         android:layout_marginStart="25dp"

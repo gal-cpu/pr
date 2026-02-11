@@ -20,29 +20,32 @@ import java.util.List;
 
 
 /// Adapter for the items recycler view
+///
 /// @see RecyclerView
 /// @see User
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
     /// list of users
+    ///
     /// @see User
-    ///
-    ///
     ///
     public interface OnUserClickListener {
         void onUserClick(User user);
+
         void onLongUserClick(User user);
     }
 
     private final List<User> userList;
     private final OnUserClickListener onUserClickListener;
+
     public UsersAdapter(@Nullable final OnUserClickListener onUserClickListener) {
         userList = new ArrayList<>();
         this.onUserClickListener = onUserClickListener;
     }
 
     /// create a view holder for the adapter
-    /// @param parent the parent view group
+    ///
+    /// @param parent   the parent view group
     /// @param viewType the type of the view
     /// @return the view holder
     /// @see ViewHolder
@@ -57,7 +60,8 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
 
 
     /// bind the view holder with the data
-    /// @param holder the view holder
+    ///
+    /// @param holder   the view holder
     /// @param position the position of the item in the list
     /// @see ViewHolder
     @Override
@@ -67,20 +71,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         User user = userList.get(position);
         if (user == null) return;
 
-        holder.tvFname.setText("Name: "+user.getfName());
+        holder.tvFname.setText("Name: " + user.getfName());
 
-        holder.tvLname.setText("Last Name: "+user.getlName());
+        holder.tvLname.setText("Last Name: " + user.getlName());
 
-        holder.tvEmail.setText("Email: "+user.getEmail());
+        holder.tvEmail.setText("Email: " + user.getEmail());
 
-        holder.tvPhone.setText("Phone: "+user.getPhone()+"");
+        holder.tvPhone.setText("Phone: " + user.getPhone() + "");
 
-        holder.tvPassword.setText("Password: "+user.getPassword());
+        holder.tvPassword.setText("Password: " + user.getPassword());
         if (user.gatIsAd()) {
             holder.tvIsAdmin.setText("Admin");
             holder.ivUser.setImageResource(R.drawable.icon_admin_table);
-        }
-        else {
+        } else {
             holder.tvIsAdmin.setText("User");
             holder.ivUser.setImageResource(R.drawable.icon_user_table);
         }
@@ -102,16 +105,19 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     }
 
     /// get the number of items in the list
+    ///
     /// @return the number of items in the list
     @Override
     public int getItemCount() {
         return userList.size();
     }
+
     public void setUsers(List<User> filteredUsers) {
         this.userList.clear();
         this.userList.addAll(filteredUsers);
         notifyDataSetChanged();
     }
+
     public List<User> getUserList() {
         return userList;
     }
@@ -126,6 +132,7 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         userList.add(user);
         notifyItemInserted(userList.size() - 1);
     }
+
     public void updateUser(User user) {
         int index = userList.indexOf(user);
         if (index == -1) return;
@@ -141,9 +148,10 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     }
 
     /// View holder for the items adapter
+    ///
     /// @see RecyclerView.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView tvFname,tvLname,tvEmail,tvPhone,tvPassword,tvIsAdmin;
+        public final TextView tvFname, tvLname, tvEmail, tvPhone, tvPassword, tvIsAdmin;
         public final ImageView ivUser;
 
         public ViewHolder(View itemView) {

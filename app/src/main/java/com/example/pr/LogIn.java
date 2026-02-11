@@ -22,17 +22,16 @@ import com.example.pr.services.DatabaseService;
 import com.google.android.gms.common.util.SharedPreferencesUtils;
 
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
-     Button btnLogIn;
+    Button btnLogIn;
     EditText etEmail, etPassword;
     TextView tvemail, tvpassword, tvNotExist;
-    boolean emailcheck=false, passwordcheck=false;
-    String emailUserInput, passwordUserInput,mNotExist="", memail="", mpassword="";
+    boolean emailcheck = false, passwordcheck = false;
+    String emailUserInput, passwordUserInput, mNotExist = "", memail = "", mpassword = "";
     User current_user;
     DatabaseService databaseService;
 
-    public static final String MyPREFERENCES = "MyPrefs" ;
+    public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
-
 
 
     @Override
@@ -50,18 +49,18 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         sharedpreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
 
 
-        etEmail=findViewById(R.id.etEmailLogIn);
-        etPassword=findViewById(R.id.etPasswordLogIn);
-        btnLogIn=findViewById(R.id.btnSendLogIn);
+        etEmail = findViewById(R.id.etEmailLogIn);
+        etPassword = findViewById(R.id.etPasswordLogIn);
+        btnLogIn = findViewById(R.id.btnSendLogIn);
 
-        tvNotExist=findViewById(R.id.TvNotExistMessage);
+        tvNotExist = findViewById(R.id.TvNotExistMessage);
 
-        tvemail=findViewById(R.id.TvEmailMessage);
-        tvpassword=findViewById(R.id.TvPasswordMessage);
+        tvemail = findViewById(R.id.TvEmailMessage);
+        tvpassword = findViewById(R.id.TvPasswordMessage);
 
 
-        emailUserInput=sharedpreferences.getString("email","");
-        passwordUserInput=sharedpreferences.getString("password","");
+        emailUserInput = sharedpreferences.getString("email", "");
+        passwordUserInput = sharedpreferences.getString("password", "");
 
         etEmail.setText(emailUserInput);
         etPassword.setText(passwordUserInput);
@@ -69,7 +68,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
         btnLogIn.setOnClickListener(this);
     }
 
-    private void loginUser(String emailUserInput, String passwordUserInput){
+    private void loginUser(String emailUserInput, String passwordUserInput) {
         databaseService.LoginUser(emailUserInput, passwordUserInput, new DatabaseService.DatabaseCallback<String>() {
                     @Override
                     public void onCompleted(String userId) {
@@ -87,19 +86,15 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                             @Override
                             public void onCompleted(User user) {
 
-                                current_user=user;
+                                current_user = user;
 
 
-
-                                if(current_user.gatIsAd())
-                                {
-                                    Intent go= new Intent(LogIn.this, AdminPage.class);
+                                if (current_user.gatIsAd()) {
+                                    Intent go = new Intent(LogIn.this, AdminPage.class);
                                     startActivity(go);
 
-                                }
-                                else
-                                {
-                                    Intent go= new Intent(LogIn.this, MainActivity.class);
+                                } else {
+                                    Intent go = new Intent(LogIn.this, MainActivity.class);
                                     startActivity(go);
                                     finish();
                                 }
@@ -118,10 +113,10 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
                     @Override
                     public void onFailed(Exception e) {
-                       // SharedPreferencesUtils.signOutUser(LogIn.this);
+                        // SharedPreferencesUtils.signOutUser(LogIn.this);
 
 
-                        mNotExist="The user is not found";
+                        mNotExist = "The user is not found";
                         tvNotExist.setText(mNotExist);
                     }
                 }
@@ -130,52 +125,44 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
     @Override
     public void onClick(View view) {
-        if(view==btnLogIn) {
+        if (view == btnLogIn) {
             emailUserInput = etEmail.getText().toString() + "";
             passwordUserInput = etPassword.getText().toString() + "";
 
-            memail=""; mpassword="";
+            memail = "";
+            mpassword = "";
 
-            emailcheck=false; passwordcheck=false;
+            emailcheck = false;
+            passwordcheck = false;
 
 
-            if (emailUserInput.length()>=6 && emailUserInput.length()<=30)
-            {
-                if(emailUserInput.contains("@gmail.com"))
-                {
-                    emailcheck=true;
+            if (emailUserInput.length() >= 6 && emailUserInput.length() <= 30) {
+                if (emailUserInput.contains("@gmail.com")) {
+                    emailcheck = true;
+                } else {
+                    memail = "@gmail.com does not exist";
                 }
-                else
-                {
-                    memail="@gmail.com does not exist";
-                }
-            }
-            else
-            {
-                memail="the length should be 6-30";
+            } else {
+                memail = "the length should be 6-30";
             }
 
             tvemail.setText(memail);
 
-            if (passwordUserInput.length()<=12 && passwordUserInput.length()>=6)
-            {
-                passwordcheck=true;
-            }
-            else
-            {
-                mpassword="The length should be 6-12";
+            if (passwordUserInput.length() <= 12 && passwordUserInput.length() >= 6) {
+                passwordcheck = true;
+            } else {
+                mpassword = "The length should be 6-12";
             }
             tvpassword.setText(mpassword);
 
-            if (emailcheck == true && passwordcheck == true)
-            {
+            if (emailcheck == true && passwordcheck == true) {
                 loginUser(emailUserInput, passwordUserInput);
             }
         }
     }
-    public void btnBackLogIn(View view)
-    {
-        Intent go= new Intent(LogIn.this, HomePage.class);
+
+    public void btnBackLogIn(View view) {
+        Intent go = new Intent(LogIn.this, HomePage.class);
         startActivity(go);
     }
 }

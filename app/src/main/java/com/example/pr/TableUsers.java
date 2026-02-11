@@ -26,7 +26,6 @@ import java.util.List;
 public class TableUsers extends AppCompatActivity {
 
     private static final String TAG = "ItemsActivity";
-    private RecyclerView recyclerView;
     private UsersAdapter usersAdapter;
     DatabaseService databaseService;
     private UsersAdapter adapter;
@@ -48,7 +47,7 @@ public class TableUsers extends AppCompatActivity {
 
         databaseService = DatabaseService.getInstance();
 
-        recyclerView = findViewById(R.id.rcItemes);
+        RecyclerView recyclerView = findViewById(R.id.rcItemes);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -87,6 +86,7 @@ public class TableUsers extends AppCompatActivity {
                 allIusers = users;
                 usersAdapter.setUsers(users);
             }
+
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "Failed to load items: ", e);

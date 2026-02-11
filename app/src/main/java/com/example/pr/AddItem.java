@@ -37,13 +37,12 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     }
 
     TextView tvPname, tvPtype, tvPnote, tvPprice;
-    String mPname="", mPtype="", mPnote="", mPprice="";
-    boolean namecheck=true, notecheck=true, typecheck=false, pricecheck=true;
-    private EditText etItemName,etItemType, etItemNote, etItemPrice;
+    String mPname = "", mPtype = "", mPnote = "", mPprice = "";
+    boolean namecheck = true, notecheck = true, typecheck = false, pricecheck = true;
+    private EditText etItemName, etItemType, etItemNote, etItemPrice;
     private Button btnGallery, btnTakePic, btnAddItem;
-    private  Double rate, sumRate, numCount;
+    private Double rate, sumRate, numCount;
     private ImageView imageView;
-    private Button btnBack;
 
     private DatabaseService databaseService;
 
@@ -87,11 +86,11 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                     }
                 });
 
-        btnBack = findViewById(R.id.btnAddItemBack);
-        tvPname=findViewById(R.id.TvPnameMessage);
-        tvPtype=findViewById(R.id.TvPtypeMessage);
-        tvPnote=findViewById(R.id.TvPnoteMessage);
-        tvPprice=findViewById(R.id.TvPpriceMessage);
+        Button btnBack = findViewById(R.id.btnAddItemBack);
+        tvPname = findViewById(R.id.TvPnameMessage);
+        tvPtype = findViewById(R.id.TvPtypeMessage);
+        tvPnote = findViewById(R.id.TvPnoteMessage);
+        tvPprice = findViewById(R.id.TvPpriceMessage);
 
         btnBack.setOnClickListener(v -> {
             Intent intent = new Intent(AddItem.this, AdminPage.class);
@@ -126,55 +125,46 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 double price = Double.parseDouble(itemPrice);
 
 
-                if (itemName.length()<1)
-                {
-                    namecheck=false;
-                    mPname="This field cannot be empty";
+                if (itemName.length() < 1) {
+                    namecheck = false;
+                    mPname = "This field cannot be empty";
                 }
 
                 tvPname.setText(mPname);
 
-                    if(itemType.contains("book") || itemType.contains("toy") || itemType.contains("tools") || itemType.contains("device"))
-                    {
-                        typecheck=true;
-                    }
-                    else
-                    {
-                        mPtype="book/toy/tools/device";
-                    }
+                if (itemType.contains("book") || itemType.contains("toy") || itemType.contains("tools") || itemType.contains("device")) {
+                    typecheck = true;
+                } else {
+                    mPtype = "book/toy/tools/device";
+                }
 
                 tvPtype.setText(mPtype);
 
 
-                if (itemNote.isEmpty())
-                    {
-                        mPnote="the length should be at least 1";
-                        notecheck=false;
-                    }
+                if (itemNote.isEmpty()) {
+                    mPnote = "the length should be at least 1";
+                    notecheck = false;
+                }
                 tvPnote.setText(mPnote);
 
 
-                if (itemPrice.isEmpty())
-                {
-                    mPnote="the price should be above 0$";
-                    pricecheck=false;
+                if (itemPrice.isEmpty()) {
+                    mPnote = "the price should be above 0$";
+                    pricecheck = false;
                 }
 
                 tvPprice.setText(mPnote);
 
 
-                if (itemName.isEmpty() || itemNote.isEmpty() || itemPrice.isEmpty() || itemType.isEmpty())
-                {
+                if (itemName.isEmpty() || itemNote.isEmpty() || itemPrice.isEmpty() || itemType.isEmpty()) {
                     Toast.makeText(AddItem.this, "אנא מלא את כל השדות", Toast.LENGTH_SHORT).show();
                 }
-                if (namecheck == true && typecheck == true && notecheck == true && pricecheck == true)
-                {
+                if (namecheck == true && typecheck == true && notecheck == true && pricecheck == true) {
                     Toast.makeText(AddItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
 
                     String id = databaseService.generateItemId();
 
                     Item newItem = new Item(id, imageBase64, 0, itemName, itemNote, price, 0.0, 0.0, itemType);
-
 
 
                     /// generate a new id for the item
@@ -188,12 +178,11 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                             /// clear the input fields after adding the item for the next item
                             Log.d("TAG", "Clearing input fields");
                             Intent intent = new Intent(AddItem.this, AdminPage.class);
-                           startActivity(intent);
+                            startActivity(intent);
                         }
 
                         @Override
-                        public void onFailed(Exception e)
-                        {
+                        public void onFailed(Exception e) {
                             Log.e("TAG", "Failed to add item", e);
                             Toast.makeText(AddItem.this, "Failed to add item", Toast.LENGTH_SHORT).show();
                         }
@@ -203,8 +192,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         });
     }
 
-    private void InitViews()
-    {
+    private void InitViews() {
         etItemName = findViewById(R.id.etItemName);
         etItemNote = findViewById(R.id.etItemNote);
         etItemPrice = findViewById(R.id.etItemPrice);
@@ -218,8 +206,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
     /// select image from gallery
     private void selectImageFromGallery() {
-        //   Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-        //  selectImageLauncher.launch(intent);
 
         imageChooser();
     }

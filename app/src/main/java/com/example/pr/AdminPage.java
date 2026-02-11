@@ -26,20 +26,19 @@ public class AdminPage extends AppCompatActivity {
         });
     }
 
-    public void GoToAddItem(View view)
-    {
-        Intent go= new Intent(AdminPage.this, AddItem.class);
+    public void GoToAddItem(View view) {
+        Intent go = new Intent(AdminPage.this, AddItem.class);
         startActivity(go);
     }
 
     public void OnClickUsersTable(View view) {
-        Intent go= new Intent(AdminPage.this, TableUsers.class);
+        Intent go = new Intent(AdminPage.this, TableUsers.class);
         startActivity(go);
     }
 
 
     public void OnClickItemsTable(View view) {
-        Intent go= new Intent(AdminPage.this, TableItems.class);
+        Intent go = new Intent(AdminPage.this, TableItems.class);
         startActivity(go);
     }
 }
