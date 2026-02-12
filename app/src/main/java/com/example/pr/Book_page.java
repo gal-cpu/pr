@@ -1,6 +1,7 @@
 package com.example.pr;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
@@ -63,7 +64,11 @@ public class Book_page extends AppCompatActivity {
         itemsAdapter = new ItemsAdapter(new ItemsAdapter.ItemClickListener() {
             @Override
             public void onClick(Item item) {
-
+                // Handle item click
+                Log.d(TAG, "Item clicked: " + item);
+                Intent intent = new Intent(Book_page.this, Item_page.class);
+                intent.putExtra("Item_UID", item.getId());
+                startActivity(intent);
             }
         });
         recyclerView.setAdapter(itemsAdapter);

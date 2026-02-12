@@ -29,7 +29,6 @@ public class Item_page extends AppCompatActivity {
     TextView tvName, tvNote, tvPrice, tvRate;
 
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,6 +39,7 @@ public class Item_page extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+        selectedCategory = getIntent().getStringExtra("Item_UID");
 
         databaseService = DatabaseService.getInstance();
         tvName = findViewById(R.id.tvNameItem);
@@ -78,7 +78,7 @@ public class Item_page extends AppCompatActivity {
         if (selectedCategory != null && !selectedCategory.isEmpty()) {
             // אם נבחרה קטגוריה מסוימת, נבצע סינון
             for (Item item : allItems) {
-                if (item.getType().equals(selectedCategory)) {
+                if (item.getId().equals(selectedCategory)) {
                     filteredItems.add(item);
                 }
             }

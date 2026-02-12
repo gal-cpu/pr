@@ -63,7 +63,6 @@ public class TableItems extends AppCompatActivity {
             }
 
         });
-        recyclerView.setAdapter(itemsAdapter);
 
         recyclerView.setAdapter(itemsAdapter);
 
