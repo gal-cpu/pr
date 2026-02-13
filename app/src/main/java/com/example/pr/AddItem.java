@@ -140,7 +140,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
                 tvPtype.setText(mPtype);
 
-
                 if (itemNote.isEmpty()) {
                     mPnote = "the length should be at least 1";
                     notecheck = false;
@@ -179,6 +178,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                             Log.d("TAG", "Clearing input fields");
                             Intent intent = new Intent(AddItem.this, AdminPage.class);
                             startActivity(intent);
+                            finish();
                         }
 
                         @Override

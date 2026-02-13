@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- צבע הרקע הפנימי (שקוף או לבן) -->
+    <solid android:color="@android:color/transparent" />
+
+    <!-- המסגרת: עובי וצבע -->
+    <stroke
+        android:width="2dp"
+        android:color="#D499F0" /> <!-- שנה כאן את הצבע שתרצה -->
+
+    <!-- פינות מעוגלות (אופציונלי) -->
+    <corners android:radius="16dp" />
+</shape>
