@@ -4,110 +4,130 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
-    android:layout_height="250dp"
+    android:layout_height="wrap_content"
     android:layout_marginBottom="20dp"
+    android:layout_margin="12dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="4dp"
+    app:strokeWidth="1dp"
+    app:strokeColor="#E0E0E0"
     tools:context=".OneUser">
 
-    <ImageView
-        android:id="@+id/ivbackground"
-        android:layout_width="392dp"
-        android:layout_height="249dp"
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.473"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0"
-        app:srcCompat="@drawable/one_item" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <ImageView
-        android:id="@+id/ivUser"
-        android:layout_width="89dp"
-        android:layout_height="74dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.055"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.172" />
+        <!-- תמונת פרופיל מעוגלת -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/ivUser"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:background="#F0F0F0"
+            android:scaleType="centerCrop"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.MaterialComponents.SmallComponent"
+            tools:src="@tools:sample/avatars" />
+
+        <!-- סטטוס אדמין - תגית קטנה -->
+        <TextView
+            android:id="@+id/tvISAdmin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/admin_tag_bg"
+            android:paddingHorizontal="8dp"
+            android:paddingVertical="2dp"
+            android:text="Admin"
+            android:textColor="#FFFFFF"
+            android:textSize="12sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="@+id/ivUser"
+            app:layout_constraintStart_toStartOf="@+id/ivUser"
+            app:layout_constraintTop_toBottomOf="@+id/ivUser" />
+
+        <!-- שם פרטי -->
+
+        <!-- שם משפחה -->
+
+        <!-- אימייל -->
+
+        <!-- קו מפריד דקורטיבי -->
+
+        <TextView
+            android:id="@+id/tvFname"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="8dp"
+            android:text="John"
+            android:textColor="#212121"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/ivUser"
+            app:layout_constraintTop_toTopOf="@+id/ivUser" />
 
 
-    <TextView
-        android:id="@+id/tvISAdmin"
-        android:layout_width="117dp"
-        android:layout_height="28dp"
-        android:gravity="center"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.034"
-        app:layout_constraintStart_toStartOf="@+id/ivbackground"
-        app:layout_constraintTop_toTopOf="parent" />
+        <TextView
+            android:id="@+id/tvEmail"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:alpha="0.7"
+            android:text="john.doe@email.com"
+            android:textSize="14sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="@+id/tvFname"
+            app:layout_constraintTop_toBottomOf="@+id/tvFname" />
 
-    <TextView
-        android:id="@+id/tvFname"
-        android:layout_width="225dp"
-        android:layout_height="33dp"
-        android:gravity="start"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.11" />
+        <View
+            android:id="@+id/divider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="#EEEEEE"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/tvISAdmin" />
 
-    <TextView
-        android:id="@+id/tvLname"
-        android:layout_width="225dp"
-        android:layout_height="33dp"
-        android:gravity="start"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.294" />
+        <!-- טלפון -->
+        <TextView
+            android:id="@+id/tvPhone"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:drawableStart="@android:drawable/ic_menu_call"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:text="050-1234567"
+            app:layout_constraintEnd_toStartOf="@+id/tvPassword"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/divider" />
 
-    <TextView
-        android:id="@+id/tvEmail"
-        android:layout_width="225dp"
-        android:layout_height="33dp"
-        android:gravity="start"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.913"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.488" />
+        <!-- סיסמה (מוסתרת בדרך כלל בעיצוב) -->
+        <TextView
+            android:id="@+id/tvPassword"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:drawableStart="@android:drawable/ic_lock_idle_lock"
+            android:drawablePadding="8dp"
+            android:gravity="center_vertical"
+            android:text="********"
+            app:layout_constraintBottom_toBottomOf="@+id/tvPhone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_weight="1"
+            app:layout_constraintStart_toEndOf="@+id/tvPhone"
+            app:layout_constraintTop_toTopOf="@+id/tvPhone" />
 
-    <TextView
-        android:id="@+id/tvPhone"
-        android:layout_width="180dp"
-        android:layout_height="33dp"
-        android:gravity="start"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.077"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.718" />
-
-    <TextView
-        android:id="@+id/tvPassword"
-        android:layout_width="180dp"
-        android:layout_height="33dp"
-        android:gravity="start"
-        android:text="TextView"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.93"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.718" />
-
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

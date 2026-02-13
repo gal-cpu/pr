@@ -113,7 +113,7 @@
             app:layout_constraintVertical_bias="1.0" />
 
         <TextView
-            android:id="@+id/btnSendLogIn"
+            android:id="@+id/TvNotExistMessage"
             android:layout_width="316dp"
             android:layout_height="20dp"
             android:text=""

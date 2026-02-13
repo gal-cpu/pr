@@ -32,7 +32,6 @@ public class TableItems extends AppCompatActivity {
     private SearchView searchView;
     private List<Item> allIitems;
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +74,7 @@ public class TableItems extends AppCompatActivity {
         databaseService.getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
             @Override
             public void onCompleted(List<Item> items) {
-                // Log.d(TAG, "onCompleted: " + items);
+                 Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + items.size());
                 allIitems = items;
                 itemsAdapter.setItem(items);
             }

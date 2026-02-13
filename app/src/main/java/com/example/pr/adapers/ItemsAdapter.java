@@ -4,6 +4,7 @@ import static android.content.Intent.getIntent;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.text.SpannableString;
@@ -36,6 +37,8 @@ import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
 
+    private static final String TAG = "ItemsAdapter";
+
     private List<Item> originalItemsList;
 
     public interface ItemClickListener {
@@ -59,22 +62,32 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     @Override
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         Item item = originalItemsList.get(position);
-
-        holder.ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
-        holder.tvName.setText(item.getpName());
-        holder.tvRate.setText(item.getRate() + "");
-        holder.tvPrice.setText(item.getPrice() + "");
-
-
-        holder.itemId = item.getId();
-        holder.bindItem(item);
-
-        holder.itemView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                itemClickListener.onClick(item);
+        try {
+            Bitmap bitmap = ImageUtil.convertFrom64base(item.getImage());
+            if (bitmap != null) {
+                holder.ivItem.setImageBitmap(bitmap);
             }
-        });
+            holder.tvName.setText(item.getpName());
+            holder.tvRate.setText(item.getRate() + "");
+            holder.tvPrice.setText(item.getPrice() + "");
+
+
+            holder.itemId = item.getId();
+            holder.bindItem(item);
+
+            holder.itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    itemClickListener.onClick(item);
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+            Log.e(TAG, "position :"+holder.getAdapterPosition());
+            Log.e(TAG, "item :"+item);
+            Log.e(TAG, "item id :"+item.getId());
+            throw e;
+        }
     }
 
     @Override

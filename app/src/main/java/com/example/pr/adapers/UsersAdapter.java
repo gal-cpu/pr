@@ -71,15 +71,13 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         User user = userList.get(position);
         if (user == null) return;
 
-        holder.tvFname.setText("Name: " + user.getfName());
+        holder.tvFname.setText(user.getfName() + " " + user.getlName());
 
-        holder.tvLname.setText("Last Name: " + user.getlName());
+        holder.tvEmail.setText(user.getEmail());
 
-        holder.tvEmail.setText("Email: " + user.getEmail());
+        holder.tvPhone.setText(user.getPhone() + "");
 
-        holder.tvPhone.setText("Phone: " + user.getPhone() + "");
-
-        holder.tvPassword.setText("Password: " + user.getPassword());
+        holder.tvPassword.setText(user.getPassword());
         if (user.gatIsAd()) {
             holder.tvIsAdmin.setText("Admin");
             holder.ivUser.setImageResource(R.drawable.icon_admin_table);
@@ -151,14 +149,14 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     ///
     /// @see RecyclerView.ViewHolder
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        public final TextView tvFname, tvLname, tvEmail, tvPhone, tvPassword, tvIsAdmin;
+        public final TextView tvFname, tvEmail, tvPhone, tvPassword, tvIsAdmin;
         public final ImageView ivUser;
 
         public ViewHolder(View itemView) {
             super(itemView);
 
             tvFname = itemView.findViewById(R.id.tvFname);
-            tvLname = itemView.findViewById(R.id.tvLname);
+            //tvLname = itemView.findViewById(R.id.tvLname);
             tvEmail = itemView.findViewById(R.id.tvEmail);
             tvPhone = itemView.findViewById(R.id.tvPhone);
             tvPassword = itemView.findViewById(R.id.tvPassword);

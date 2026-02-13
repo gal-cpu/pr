@@ -1,6 +1,7 @@
 package com.example.pr.model;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 
 public class Item {
     protected String id;
@@ -40,6 +41,7 @@ public class Item {
         this.id = id;
     }
 
+    @Nullable
     public String getImage() {
         return image;
     }

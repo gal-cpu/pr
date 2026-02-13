@@ -105,7 +105,6 @@ public class UpdateItem extends AppCompatActivity {
         String type = typeField.getText().toString().trim();
         String note = noteField.getText().toString().trim();
         String price = priceField.getText().toString().trim();
-        String StItemIv = ivItemField.toString().trim();
 
 
         if (name.isEmpty() || type.isEmpty() || note.isEmpty() || price.isEmpty()) {
@@ -119,7 +118,6 @@ public class UpdateItem extends AppCompatActivity {
         current_item.setType(type);
         current_item.setpNote(note);
         current_item.setPrice(priceD);
-        current_item.setImage(StItemIv);
 
         //Save item
         DatabaseService.getInstance().updateItem(current_item, new DatabaseService.DatabaseCallback<Void>() {
@@ -147,11 +145,11 @@ public class UpdateItem extends AppCompatActivity {
     private void deleteItem() {
         if (selectedItemId == null) return;
 
-        DatabaseService.getInstance().deleteUser(current_item.getId(), new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().deleteItem(current_item.getId(), new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void v) {
-                Toast.makeText(UpdateItem.this, "User deleted", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UpdateItem.this, TableUsers.class);
+                Toast.makeText(UpdateItem.this, "Item deleted", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UpdateItem.this, TableItems.class);
                 startActivity(intent);
                 finish();
             }
