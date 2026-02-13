@@ -41,4 +41,9 @@ public class AdminPage extends AppCompatActivity {
         Intent go = new Intent(AdminPage.this, TableItems.class);
         startActivity(go);
     }
+
+    public void OnClickWebsite(View view) {
+        Intent go = new Intent(AdminPage.this, Book_page.class);
+        startActivity(go);
+    }
 }

@@ -91,6 +91,7 @@ public class UpdateItem extends AppCompatActivity {
 
             namelField.setText(current_item.getpName());
             typeField.setText(current_item.getType());
+            typeField.setEnabled(false);
             noteField.setText(current_item.getpNote());
             priceField.setText(current_item.getPrice() + "");
             @Nullable Bitmap iv = ImageUtil.convertFrom64base(current_item.getImage());
@@ -140,7 +141,6 @@ public class UpdateItem extends AppCompatActivity {
             }
         });
     }
-
 
     private void deleteItem() {
         if (selectedItemId == null) return;

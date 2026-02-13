@@ -68,8 +68,8 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
                 holder.ivItem.setImageBitmap(bitmap);
             }
             holder.tvName.setText(item.getpName());
-            holder.tvRate.setText(item.getRate() + "");
-            holder.tvPrice.setText(item.getPrice() + "");
+            holder.tvRate.setText(item.getRate() + "⭐");
+            holder.tvPrice.setText(item.getPrice() + "$");
 
 
             holder.itemId = item.getId();
@@ -122,7 +122,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         public void bindItem(final Item item) {
             ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
             tvName.setText(item.getpName());
-            tvRate.setText("Rate: " + item.getRate() + "");
+            tvRate.setText("Rate: " + item.getRate() + "⭐");
             tvPrice.setText("Price: " + item.getPrice() + "$");
             itemId = item.getId();
         }

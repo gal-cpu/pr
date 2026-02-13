@@ -2,9 +2,13 @@ package com.example.pr;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -16,16 +20,20 @@ import com.example.pr.adapers.ItemsAdapter;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
+import com.example.pr.util.ImageUtil;
+
+import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Item_page extends AppCompatActivity {
-    private ItemsAdapter itemsAdapter;
     private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
-    private List<Item> allItems;
-    private String selectedCategory;
+    private Button BuyItemrBtn, CartItemBtn;
+    private ImageView ivItemField;
+    private String selectedItemId;
+    Item current_item;
     TextView tvName, tvNote, tvPrice, tvRate;
 
 
@@ -39,50 +47,68 @@ public class Item_page extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        selectedCategory = getIntent().getStringExtra("Item_UID");
-
+        initViews();
         databaseService = DatabaseService.getInstance();
+
+        selectedItemId = getIntent().getSerializableExtra("Item_UID").toString();
+
+
+        if (selectedItemId != "") {
+
+            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
+                @Override
+                public void onCompleted(Item item) {
+                    current_item = item;
+                    setupListeners();
+                    populateFields();
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+
+                }
+            });
+
+        } else {
+            Toast.makeText(Item_page.this,
+                    " " + selectedItemId,
+                    Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void initViews() {
         tvName = findViewById(R.id.tvNameItem);
         tvNote = findViewById(R.id.tvNoteItem);
         tvPrice = findViewById(R.id.tvPriceItem);
         tvRate = findViewById(R.id.tvRateItem);
+        ivItemField = findViewById(R.id.ivItemAddCart);
 
-        fetchItemsFromFirebase();
+        BuyItemrBtn = findViewById(R.id.BuyItemrBtn);
+        CartItemBtn = findViewById(R.id.CartItemBtn);
     }
 
-    private void fetchItemsFromFirebase() {
-
-        // טעינת המוצרים
-        databaseService.getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
-            @Override
-            public void onCompleted(List<Item> items) {
-                // Log.d(TAG, "onCompleted: " + items);
-                allItems = items;
-                itemsAdapter.setItem(items);
-                filterItemsByCategory();
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-                Log.e(TAG, "Failed to load items: ", e);
-                new android.app.AlertDialog.Builder(Item_page.this)
-                        .setMessage("נראה שקרתה תקלה בטעינת המוצרים, נסה שוב מאוחר יותר")
-                        .setPositiveButton("אוקי", null)
-                        .show();
-            }
-        });
+    private void setupListeners() {
+        BuyItemrBtn.setOnClickListener(v -> buyItem());
+        CartItemBtn.setOnClickListener(v -> addCartItem());
     }
 
-    private void filterItemsByCategory() {
-        ArrayList<Item> filteredItems = new ArrayList<>();
-        if (selectedCategory != null && !selectedCategory.isEmpty()) {
-            // אם נבחרה קטגוריה מסוימת, נבצע סינון
-            for (Item item : allItems) {
-                if (item.getId().equals(selectedCategory)) {
-                    filteredItems.add(item);
-                }
-            }
-            itemsAdapter.setItem(filteredItems);
+    @SuppressLint("SetTextI18n")
+    private void populateFields() {
+
+        if (current_item != null) {
+
+            tvName.setText("Name: " + current_item.getpName());
+            tvNote.setText("Information: " + current_item.getpNote());
+            tvRate.setText("Rate: " + current_item.getRate()+"⭐");
+            tvPrice.setText("Price: " + current_item.getPrice() + "$");
+            @Nullable Bitmap iv = ImageUtil.convertFrom64base(current_item.getImage());
+            ivItemField.setImageBitmap(iv);
         }
     }
+    private void buyItem() {
+    }
+
+    private void addCartItem() {
+    }
+
 }

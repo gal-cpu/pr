@@ -5,81 +5,126 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F5F7FA"
+    android:padding="24dp"
     tools:context=".AdminPage">
 
+    <androidx.cardview.widget.CardView
+        android:id="@+id/formCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="30dp"
+        >
 
-    <TextView
-        android:id="@+id/LogInTitle"
-        android:layout_width="223dp"
-        android:layout_height="104dp"
-        android:layout_marginBottom="43dp"
-        android:text="Welcome \nBack Admin"
-        android:textSize="40dp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.085"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.285" />
+        <!-- כותרת ראשית מעוצבת -->
+        <TextView
+            android:id="@+id/LogInTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="100dp"
+            android:layout_marginLeft="10dp"
+            android:text="Welcome Back,\nAdmin"
+            android:textColor="#1A1C1E"
+            android:textSize="36sp"
+            android:fontFamily="sans-serif-black"
+            android:lineSpacingExtra="4dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="367dp"
-        android:layout_height="42dp"
-        android:text="What would you like to do?"
-        android:textSize="30dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.363"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.409" />
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="200dp"
+            android:layout_marginLeft="10dp"
+            android:text="What would you like to do today?"
+            android:textColor="#6C757D"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LogInTitle" />
 
-    <Button
-        android:id="@+id/btnAddItemAdmin"
-        android:layout_width="231dp"
-        android:layout_height="46dp"
-        android:backgroundTint="#DBEDFD"
-        android:onClick="GoToAddItem"
-        android:text="Add Item"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.498"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.559" />
+        <!-- קונטיינר לכפתורים לסידור נקי -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView6"
+            app:layout_constraintVertical_bias="0.4">
 
-    <Button
-        android:id="@+id/ListOfUsers"
-        android:layout_width="231dp"
-        android:layout_height="46dp"
-        android:backgroundTint="#DBEDFD"
-        android:text="List of users"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        android:onClick="OnClickUsersTable"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.654" />
+            <Button
+                android:id="@+id/btnAddItemAdmin"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="380dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:backgroundTint="#4A90E2"
+                android:onClick="GoToAddItem"
+                android:text="Add New Item"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                app:cornerRadius="12dp"
+                app:icon="@android:drawable/ic_menu_add" />
 
-    <Button
-        android:id="@+id/RemoveItem"
-        android:layout_width="231dp"
-        android:layout_height="46dp"
-        android:backgroundTint="#DBEDFD"
-        android:text="List of items"
-        android:onClick="OnClickItemsTable"
-        android:textColor="#FFFFFF"
-        android:textSize="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.757" />
+            <Button
+                android:id="@+id/ListOfUsers"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:backgroundTint="#FFFFFF"
+                android:onClick="OnClickUsersTable"
+                android:text="Users List"
+                android:textAllCaps="false"
+                android:textColor="#4A90E2"
+                android:textSize="18sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="#4A90E2"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/ListOfItems"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginBottom="16dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:backgroundTint="#FFFFFF"
+                android:onClick="OnClickItemsTable"
+                android:text="Items List"
+                android:textAllCaps="false"
+                android:textColor="#4A90E2"
+                android:textSize="18sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="#4A90E2"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/Website"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:onClick="OnClickWebsite"
+                android:text="View Public Website"
+                android:textAllCaps="false"
+                android:textColor="#6C757D"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
