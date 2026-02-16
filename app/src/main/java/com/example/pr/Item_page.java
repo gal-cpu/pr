@@ -17,10 +17,12 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.pr.adapers.ItemsAdapter;
+import com.example.pr.model.Cart;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
+import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -36,6 +38,12 @@ public class Item_page extends AppCompatActivity {
     Item current_item;
     TextView tvName, tvNote, tvPrice, tvRate;
 
+    FirebaseAuth mAuth ;
+
+    String userId;
+
+    Cart userCart=null;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +56,25 @@ public class Item_page extends AppCompatActivity {
             return insets;
         });
         initViews();
+        mAuth = FirebaseAuth.getInstance();
+        userId=mAuth.getCurrentUser().getUid();
         databaseService = DatabaseService.getInstance();
+
+        databaseService.getCart(userId, new DatabaseService.DatabaseCallback<Cart>() {
+            @Override
+            public void onCompleted(Cart cart) {
+
+                if(cart==null)
+                    cart=new Cart();
+
+                userCart=cart;
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                userCart=new Cart();
+            }
+        });
 
         selectedItemId = getIntent().getSerializableExtra("Item_UID").toString();
 
@@ -109,6 +135,29 @@ public class Item_page extends AppCompatActivity {
     }
 
     private void addCartItem() {
+
+        if (userCart != null) {
+
+            userCart.addItem(current_item);
+
+            databaseService.updateCart(userId, new DatabaseService.DatabaseCallback<Void>() {
+                @Override
+                public void onCompleted(Void object) {
+                    Intent go = new Intent(Item_page.this, AdminPage.class);
+                    startActivity(go);
+                    finish();
+
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+
+                }
+            });
+
+
+        }
     }
+
 
 }

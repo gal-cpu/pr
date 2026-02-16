@@ -152,7 +152,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                     pricecheck = false;
                 }
 
-                tvPprice.setText(mPnote);
+                tvPprice.setText(mPprice);
 
 
                 if (itemName.isEmpty() || itemNote.isEmpty() || itemPrice.isEmpty() || itemType.isEmpty()) {
@@ -202,7 +202,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         btnAddItem = findViewById(R.id.btnAddItem);
         imageView = findViewById(R.id.imageViewPicture);
     }
-
 
     /// select image from gallery
     private void selectImageFromGallery() {
