@@ -17,6 +17,7 @@ import com.example.pr.adapers.ItemsAdapter;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
+import com.example.pr.util.SharedPreferencesUtil;
 
 import java.util.List;
 
@@ -26,7 +27,6 @@ public class CartList extends AppCompatActivity {
     DatabaseService databaseService;
     User current_user = null;
     private ItemsAdapter itemsAdapter;
-    private String selectedUserId = "";
     private List<Item> allIitems;
 
     @SuppressLint("MissingInflatedId")
@@ -43,10 +43,10 @@ public class CartList extends AppCompatActivity {
 
         databaseService = DatabaseService.getInstance();
 
-        selectedUserId = getIntent().getStringExtra("UID");
+        current_user = SharedPreferencesUtil.getUser(CartList.this);
 
-        if (selectedUserId == null) {
-            // TODO selectedUserId will be the current user id
+        if (current_user == null) {
+           return;
         }
 
         RecyclerView recyclerView = findViewById(R.id.RcCart);
@@ -74,10 +74,10 @@ public class CartList extends AppCompatActivity {
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
-        databaseService.getUser(selectedUserId, new DatabaseService.DatabaseCallback<User>() {
+        databaseService.getUser(current_user.getId(), new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {
-                // Log.d(TAG, "onCompleted: " + items);
+                Log.d(TAG, "onCompleted: " + user);
                 allIitems = user.getCart().getItemArrayList();
                 itemsAdapter.setItem(allIitems);
             }
