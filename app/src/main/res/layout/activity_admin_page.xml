@@ -15,24 +15,23 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="#FFFFFF"
-        app:cardCornerRadius="30dp"
-        >
+        app:cardCornerRadius="30dp">
 
         <!-- כותרת ראשית מעוצבת -->
         <TextView
             android:id="@+id/LogInTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="100dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="100dp"
+            android:fontFamily="sans-serif-black"
+            android:lineSpacingExtra="4dp"
             android:text="Welcome Back,\nAdmin"
             android:textColor="#1A1C1E"
             android:textSize="36sp"
-            android:fontFamily="sans-serif-black"
-            android:lineSpacingExtra="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -40,8 +39,8 @@
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="200dp"
             android:layout_marginLeft="10dp"
+            android:layout_marginTop="200dp"
             android:text="What would you like to do today?"
             android:textColor="#6C757D"
             android:textSize="18sp"
@@ -62,10 +61,10 @@
                 style="@style/Widget.MaterialComponents.Button"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginTop="380dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="30dp"
+                android:layout_marginTop="380dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginBottom="16dp"
                 android:backgroundTint="#4A90E2"
                 android:onClick="GoToAddItem"
                 android:text="Add New Item"
@@ -79,9 +78,9 @@
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginBottom="16dp"
                 android:backgroundTint="#FFFFFF"
                 android:onClick="OnClickUsersTable"
                 android:text="Users List"
@@ -97,9 +96,9 @@
                 style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_marginBottom="16dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
+                android:layout_marginBottom="16dp"
                 android:backgroundTint="#FFFFFF"
                 android:onClick="OnClickItemsTable"
                 android:text="Items List"
@@ -123,6 +122,40 @@
                 android:textColor="#6C757D"
                 android:textSize="16sp" />
 
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:background="#F5F5F5"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="IVuserClick"
+                android:padding="16dp"
+                android:src="@drawable/icon_user" /> <!-- פרופיל -->
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="IVcartClick"
+                android:padding="16dp"
+                android:src="@drawable/icon_cart" /> <!-- עגלה -->
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:onClick="IVhouseClick"
+                android:padding="16dp"
+                android:src="@drawable/icon_house" /> <!-- בית -->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 

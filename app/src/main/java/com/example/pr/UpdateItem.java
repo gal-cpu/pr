@@ -23,12 +23,12 @@ import org.jetbrains.annotations.Nullable;
 
 public class UpdateItem extends AppCompatActivity {
 
+    DatabaseService databaseService;
+    Item current_item;
     private EditText namelField, typeField, noteField, priceField;
     private ImageView ivItemField;
     private Button updateBtn, deleteBtn;
     private String selectedItemId = "";
-    DatabaseService databaseService;
-    Item current_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

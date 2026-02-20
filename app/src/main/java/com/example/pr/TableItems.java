@@ -1,6 +1,5 @@
 package com.example.pr;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +16,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.adapers.ItemsAdapter;
 import com.example.pr.adapers.UsersAdapter;
 import com.example.pr.model.Item;
-import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
 import java.util.List;
@@ -25,8 +23,8 @@ import java.util.List;
 public class TableItems extends AppCompatActivity {
 
     private static final String TAG = "ItemsActivity";
-    private ItemsAdapter itemsAdapter;
     DatabaseService databaseService;
+    private ItemsAdapter itemsAdapter;
     private UsersAdapter adapter;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
     private SearchView searchView;
@@ -74,7 +72,7 @@ public class TableItems extends AppCompatActivity {
         databaseService.getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
             @Override
             public void onCompleted(List<Item> items) {
-                 Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + items.size());
+                Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + items.size());
                 allIitems = items;
                 itemsAdapter.setItem(items);
             }

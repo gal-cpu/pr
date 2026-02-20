@@ -23,19 +23,15 @@ import com.example.pr.services.DatabaseService;
 
 public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
+    public static final String MyPREFERENCES = "MyPrefs";
+    private static final String TAG = "RegisterActivity";
     String fname, lname, email, phone, password, mfname = "", mlname = "", memail = "", mphone = "", mpassword = "";
     TextView tvfname, tvlname, tvemail, tvphone, tvpassword;
     boolean fnamecheck = true, lnamecheck = true, emailcheck = false, phonecheck = false, passwordcheck = false, isAd = false;
-
-    private static final String TAG = "RegisterActivity";
-
+    DatabaseService databaseService;
+    SharedPreferences sharedpreferences;
     private EditText etEmail, etPassword, etFName, etLName, etPhone;
     private Button btnRegister;
-
-    DatabaseService databaseService;
-    public static final String MyPREFERENCES = "MyPrefs";
-    SharedPreferences sharedpreferences;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

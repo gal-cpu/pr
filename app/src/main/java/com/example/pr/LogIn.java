@@ -1,11 +1,9 @@
 package com.example.pr;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -19,9 +17,9 @@ import androidx.core.view.WindowInsetsCompat;
 
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
-import com.google.android.gms.common.util.SharedPreferencesUtils;
 
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
+    public static final String MyPREFERENCES = "MyPrefs";
     Button btnLogIn;
     EditText etEmail, etPassword;
     TextView tvemail, tvpassword, tvNotExist;
@@ -29,8 +27,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     String emailUserInput, passwordUserInput, mNotExist = "", memail = "", mpassword = "";
     User current_user;
     DatabaseService databaseService;
-
-    public static final String MyPREFERENCES = "MyPrefs";
     SharedPreferences sharedpreferences;
 
 

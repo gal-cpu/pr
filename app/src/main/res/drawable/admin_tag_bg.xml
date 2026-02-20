@@ -10,8 +10,8 @@
 
     <!-- מרווח פנימי כדי שהטקסט לא יידבק לקצוות -->
     <padding
+        android:bottom="2dp"
         android:left="8dp"
         android:right="8dp"
-        android:top="2dp"
-        android:bottom="2dp" />
+        android:top="2dp" />
 </shape>

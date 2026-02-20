@@ -1,35 +1,18 @@
 package com.example.pr.adapers;
 
-import static android.content.Intent.getIntent;
-
-import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.Color;
-import android.graphics.Paint;
-import android.text.SpannableString;
-import android.text.Spanned;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.StrikethroughSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
-
 
 import com.example.pr.R;
 import com.example.pr.model.Item;
-import com.example.pr.model.User;
-import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
 
 import java.util.ArrayList;
@@ -40,11 +23,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     private static final String TAG = "ItemsAdapter";
 
     private List<Item> originalItemsList;
-
-    public interface ItemClickListener {
-        void onClick(Item item);
-    }
-
     private ItemClickListener itemClickListener;
 
     public ItemsAdapter(@NonNull ItemClickListener itemClickListener) {
@@ -83,9 +61,9 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
             });
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, "position :"+holder.getAdapterPosition());
-            Log.e(TAG, "item :"+item);
-            Log.e(TAG, "item id :"+item.getId());
+            Log.e(TAG, "position :" + holder.getAdapterPosition());
+            Log.e(TAG, "item :" + item);
+            Log.e(TAG, "item id :" + item.getId());
             throw e;
         }
     }
@@ -103,6 +81,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     public List<Item> getItemList() {
         return originalItemsList;
+    }
+
+    public interface ItemClickListener {
+        void onClick(Item item);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

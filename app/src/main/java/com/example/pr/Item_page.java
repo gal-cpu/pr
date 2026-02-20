@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -16,7 +15,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.pr.adapers.ItemsAdapter;
 import com.example.pr.model.Cart;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
@@ -26,25 +24,19 @@ import com.google.firebase.auth.FirebaseAuth;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.function.UnaryOperator;
 
 public class Item_page extends AppCompatActivity {
     private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
+    Item current_item;
+    TextView tvName, tvNote, tvPrice, tvRate;
+    FirebaseAuth mAuth;
+    String userId;
+    Cart userCart = null;
     private Button BuyItemrBtn, CartItemBtn;
     private ImageView ivItemField;
     private String selectedItemId;
-    Item current_item;
-    TextView tvName, tvNote, tvPrice, tvRate;
-
-    FirebaseAuth mAuth ;
-
-    String userId;
-
-    Cart userCart=null;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,22 +50,22 @@ public class Item_page extends AppCompatActivity {
         });
         initViews();
         mAuth = FirebaseAuth.getInstance();
-        userId=mAuth.getCurrentUser().getUid();
+        userId = mAuth.getCurrentUser().getUid();
         databaseService = DatabaseService.getInstance();
 
         databaseService.getCart(userId, new DatabaseService.DatabaseCallback<Cart>() {
             @Override
             public void onCompleted(Cart cart) {
 
-                if(cart==null)
-                    cart=new Cart();
+                if (cart == null)
+                    cart = new Cart();
 
-                userCart=cart;
+                userCart = cart;
             }
 
             @Override
             public void onFailed(Exception e) {
-                userCart=new Cart();
+                userCart = new Cart();
             }
         });
 
@@ -126,12 +118,13 @@ public class Item_page extends AppCompatActivity {
 
             tvName.setText("Name: " + current_item.getpName());
             tvNote.setText("Information: " + current_item.getpNote());
-            tvRate.setText("Rate: " + current_item.getRate()+"⭐");
+            tvRate.setText("Rate: " + current_item.getRate() + "⭐");
             tvPrice.setText("Price: " + current_item.getPrice() + "$");
             @Nullable Bitmap iv = ImageUtil.convertFrom64base(current_item.getImage());
             ivItemField.setImageBitmap(iv);
         }
     }
+
     private void buyItem() {
     }
 

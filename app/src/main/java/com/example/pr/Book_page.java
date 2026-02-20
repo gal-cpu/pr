@@ -1,6 +1,5 @@
 package com.example.pr;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,7 +15,6 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pr.adapers.UsersAdapter;
 import com.example.pr.adapers.ItemsAdapter;
 import com.example.pr.model.Item;
 import com.example.pr.services.DatabaseService;
@@ -27,10 +25,10 @@ import java.util.List;
 public class Book_page extends AppCompatActivity {
 
     private static final String TAG = "ItemsActivity";
+    DatabaseService databaseService;
     private ItemsAdapter itemsAdapter;
     private TextView tvTitle;
     private ImageView ivTitleIteams;
-    DatabaseService databaseService;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
     private SearchView searchView;
     private List<Item> allItems;

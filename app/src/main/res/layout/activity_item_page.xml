@@ -14,8 +14,8 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="32dp"
-        app:cardCornerRadius="16dp"
         app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="16dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -27,8 +27,8 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
         app:cardBackgroundColor="#FFFFFF"
         app:cardCornerRadius="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -66,32 +66,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:textSize="20dp"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/tvNoteItem"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="15dp"
-                android:textSize="20dp"
-                android:text="TextView" />
+                android:text="TextView"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/tvPriceItem"
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="TextView" />
+                android:layout_marginTop="15dp"
+                android:text="TextView"
+                android:textSize="20dp" />
 
             <TextView
                 android:id="@+id/tvRateItem"
-                android:layout_marginTop="15dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="20dp"
-                android:text="TextView" />
+                android:layout_marginTop="15dp"
+                android:text="TextView"
+                android:textSize="20dp" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/BuyItemrBtn"
@@ -99,8 +99,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
                 android:text="Buy now"
-                app:icon="@drawable/outline_1x_mobiledata_24"
-                app:backgroundTint="#BDCDFB" />
+                app:backgroundTint="#BDCDFB"
+                app:icon="@drawable/outline_1x_mobiledata_24" />
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/CartItemBtn"

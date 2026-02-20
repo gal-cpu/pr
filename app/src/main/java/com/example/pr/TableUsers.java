@@ -2,9 +2,7 @@ package com.example.pr;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.util.Log;
-import android.view.View;
 import android.widget.SearchView;
 
 import androidx.activity.EdgeToEdge;
@@ -16,18 +14,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.UsersAdapter;
-import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class TableUsers extends AppCompatActivity {
 
     private static final String TAG = "ItemsActivity";
-    private UsersAdapter usersAdapter;
     DatabaseService databaseService;
+    private UsersAdapter usersAdapter;
     private UsersAdapter adapter;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
     private SearchView searchView;
@@ -50,7 +46,6 @@ public class TableUsers extends AppCompatActivity {
         RecyclerView recyclerView = findViewById(R.id.rcItemes);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
         usersAdapter = new UsersAdapter(new UsersAdapter.OnUserClickListener() {
             @Override

@@ -1,13 +1,10 @@
 package com.example.pr;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,14 +18,14 @@ import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
 public class UpdateUser extends AppCompatActivity {
+    DatabaseService databaseService;
+    User current_user = null;
     private EditText emailField, passwordField, firstnameField, lastnameField, phoneField;
     private TextView tvfname, tvlname, tvemail, tvphone, tvpassword;
     private String mfname = "", mlname = "", mphone = "";
     private CheckBox isAdminCheckBox;
     private Button updateBtn, deleteBtn;
     private String selectedUserId = "";
-    DatabaseService databaseService;
-    User current_user = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

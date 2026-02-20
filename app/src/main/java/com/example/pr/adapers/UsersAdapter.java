@@ -10,10 +10,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-
 import com.example.pr.R;
 import com.example.pr.model.User;
-import com.google.android.material.chip.Chip;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,19 +23,8 @@ import java.util.List;
 /// @see User
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
-    /// list of users
-    ///
-    /// @see User
-    ///
-    public interface OnUserClickListener {
-        void onUserClick(User user);
-
-        void onLongUserClick(User user);
-    }
-
     private final List<User> userList;
     private final OnUserClickListener onUserClickListener;
-
     public UsersAdapter(@Nullable final OnUserClickListener onUserClickListener) {
         userList = new ArrayList<>();
         this.onUserClickListener = onUserClickListener;
@@ -57,7 +44,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_one_user, parent, false);
         return new ViewHolder(view);
     }
-
 
     /// bind the view holder with the data
     ///
@@ -143,6 +129,16 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
         if (index == -1) return;
         userList.remove(index);
         notifyItemRemoved(index);
+    }
+
+    /// list of users
+    ///
+    /// @see User
+    ///
+    public interface OnUserClickListener {
+        void onUserClick(User user);
+
+        void onLongUserClick(User user);
     }
 
     /// View holder for the items adapter

@@ -1,7 +1,6 @@
 package com.example.pr.model;
 
 import androidx.annotation.NonNull;
-import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
@@ -13,7 +12,7 @@ public class Cart {
     }
 
     public Cart() {
-        this.itemArrayList= new ArrayList<>();
+        this.itemArrayList = new ArrayList<>();
     }
 
 
@@ -25,7 +24,7 @@ public class Cart {
         this.itemArrayList = itemArrayList;
     }
 
-    public  void  addItem(Item item){
+    public void addItem(Item item) {
         if (this.itemArrayList == null)
             this.itemArrayList = new ArrayList<>();
 

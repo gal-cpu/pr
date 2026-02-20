@@ -1,7 +1,5 @@
 package com.example.pr;
 
-import static java.lang.Float.parseFloat;
-
 import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -12,9 +10,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,14 +27,12 @@ import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
 
 public class AddItem extends AppCompatActivity implements View.OnClickListener {
-    @Override
-    public void onClick(View view) {
-
-    }
-
     TextView tvPname, tvPtype, tvPnote, tvPprice;
     String mPname = "", mPtype = "", mPnote = "", mPprice = "";
     boolean namecheck = true, notecheck = true, typecheck = false, pricecheck = true;
+    // constant to compare
+    // the activity result code
+    int SELECT_PICTURE = 200;
     private EditText etItemName, etItemType, etItemNote, etItemPrice;
     private Button btnGallery, btnTakePic, btnAddItem;
     private Double rate, sumRate, numCount;
@@ -50,10 +44,10 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     /// Activity result launcher for capturing image from camera
     private ActivityResultLauncher<Intent> captureImageLauncher;
 
-    // constant to compare
-    // the activity result code
-    int SELECT_PICTURE = 200;
+    @Override
+    public void onClick(View view) {
 
+    }
 
     @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override

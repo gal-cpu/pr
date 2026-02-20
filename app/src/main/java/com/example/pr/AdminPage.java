@@ -10,8 +10,6 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.google.firebase.database.ChildEvent;
-
 public class AdminPage extends AppCompatActivity {
 
     @Override
@@ -43,6 +41,21 @@ public class AdminPage extends AppCompatActivity {
     }
 
     public void OnClickWebsite(View view) {
+        Intent go = new Intent(AdminPage.this, MainActivity.class);
+        startActivity(go);
+    }
+
+    public void IVuserClick(View view) {
+        Intent go = new Intent(AdminPage.this, UserProfile.class);
+        startActivity(go);
+    }
+
+    public void IVcartClick(View view) {
+        Intent go = new Intent(AdminPage.this, CartList.class);
+        startActivity(go);
+    }
+
+    public void IVhouseClick(View view) {
         Intent go = new Intent(AdminPage.this, MainActivity.class);
         startActivity(go);
     }

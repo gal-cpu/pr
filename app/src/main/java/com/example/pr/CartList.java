@@ -14,21 +14,20 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.ItemsAdapter;
-import com.example.pr.adapers.UsersAdapter;
 import com.example.pr.model.Item;
+import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class CartList extends AppCompatActivity {
 
     private static final String TAG = "ItemsActivity";
-    private ItemsAdapter itemsAdapter;
     DatabaseService databaseService;
-    private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
+    User current_user = null;
+    private ItemsAdapter itemsAdapter;
+    private String selectedUserId = "";
     private List<Item> allIitems;
-
 
     @SuppressLint("MissingInflatedId")
     @Override
@@ -44,10 +43,15 @@ public class CartList extends AppCompatActivity {
 
         databaseService = DatabaseService.getInstance();
 
+        selectedUserId = getIntent().getStringExtra("UID");
+
+        if (selectedUserId == null) {
+            // TODO selectedUserId will be the current user id
+        }
+
         RecyclerView recyclerView = findViewById(R.id.RcCart);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
 
         itemsAdapter = new ItemsAdapter(new ItemsAdapter.ItemClickListener() {
             @Override
@@ -70,13 +74,12 @@ public class CartList extends AppCompatActivity {
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
-        databaseService.getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
+        databaseService.getUser(selectedUserId, new DatabaseService.DatabaseCallback<User>() {
             @Override
-            public void onCompleted(List<Item> items) {
+            public void onCompleted(User user) {
                 // Log.d(TAG, "onCompleted: " + items);
-                allIitems = items;
-                itemsAdapter.setItem(items);
-                filterItemsByCategory();
+                allIitems = user.getCart().getItemArrayList();
+                itemsAdapter.setItem(allIitems);
             }
 
             @Override
@@ -88,18 +91,5 @@ public class CartList extends AppCompatActivity {
                         .show();
             }
         });
-    }
-
-    private void filterItemsByCategory() {
-        ArrayList<Item> filteredItems = new ArrayList<>();
-        if (selectedCategory != null && !selectedCategory.isEmpty()) {
-            // אם נבחרה קטגוריה מסוימת, נבצע סינון
-            for (Item item : allIitems) {
-                if (item.getId().equals(selectedCategory)) {
-                    filteredItems.add(item);
-                }
-            }
-        }
-        itemsAdapter.setItem(filteredItems);
     }
 }
