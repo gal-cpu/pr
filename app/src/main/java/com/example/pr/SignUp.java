@@ -17,6 +17,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.pr.model.Cart;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
@@ -170,7 +171,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
                 Log.d(TAG, "onClick: Registering user...");
 
                 /// Register user
-                registerUser(fname, lname, phone, email, password, isAd);
+                registerUser(fname, lname, phone, email, password, isAd, null);
                 SharedPreferences.Editor editor = sharedpreferences.edit();
 
                 editor.putString("email", email);
@@ -183,11 +184,11 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     }
 
     /// Register the user
-    private void registerUser(String fname, String lname, String phone, String email, String password, boolean isAd) {
+    private void registerUser(String fname, String lname, String phone, String email, String password, boolean isAd, Cart cart) {
         Log.d(TAG, "registerUser: Registering user...");
 
         /// create a new user object
-        User user = new User(email, fname, "54", lname, password, phone, isAd);
+        User user = new User(email, fname, "54", lname, password, phone, isAd, null);
 
         /// proceed to create the user
         createUserInDatabase(user);

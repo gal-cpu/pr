@@ -28,6 +28,7 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.function.UnaryOperator;
 
 public class Item_page extends AppCompatActivity {
     private static final String TAG = "ItemsActivity";
@@ -140,13 +141,19 @@ public class Item_page extends AppCompatActivity {
 
             userCart.addItem(current_item);
 
-            databaseService.updateCart(userId, new DatabaseService.DatabaseCallback<Void>() {
+            databaseService.updateCart(userId, new UnaryOperator<User>() {
                 @Override
-                public void onCompleted(Void object) {
-                    Intent go = new Intent(Item_page.this, AdminPage.class);
+                public User apply(User user) {
+                    if (user == null) return null;
+                    user.getCart().addItem(current_item);
+                    return user;
+                }
+            }, new DatabaseService.DatabaseCallback<User>() {
+                @Override
+                public void onCompleted(User updatedUser) {
+                    Intent go = new Intent(Item_page.this, MainActivity.class);
                     startActivity(go);
                     finish();
-
                 }
 
                 @Override

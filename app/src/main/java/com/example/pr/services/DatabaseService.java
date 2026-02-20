@@ -514,8 +514,8 @@ public class DatabaseService {
     /// @param uid the id of the user to get the carts for
     /// @param callback the callback to call when the operation is completed
 
-    public void updateCart(@NotNull final String userId, @NotNull final DatabaseCallback<Void> callback) {
-        writeData(USERS_PATH + "/" + userId +"/Cart" , Cart.class, callback);
+    public void updateCart(@NotNull final String userId,@NonNull  UnaryOperator<User> function,  @NotNull final DatabaseCallback<User> callback) {
+        runTransaction(USERS_PATH + "/" + userId, User.class , function, callback);
     }
 
 

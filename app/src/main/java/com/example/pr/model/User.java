@@ -1,5 +1,7 @@
 package com.example.pr.model;
 
+import androidx.annotation.NonNull;
+
 public class User {
     protected String id;
     protected String fName;
@@ -9,8 +11,10 @@ public class User {
     protected String phone;
     protected String password;
     protected boolean isAd;
+    protected Cart cart;
 
-    public User(String email, String fName, String id, String lName, String password, String phone, boolean isAd) {
+    public User(String email, String fName, String id, String lName,
+                String password, String phone, boolean isAd, Cart cart) {
         this.email = email;
         this.fName = fName;
         this.id = id;
@@ -18,6 +22,7 @@ public class User {
         this.password = password;
         this.phone = phone;
         this.isAd = isAd;
+        this.cart = cart;
     }
 
     public User() {
@@ -87,16 +92,28 @@ public class User {
         isAd = ad;
     }
 
+    public Cart getCart() {
+        if (cart == null)
+            this.cart = new Cart();
+        return cart;
+    }
+
+    public void setCart(Cart cart) {
+        this.cart = cart;
+    }
+
+    @NonNull
     @Override
     public String toString() {
         return "User{" +
-                "email='" + email + '\'' +
-                ", id='" + id + '\'' +
-                ", admin='" + isAd + '\'' +
+                "id='" + id + '\'' +
                 ", fName='" + fName + '\'' +
                 ", lName='" + lName + '\'' +
+                ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", password='" + password + '\'' +
+                ", isAd=" + isAd +
+                ", cart=" + cart +
                 '}';
     }
 }
