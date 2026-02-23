@@ -34,4 +34,20 @@ public class MainActivity extends AppCompatActivity {
         go.putExtra("type", "device");
         startActivity(go);
     }
+
+
+    public void IVuserClickM(View view) {
+        Intent go = new Intent(MainActivity.this, UserProfile.class);
+        startActivity(go);
+    }
+
+    public void IVcartClickM(View view) {
+        Intent go = new Intent(MainActivity.this, CartList.class);
+        startActivity(go);
+    }
+
+    public void IVhouseClickM(View view) {
+        Intent go = new Intent(MainActivity.this, MainActivity.class);
+        startActivity(go);
+    }
 }

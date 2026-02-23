@@ -461,22 +461,14 @@ public class DatabaseService {
         });
     }
 
-    /// get a cart from the database
-    ///
-    /// @param the      id of the cart to get
-    /// @param callback the callback to call when the operation is completed
-    ///                                                the callback will receive the cart object
-    ///                                               if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see Cart
-    public void getCart(@NotNull final String userId, @NotNull final DatabaseCallback<Cart> callback) {
-        getData(USERS_PATH + "/" + userId + "/Cart", Cart.class, callback);
-    }
-
 
     // endregion item section
 
     // region cart section
+
+
+
+
 
     /// create a new cart in the database
     /// @param cart the cart object to create
@@ -495,12 +487,25 @@ public class DatabaseService {
         runTransaction(USERS_PATH + "/" + userId, User.class, function, callback);
     }
 
+    /// get a cart from the database
+    ///
+    /// @param the      id of the cart to get
+    /// @param callback the callback to call when the operation is completed
+    ///                                                the callback will receive the cart object
+    ///                                               if the operation fails, the callback will receive an exception
+    /// @see DatabaseCallback
+    /// @see Cart
+    public void getCart(@NotNull final String userId, @NotNull final DatabaseCallback<Cart> callback) {
+        getData(USERS_PATH + "/" + userId + "/cart/", Cart.class, callback);
+    }
+
+
     /// delete a cart from the database
     ///
     /// @param the      user id of the cart to delete
     /// @param callback the callback to call when the operation is completed
     public void deleteCart(@NotNull final String userId, @Nullable final DatabaseCallback<Void> callback) {
-        deleteData(USERS_PATH + "/" + userId + "/Cart", callback);
+        deleteData(USERS_PATH + "/" + userId + "/cart", callback);
     }
 
 

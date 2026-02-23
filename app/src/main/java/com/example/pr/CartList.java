@@ -14,22 +14,25 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.ItemsAdapter;
+import com.example.pr.model.Cart;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.SharedPreferencesUtil;
+import com.google.firebase.auth.FirebaseAuth;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class CartList extends AppCompatActivity {
 
-    private static final String TAG = "ItemsActivity";
+    private static final String TAG = "cart";
     DatabaseService databaseService;
-    User current_user = null;
+
     private ItemsAdapter itemsAdapter;
     private List<Item> allIitems;
+    private String current_userId="";
 
-    @SuppressLint("MissingInflatedId")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,11 +46,8 @@ public class CartList extends AppCompatActivity {
 
         databaseService = DatabaseService.getInstance();
 
-        current_user = SharedPreferencesUtil.getUser(CartList.this);
-
-        if (current_user == null) {
-           return;
-        }
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        current_userId = mAuth.getCurrentUser().getUid();
 
         RecyclerView recyclerView = findViewById(R.id.RcCart);
 
@@ -58,7 +58,7 @@ public class CartList extends AppCompatActivity {
             public void onClick(Item item) {
                 // Handle item click
                 Log.d(TAG, "Item clicked: " + item);
-                Intent intent = new Intent(CartList.this, UpdateItem.class);
+                Intent intent = new Intent(CartList.this, Item_page.class);
                 intent.putExtra("Item_UID", item.getId());
                 startActivity(intent);
             }
@@ -66,15 +66,15 @@ public class CartList extends AppCompatActivity {
         });
         recyclerView.setAdapter(itemsAdapter);
 
-        recyclerView.setAdapter(itemsAdapter);
+       // fetchItemsFromFirebase();
 
-        fetchItemsFromFirebase();
+        fetchCartFromFirebase();
     }
 
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
-        databaseService.getUser(current_user.getId(), new DatabaseService.DatabaseCallback<User>() {
+        databaseService.getUser(current_userId, new DatabaseService.DatabaseCallback<User>() {
             @Override
             public void onCompleted(User user) {
                 Log.d(TAG, "onCompleted: " + user);
@@ -89,6 +89,34 @@ public class CartList extends AppCompatActivity {
                         .setMessage("נראה שקרתה תקלה בטעינת המוצרים, נסה שוב מאוחר יותר")
                         .setPositiveButton("אוקי", null)
                         .show();
+            }
+        });
+    }
+
+    private void fetchCartFromFirebase() {
+
+        databaseService.getCart(current_userId, new DatabaseService.DatabaseCallback<Cart>() {
+            @Override
+            public void onCompleted(Cart cart) {
+
+                if(cart==null || cart.getItemArrayList()==null)
+                {
+                    cart=new Cart();
+                    allIitems=new ArrayList<>();}
+                else if (cart.getItemArrayList() !=null && cart!=null)
+                 {
+                    allIitems=(cart.getItemArrayList());
+                  }
+               // else allIitems=new ArrayList<>();
+                itemsAdapter.setItem(allIitems);
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+                allIitems=new ArrayList<>();
+                itemsAdapter.setItem(allIitems);
             }
         });
     }

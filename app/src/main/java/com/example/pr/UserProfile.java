@@ -10,7 +10,15 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.pr.model.User;
+import com.example.pr.services.DatabaseService;
+import com.example.pr.util.SharedPreferencesUtil;
+import com.google.firebase.auth.FirebaseAuth;
+
 public class UserProfile extends AppCompatActivity {
+    private static final String TAG = "UserProfile";
+    private String current_userId="";
+    DatabaseService databaseService;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,9 +30,13 @@ public class UserProfile extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
+        databaseService = DatabaseService.getInstance();
+
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+        current_userId = mAuth.getCurrentUser().getUid();
     }
-
-
     public void IVuserClick(View view) {
         Intent go = new Intent(UserProfile.this, UserProfile.class);
         startActivity(go);
@@ -44,10 +56,19 @@ public class UserProfile extends AppCompatActivity {
     }
 
     public void userProfileClick(View view) {
+        Intent go = new Intent(UserProfile.this, UpdateUser.class);
+        go.putExtra("USER_UID", current_userId);
+        startActivity(go);
     }
 
     public void cartClick(View view) {
         Intent go = new Intent(UserProfile.this, CartList.class);
         startActivity(go);
+    }
+
+    public void LogOutClick(View view) {
+        Intent go = new Intent(UserProfile.this, HomePage.class);
+        startActivity(go);
+        finish();
     }
 }

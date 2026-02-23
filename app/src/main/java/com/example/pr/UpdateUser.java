@@ -21,7 +21,7 @@ public class UpdateUser extends AppCompatActivity {
     DatabaseService databaseService;
     User current_user = null;
     private EditText emailField, passwordField, firstnameField, lastnameField, phoneField;
-    private TextView tvfname, tvlname, tvemail, tvphone, tvpassword;
+    private TextView tvfname, tvlname, tvphone;
     private String mfname = "", mlname = "", mphone = "";
     private CheckBox isAdminCheckBox;
     private Button updateBtn, deleteBtn;
@@ -173,9 +173,16 @@ public class UpdateUser extends AppCompatActivity {
                         "User updated successfully",
                         Toast.LENGTH_SHORT).show();
 
-                Intent intent = new Intent(UpdateUser.this, TableUsers.class);
-                startActivity(intent);
-                finish();
+                if (current_user.isAd()) {
+                    Intent intent = new Intent(UpdateUser.this, TableUsers.class);
+                    startActivity(intent);
+                    finish();
+                }
+                else {
+                    Intent intent = new Intent(UpdateUser.this, UserProfile.class);
+                    startActivity(intent);
+                    finish();
+                }
             }
 
             @Override
