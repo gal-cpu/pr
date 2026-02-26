@@ -35,6 +35,11 @@ public class MainActivity extends AppCompatActivity {
         startActivity(go);
     }
 
+    public void onClickShoesPage(View view) {
+        Intent go = new Intent(MainActivity.this, Book_page.class);
+        go.putExtra("type", "shoe");
+        startActivity(go);
+    }
 
     public void IVuserClickM(View view) {
         Intent go = new Intent(MainActivity.this, UserProfile.class);

@@ -126,10 +126,10 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
                 tvPname.setText(mPname);
 
-                if (itemType.contains("book") || itemType.contains("toy") || itemType.contains("tools") || itemType.contains("device")) {
+                if (itemType.contains("book") || itemType.contains("toy") || itemType.contains("shoe") || itemType.contains("device")) {
                     typecheck = true;
                 } else {
-                    mPtype = "book/toy/tools/device";
+                    mPtype = "book/toy/shoe/device";
                 }
 
                 tvPtype.setText(mPtype);

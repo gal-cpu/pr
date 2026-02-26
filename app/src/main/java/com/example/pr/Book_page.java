@@ -115,9 +115,9 @@ public class Book_page extends AppCompatActivity {
             } else if (selectedCategory.equals("device")) {
                 ivTitleIteams.setImageResource(R.drawable.icon_devices_page);
                 tvTitle.setText("Devices store");
-            } else if (selectedCategory.equals("tools")) {
-                ivTitleIteams.setImageResource(R.drawable.icon_tools_page);
-                tvTitle.setText("Tools store");
+            } else if (selectedCategory.equals("shoe")) {
+                ivTitleIteams.setImageResource(R.drawable.icon_shoe_shop_page);
+                tvTitle.setText("Shoes store");
             }
 
         } else {
