@@ -53,8 +53,8 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RcCart"
-        android:layout_width="360dp"
-        android:layout_height="519dp"
+        android:layout_width="match_parent"
+        android:layout_height="426dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -62,7 +62,49 @@
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintVertical_bias="0.652" />
+
+    <TextView
+        android:id="@+id/tvPay"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.887" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnBook"
+        style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginEnd="25dp"
+        android:backgroundTint="#A881F8"
+        android:drawableStart="@drawable/icon_pay_cart"
+        android:insetTop="0dp"
+        android:insetRight="0dp"
+        android:insetBottom="0dp"
+        android:text="Pay"
+        android:textAllCaps="false"
+        android:textColor="#FFFFFF"
+        android:textSize="16sp"
+        app:cornerRadius="24dp"
+        app:iconGravity="top"
+        app:iconPadding="12dp"
+        app:iconSize="40dp"
+        app:iconTint="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.963" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

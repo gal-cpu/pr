@@ -51,6 +51,11 @@ public class TableItems extends AppCompatActivity {
 
         itemsAdapter = new ItemsAdapter(new ItemsAdapter.ItemClickListener() {
             @Override
+            public void onLongClick(Item item, int position) {
+
+            }
+
+            @Override
             public void onClick(Item item) {
                 // Handle item click
                 Log.d(TAG, "Item clicked: " + item);
