@@ -79,7 +79,7 @@ public class CartList extends AppCompatActivity {
                             String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
 
                             // 2. הצבעה על המיקום המדויק בתוך ה-User ומחיקת הפריט
-                            FirebaseDatabase.getInstance().getReference("User")
+                            FirebaseDatabase.getInstance().getReference("users")
                                     .child(uid)
                                     .child("cart") // וודא שזה השם המדויק של ה-node של העגלה אצלך
                                     .child(item.getId())
@@ -98,6 +98,7 @@ public class CartList extends AppCompatActivity {
                         .show();
                 sumPrice();
             }
+
 
         });
         recyclerView.setAdapter(itemsAdapter);
