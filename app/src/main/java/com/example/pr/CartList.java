@@ -72,33 +72,37 @@ public class CartList extends AppCompatActivity {
             public void onLongClick(Item item, int position) {
                 new AlertDialog.Builder(CartList.this)
                         .setTitle("הסרה מהעגלה")
-                        .setMessage("האם להסיר את " + item.getpName() + " מהעגלה שלך?")
+                        .setMessage("האם להסיר את " + item.getpName() + "?")
                         .setPositiveButton("כן", (dialog, which) -> {
 
-                            // 1. קבלת ה-UID של המשתמש המחובר
-                            String uid = FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-                            // 2. הצבעה על המיקום המדויק בתוך ה-User ומחיקת הפריט
                             FirebaseDatabase.getInstance().getReference("users")
-                                    .child(uid)
-                                    .child("cart") // וודא שזה השם המדויק של ה-node של העגלה אצלך
-                                    .child(item.getId())
+                                    .child(current_userId)
+                                    .child("cart")
+                                    .child("itemArrayList")
+                                    .child(String.valueOf(position)) // מחיקה לפי האינדקס במערך
                                     .removeValue()
                                     .addOnSuccessListener(aVoid -> {
-                                        // 3. עדכון התצוגה רק אחרי שהמחיקה ב-Firebase הצליחה
-                                        allIitems.remove(position);
-                                        itemsAdapter.notifyItemRemoved(position);
-                                        Toast.makeText(CartList.this, "הוסר מהעגלה", Toast.LENGTH_SHORT).show();
-                                    })
-                                    .addOnFailureListener(e -> {
-                                        Toast.makeText(CartList.this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                                        // מחיקה מהרשימה המקומית
+                                        if (position < allIitems.size()) {
+                                            allIitems.remove(position);
+                                            itemsAdapter.notifyItemRemoved(position);
+
+                                            // עדכון הטווח - זה מה שמונע מהמוצרים להישאר "תקועים" על המסך
+                                            itemsAdapter.notifyItemRangeChanged(position, allIitems.size() - position);
+
+                                            sumPrice();
+                                            Toast.makeText(CartList.this, "הוסר בהצלחה", Toast.LENGTH_SHORT).show();
+                                        }
                                     });
+                            itemsAdapter.notifyItemRemoved(position);
+
+                            // עדכון הטווח - זה מה שמונע מהמוצרים להישאר "תקועים" על המסך
+                            itemsAdapter.notifyItemRangeChanged(position, allIitems.size() - position);
+
                         })
                         .setNegativeButton("ביטול", null)
                         .show();
-                sumPrice();
             }
-
 
         });
         recyclerView.setAdapter(itemsAdapter);
@@ -159,9 +163,13 @@ public class CartList extends AppCompatActivity {
     }
 
     private void sumPrice(){
-        double sum=0;
-        for (int i=0; i<allIitems.toArray().length;i++)
-            sum = sum + allIitems.get(i).getPrice();
+        double sum=0.0;
+        if (allIitems!=null && !allIitems.isEmpty()) {
+            for (int i = 0; i < allIitems.toArray().length; i++) {
+                if (allIitems.get(i) != null)
+                    sum = sum + allIitems.get(i).getPrice();
+            }
+        }
         tvPay.setText("Total sum is: " + sum + "$");
     }
 }

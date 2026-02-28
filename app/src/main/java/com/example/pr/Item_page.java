@@ -21,6 +21,8 @@ import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.Nullable;
 
@@ -52,6 +54,7 @@ public class Item_page extends AppCompatActivity {
         mAuth = FirebaseAuth.getInstance();
         userId = mAuth.getCurrentUser().getUid();
         databaseService = DatabaseService.getInstance();
+
 
         databaseService.getCart(userId, new DatabaseService.DatabaseCallback<Cart>() {
             @Override
@@ -111,7 +114,6 @@ public class Item_page extends AppCompatActivity {
         CartItemBtn.setOnClickListener(v -> addCartItem());
     }
 
-    @SuppressLint("SetTextI18n")
     private void populateFields() {
 
         if (current_item != null) {
@@ -129,21 +131,22 @@ public class Item_page extends AppCompatActivity {
     }
 
     private void addCartItem() {
-
         if (userCart != null) {
+            // יצירת המזהה הייחודי
+            String uniqueCartId = FirebaseDatabase.getInstance().getReference().push().getKey();
+            current_item.setId(uniqueCartId);
 
-            userCart.addItem(current_item);
+            // עדכון ב-Service
+            databaseService.updateCart(userId, user -> {
+                if (user == null) return null;
 
-            databaseService.updateCart(userId, new UnaryOperator<User>() {
-                @Override
-                public User apply(User user) {
-                    if (user == null) return null;
-                    user.getCart().addItem(current_item);
-                    return user;
-                }
+                // הוספה ישירות לאובייקט המשתמש שחוזר מה-Database
+                user.getCart().addItem(current_item);
+                return user;
             }, new DatabaseService.DatabaseCallback<User>() {
                 @Override
                 public void onCompleted(User updatedUser) {
+                    // רק לאחר הצלחה בשרת, עוברים מסך
                     Intent go = new Intent(Item_page.this, MainActivity.class);
                     startActivity(go);
                     finish();
@@ -151,13 +154,40 @@ public class Item_page extends AppCompatActivity {
 
                 @Override
                 public void onFailed(Exception e) {
-
+                    Toast.makeText(Item_page.this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
-
-
         }
     }
 
+    //    private void addCartItem() {
+//
+   //      if (userCart != null) {
 
+     //       userCart.addItem(current_item);
+
+       //     databaseService.updateCart(userId, new UnaryOperator<User>() {
+         //       @Override
+         //       public User apply(User user) {
+           //         if (user == null) return null;
+             //       user.getCart().addItem(current_item);
+               //     return user;
+//                }
+  //          }, new DatabaseService.DatabaseCallback<User>() {
+    //            @Override
+      //          public void onCompleted(User updatedUser) {
+        //            Intent go = new Intent(Item_page.this, MainActivity.class);
+          //          startActivity(go);
+            //        finish();
+              //  }
+
+                //@Override
+               // public void onFailed(Exception e) {
+
+            //    }
+           // });
+
+
+    //    }
+    //}
 }
