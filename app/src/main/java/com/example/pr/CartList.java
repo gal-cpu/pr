@@ -67,7 +67,6 @@ public class CartList extends AppCompatActivity {
                 intent.putExtra("Item_UID", item.getId());
                 startActivity(intent);
             }
-
             @Override
             public void onLongClick(Item item, int position) {
                 new AlertDialog.Builder(CartList.this)
@@ -75,30 +74,28 @@ public class CartList extends AppCompatActivity {
                         .setMessage("האם להסיר את " + item.getpName() + "?")
                         .setPositiveButton("כן", (dialog, which) -> {
 
+                            // 1. מחיקה מה-Firebase לפי המיקום המדויק
                             FirebaseDatabase.getInstance().getReference("users")
                                     .child(current_userId)
                                     .child("cart")
                                     .child("itemArrayList")
-                                    .child(String.valueOf(position)) // מחיקה לפי האינדקס במערך
+                                    .child(String.valueOf(position))
                                     .removeValue()
                                     .addOnSuccessListener(aVoid -> {
-                                        // מחיקה מהרשימה המקומית
-                                        if (position < allIitems.size()) {
-                                            allIitems.remove(position);
-                                            itemsAdapter.notifyItemRemoved(position);
 
-                                            // עדכון הטווח - זה מה שמונע מהמוצרים להישאר "תקועים" על המסך
-                                            itemsAdapter.notifyItemRangeChanged(position, allIitems.size() - position);
+                                        // 2. בדיקה שהמיקום עדיין רלוונטי לרשימה המקומית
+                                        if (position < allIitems.size()) {
+                                            // 3. הסרה מהרשימה המקומית
+                                            allIitems.remove(position);
+
+                                            // 4. עדכון ה-Adapter (בלי setAdapter מחדש!)
+                                            itemsAdapter.notifyItemRemoved(position);
+                                            itemsAdapter.notifyItemRangeChanged(position, allIitems.size());
 
                                             sumPrice();
                                             Toast.makeText(CartList.this, "הוסר בהצלחה", Toast.LENGTH_SHORT).show();
                                         }
                                     });
-                            itemsAdapter.notifyItemRemoved(position);
-
-                            // עדכון הטווח - זה מה שמונע מהמוצרים להישאר "תקועים" על המסך
-                            itemsAdapter.notifyItemRangeChanged(position, allIitems.size() - position);
-
                         })
                         .setNegativeButton("ביטול", null)
                         .show();
