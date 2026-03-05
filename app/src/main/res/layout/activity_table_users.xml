@@ -50,19 +50,102 @@
         app:layout_constraintVertical_bias="0.143"
         app:srcCompat="@drawable/icon_users_table" />
 
+    <!-- חלק הסינון - גמיש וצמוד מתחת לתמונה -->
+    <ScrollView
+        android:id="@+id/ScrollViewFilter"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="220dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
 
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- הכפתור המעוצב -->
+            <LinearLayout
+                android:id="@+id/btnShowOptions"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_btn_design"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_menu_manage"
+                    app:tint="#7E57C2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="סינון משתמשים"
+                    android:textColor="#7E57C2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- רשימת האופציות - נסתרת בהתחלה -->
+            <LinearLayout
+                android:id="@+id/optionsContainer"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/scroll_bg"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/option1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="הכל"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="מנהלים"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="משתמשים"
+                    android:textColor="#333333" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- רשימת המשתמשים - תופסת את שאר המסך -->
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcItemes"
-        android:layout_width="360dp"
-        android:layout_height="519dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
+        android:id="@+id/rcUsers"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
-
+        app:layout_constraintTop_toBottomOf="@+id/ScrollViewFilter" />
 </androidx.constraintlayout.widget.ConstraintLayout>

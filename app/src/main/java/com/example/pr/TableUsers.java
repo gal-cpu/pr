@@ -3,7 +3,12 @@ package com.example.pr;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,19 +19,23 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.UsersAdapter;
+import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class TableUsers extends AppCompatActivity {
+public class TableUsers extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
     private UsersAdapter usersAdapter;
-    private UsersAdapter adapter;
+    private ScrollView scrollViewFilter;
+    private TextView optionOne, optionTwo, optionThree;
+    private View ToggleFilter;
+    private LinearLayout optionsContainer;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
-    private SearchView searchView;
     private List<User> allIusers;
 
     @Override
@@ -40,10 +49,24 @@ public class TableUsers extends AppCompatActivity {
             return insets;
         });
 
-
         databaseService = DatabaseService.getInstance();
 
-        RecyclerView recyclerView = findViewById(R.id.rcItemes);
+        RecyclerView recyclerView = findViewById(R.id.rcUsers);
+
+        scrollViewFilter= findViewById(R.id.ScrollViewFilter);
+
+        scrollViewFilter.setSmoothScrollingEnabled(true);
+        optionsContainer = findViewById(R.id.optionsContainer); // וודא שיש ID כזה ב-XML
+        ToggleFilter = findViewById(R.id.btnShowOptions); // הכפתור הראשי שפותח
+        optionOne = findViewById(R.id.option1);
+        optionTwo = findViewById(R.id.option2);
+        optionThree=findViewById(R.id.option3);
+
+        // 2. הגדרת מאזינים (כולם מפנים ל-onClick שנמצא למטה)
+        ToggleFilter.setOnClickListener(this);
+        optionOne.setOnClickListener(this);
+        optionTwo.setOnClickListener(this);
+        optionThree.setOnClickListener(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -92,4 +115,67 @@ public class TableUsers extends AppCompatActivity {
             }
         });
     }
+
+    private void filterUsersByCategory() {
+        ArrayList<User> filteredUsers = new ArrayList<>();
+        if (selectedCategory != null && !selectedCategory.isEmpty()) {
+            if(selectedCategory.contains("all")){
+                filteredUsers.addAll(allIusers);
+            } else if (selectedCategory.contains("admin")) {
+                // אם נבחרה קטגוריה מסוימת, נבצע סינון
+                for (User user : allIusers) {
+                    if (user.isAd()) {
+                        filteredUsers.add(user);
+                    }
+                }
+            }else if (selectedCategory.contains("user")) {
+                // אם נבחרה קטגוריה מסוימת, נבצע סינון
+                for (User user : allIusers) {
+                    if (!user.isAd()) {
+                        filteredUsers.add(user);
+                    }
+                }
+            }
+
+        } else {
+            // אם לא נבחרה קטגוריה, נציג את כל המוצרים
+            filteredUsers.addAll(allIusers);
+        }
+        usersAdapter.setUsers(filteredUsers);
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        if (id == R.id.btnShowOptions) {
+            // פתיחה או סגירה של התפריט
+            if (optionsContainer.getVisibility() == View.GONE) {
+                optionsContainer.setVisibility(View.VISIBLE);
+                optionsContainer.setAlpha(0f);
+                optionsContainer.animate().alpha(1f).setDuration(300);
+            } else {
+                optionsContainer.setVisibility(View.GONE);
+            }
+        }
+        else if (id == R.id.option1) {
+            // לחיצה על "הכל"
+            selectedCategory = "all";
+            filterUsersByCategory();
+            optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
+        }
+        else if (id == R.id.option2) {
+            // לחיצה על "מנהלים"
+            selectedCategory = "admin";
+            filterUsersByCategory();
+            optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
+        }
+        else if (id == R.id.option3) {
+            // לחיצה על "משתמשים"
+            selectedCategory = "user";
+            filterUsersByCategory();
+            optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
+        }
+    }
+
 }

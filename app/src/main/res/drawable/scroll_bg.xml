@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <!-- צבע הרקע של הכרטיס -->
+    <solid android:color="#FFFFFF" />
+    <!-- רדיוס הפינות - ככל שהמספר גבוה יותר, העיגול משמעותי יותר -->
+    <corners android:radius="20dp" />
+    <!-- מסגרת עדינה מסביב -->
+    <stroke
+        android:width="1dp"
+        android:color="#DDDDDD" />
+</shape>
