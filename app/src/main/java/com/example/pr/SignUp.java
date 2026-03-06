@@ -160,7 +160,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
             }
             tvpassword.setText(mpassword);
 
-            if (fnamecheck == true && lnamecheck == true && emailcheck == true && phonecheck == true && passwordcheck == true) {
+            if (fnamecheck && lnamecheck  && emailcheck && phonecheck && passwordcheck) {
                 /// Validate input
                 //   Log.d(TAG, "onClick: Validating input...");
 

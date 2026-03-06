@@ -65,7 +65,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     }
 
     private void loginUser(String emailUserInput, String passwordUserInput) {
-        databaseService.LoginUser(emailUserInput, passwordUserInput, new DatabaseService.DatabaseCallback<String>() {
+        databaseService.LoginUser(emailUserInput, passwordUserInput, new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(String userId) {
                         //saveUserById(userId);
@@ -151,14 +151,9 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
             }
             tvpassword.setText(mpassword);
 
-            if (emailcheck == true && passwordcheck == true) {
+            if (emailcheck && passwordcheck) {
                 loginUser(emailUserInput, passwordUserInput);
             }
         }
-    }
-
-    public void btnBackLogIn(View view) {
-        Intent go = new Intent(LogIn.this, HomePage.class);
-        startActivity(go);
     }
 }

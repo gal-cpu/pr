@@ -45,9 +45,9 @@ public class UpdateItem extends AppCompatActivity {
 
         selectedItemId = getIntent().getSerializableExtra("Item_UID").toString();
 
-        if (selectedItemId != "") {
+        if (!selectedItemId.isEmpty()) {
 
-            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
+            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(Item item) {
                     current_item = item;
@@ -121,7 +121,7 @@ public class UpdateItem extends AppCompatActivity {
         current_item.setPrice(priceD);
 
         //Save item
-        DatabaseService.getInstance().updateItem(current_item, new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().updateItem(current_item, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void v) {
                 Toast.makeText(UpdateItem.this,
@@ -145,7 +145,7 @@ public class UpdateItem extends AppCompatActivity {
     private void deleteItem() {
         if (selectedItemId == null) return;
 
-        DatabaseService.getInstance().deleteItem(current_item.getId(), new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().deleteItem(current_item.getId(), new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void v) {
                 Toast.makeText(UpdateItem.this, "Item deleted", Toast.LENGTH_SHORT).show();

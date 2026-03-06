@@ -10,13 +10,10 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
-import com.example.pr.util.SharedPreferencesUtil;
 import com.google.firebase.auth.FirebaseAuth;
 
 public class UserProfile extends AppCompatActivity {
-    private static final String TAG = "UserProfile";
     private String current_userId="";
     DatabaseService databaseService;
 
@@ -35,6 +32,7 @@ public class UserProfile extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        assert mAuth.getCurrentUser() != null;
         current_userId = mAuth.getCurrentUser().getUid();
     }
     public void IVuserClick(View view) {

@@ -1,6 +1,5 @@
 package com.example.pr;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -35,7 +34,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     int SELECT_PICTURE = 200;
     private EditText etItemName, etItemType, etItemNote, etItemPrice;
     private Button btnGallery, btnTakePic, btnAddItem;
-    private Double rate, sumRate, numCount;
+    Double rate, sumRate, numCount;
     private ImageView imageView;
 
     private DatabaseService databaseService;
@@ -49,7 +48,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
     }
 
-    @SuppressLint({"MissingInflatedId", "WrongViewCast"})
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,23 +108,30 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         btnAddItem.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                mPname = "";
+                mPtype = "";
+                mPnote = "";
+                mPprice = "";
+
                 String itemName = etItemName.getText().toString();
                 String itemNote = etItemNote.getText().toString();
                 String itemPrice = etItemPrice.getText().toString();
                 String itemType = etItemType.getText().toString();
-
                 String imageBase64 = ImageUtil.convertTo64Base(imageView);
-                double price = Double.parseDouble(itemPrice);
+                double price;
+                if (itemPrice.isEmpty())
+                    price=0.0;
+                else
+                    price = Double.parseDouble(itemPrice);
 
-
-                if (itemName.length() < 1) {
+                if (itemName.isEmpty()) {
                     namecheck = false;
                     mPname = "This field cannot be empty";
                 }
 
                 tvPname.setText(mPname);
 
-                if (itemType.contains("book") || itemType.contains("toy") || itemType.contains("shoe") || itemType.contains("device")) {
+                if (itemType.equals("book") || itemType.equals("toy") || itemType.equals("shoe") || itemType.equals("device")) {
                     typecheck = true;
                 } else {
                     mPtype = "book/toy/shoe/device";
@@ -140,30 +145,24 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 }
                 tvPnote.setText(mPnote);
 
-
-                if (itemPrice.isEmpty()) {
-                    mPnote = "the price should be above 0$";
+                if (itemPrice.isEmpty() || (price < 0.1)) {
+                    mPprice = "the price should be above 0$";
                     pricecheck = false;
                 }
 
                 tvPprice.setText(mPprice);
 
-
-                if (itemName.isEmpty() || itemNote.isEmpty() || itemPrice.isEmpty() || itemType.isEmpty()) {
-                    Toast.makeText(AddItem.this, "אנא מלא את כל השדות", Toast.LENGTH_SHORT).show();
-                }
-                if (namecheck == true && typecheck == true && notecheck == true && pricecheck == true) {
+                if (namecheck && typecheck && notecheck && pricecheck) {
                     Toast.makeText(AddItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
 
                     String id = databaseService.generateItemId();
 
                     Item newItem = new Item(id, imageBase64, 0, itemName, itemNote, price, 0.0, 0.0, itemType);
 
-
                     /// generate a new id for the item
 
                     /// save the item to the database and get the result in the callback
-                    databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<Void>() {
+                    databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<>() {
                         @Override
                         public void onCompleted(Void object) {
                             Log.d("TAG", "Item added successfully");

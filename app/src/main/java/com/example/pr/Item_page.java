@@ -1,6 +1,5 @@
 package com.example.pr;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -21,24 +20,21 @@ import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.Nullable;
 
-import java.util.function.UnaryOperator;
-
 public class Item_page extends AppCompatActivity {
-    private static final String TAG = "ItemsActivity";
+    //private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
     Item current_item;
     TextView tvName, tvNote, tvPrice, tvRate;
     FirebaseAuth mAuth;
     String userId;
     Cart userCart = null;
-    private Button BuyItemrBtn, CartItemBtn;
+    private Button BuyItemBtn, CartItemBtn;
     private ImageView ivItemField;
-    private String selectedItemId;
+    String selectedItemId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,11 +48,12 @@ public class Item_page extends AppCompatActivity {
         });
         initViews();
         mAuth = FirebaseAuth.getInstance();
+        assert mAuth.getCurrentUser() != null;
         userId = mAuth.getCurrentUser().getUid();
         databaseService = DatabaseService.getInstance();
 
 
-        databaseService.getCart(userId, new DatabaseService.DatabaseCallback<Cart>() {
+        databaseService.getCart(userId, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Cart cart) {
 
@@ -75,9 +72,9 @@ public class Item_page extends AppCompatActivity {
         selectedItemId = getIntent().getSerializableExtra("Item_UID").toString();
 
 
-        if (selectedItemId != "") {
+        if (!selectedItemId.isEmpty()) {
 
-            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
+            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(Item item) {
                     current_item = item;
@@ -105,12 +102,12 @@ public class Item_page extends AppCompatActivity {
         tvRate = findViewById(R.id.tvRateItem);
         ivItemField = findViewById(R.id.ivItemAddCart);
 
-        BuyItemrBtn = findViewById(R.id.BuyItemrBtn);
+        BuyItemBtn = findViewById(R.id.BuyItemrBtn);
         CartItemBtn = findViewById(R.id.CartItemBtn);
     }
 
     private void setupListeners() {
-        BuyItemrBtn.setOnClickListener(v -> buyItem());
+        BuyItemBtn.setOnClickListener(v -> buyItem());
         CartItemBtn.setOnClickListener(v -> addCartItem());
     }
 
@@ -143,11 +140,27 @@ public class Item_page extends AppCompatActivity {
                 // הוספה ישירות לאובייקט המשתמש שחוזר מה-Database
                 user.getCart().addItem(current_item);
                 return user;
-            }, new DatabaseService.DatabaseCallback<User>() {
+            }, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(User updatedUser) {
                     // רק לאחר הצלחה בשרת, עוברים מסך
-                    Intent go = new Intent(Item_page.this, MainActivity.class);
+                    Intent go;
+                    if (current_item.getType().equals("book")) {
+                        go = new Intent(Item_page.this, Book_page.class);
+                        go.putExtra("type", "book");
+                    } else if (current_item.getType().equals("toy")) {
+                        go = new Intent(Item_page.this, Book_page.class);
+                        go.putExtra("type", "toy");
+                    } else if (current_item.getType().equals("device")) {
+                        go = new Intent(Item_page.this, Book_page.class);
+                        go.putExtra("type", "device");
+                    } else if (current_item.getType().equals("shoe")) {
+                        go = new Intent(Item_page.this, Book_page.class);
+                        go.putExtra("type", "shoe");
+                    }
+                    else{
+                        go = new Intent(Item_page.this, MainActivity.class);
+                    }
                     startActivity(go);
                     finish();
                 }
@@ -159,35 +172,4 @@ public class Item_page extends AppCompatActivity {
             });
         }
     }
-
-    //    private void addCartItem() {
-//
-   //      if (userCart != null) {
-
-     //       userCart.addItem(current_item);
-
-       //     databaseService.updateCart(userId, new UnaryOperator<User>() {
-         //       @Override
-         //       public User apply(User user) {
-           //         if (user == null) return null;
-             //       user.getCart().addItem(current_item);
-               //     return user;
-//                }
-  //          }, new DatabaseService.DatabaseCallback<User>() {
-    //            @Override
-      //          public void onCompleted(User updatedUser) {
-        //            Intent go = new Intent(Item_page.this, MainActivity.class);
-          //          startActivity(go);
-            //        finish();
-              //  }
-
-                //@Override
-               // public void onFailed(Exception e) {
-
-            //    }
-           // });
-
-
-    //    }
-    //}
 }

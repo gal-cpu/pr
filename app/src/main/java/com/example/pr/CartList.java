@@ -50,6 +50,7 @@ public class CartList extends AppCompatActivity {
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        assert mAuth.getCurrentUser() != null;
         current_userId = mAuth.getCurrentUser().getUid();
 
         RecyclerView recyclerView = findViewById(R.id.RcCart);
@@ -99,12 +100,13 @@ public class CartList extends AppCompatActivity {
                         })
                         .setNegativeButton("ביטול", null)
                         .show();
+                fetchCartFromFirebase();
             }
 
         });
         recyclerView.setAdapter(itemsAdapter);
 
-       // fetchItemsFromFirebase();
+       //fetchItemsFromFirebase();
 
         fetchCartFromFirebase();
     }
@@ -112,7 +114,7 @@ public class CartList extends AppCompatActivity {
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
-        databaseService.getUser(current_userId, new DatabaseService.DatabaseCallback<User>() {
+        databaseService.getUser(current_userId, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(User user) {
                 Log.d(TAG, "onCompleted: " + user);
@@ -133,19 +135,17 @@ public class CartList extends AppCompatActivity {
 
     private void fetchCartFromFirebase() {
 
-        databaseService.getCart(current_userId, new DatabaseService.DatabaseCallback<Cart>() {
+        databaseService.getCart(current_userId, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Cart cart) {
 
-                if(cart==null || cart.getItemArrayList()==null)
-                {
-                    cart=new Cart();
-                    allIitems=new ArrayList<>();}
-                else if (cart.getItemArrayList() !=null && cart!=null)
-                 {
-                    allIitems=(cart.getItemArrayList());
-                  }
-               // else allIitems=new ArrayList<>();
+                if (cart == null || cart.getItemArrayList() == null) {
+                    cart = new Cart();
+                    allIitems = new ArrayList<>();
+                } else if (cart.getItemArrayList() != null) {
+                    allIitems = (cart.getItemArrayList());
+                }
+                // else allIitems=new ArrayList<>();
                 itemsAdapter.setItem(allIitems);
                 sumPrice();
             }
@@ -153,7 +153,7 @@ public class CartList extends AppCompatActivity {
             @Override
             public void onFailed(Exception e) {
 
-                allIitems=new ArrayList<>();
+                allIitems = new ArrayList<>();
                 itemsAdapter.setItem(allIitems);
             }
         });
@@ -167,6 +167,6 @@ public class CartList extends AppCompatActivity {
                     sum = sum + allIitems.get(i).getPrice();
             }
         }
-        tvPay.setText("Total sum is: " + sum + "$");
+        tvPay.setText("Total price is: " + sum + "$");
     }
 }

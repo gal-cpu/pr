@@ -21,16 +21,4 @@ public class OneUser extends AppCompatActivity {
             return insets;
         });
     }
-
-    public void onClickEdit(View view) {
-
-    }
-
-    public void onClickAdmin(View view) {
-
-    }
-
-    public void onClickRemove(View view) {
-
-    }
 }

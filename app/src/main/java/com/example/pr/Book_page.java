@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -30,7 +29,6 @@ public class Book_page extends AppCompatActivity {
     private TextView tvTitle;
     private ImageView ivTitleIteams;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
-    private SearchView searchView;
     private List<Item> allItems;
 
 
@@ -82,7 +80,7 @@ public class Book_page extends AppCompatActivity {
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
-        databaseService.getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
+        databaseService.getItemList(new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(List<Item> items) {
                 // Log.d(TAG, "onCompleted: " + items);

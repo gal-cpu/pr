@@ -1,3 +1,28 @@
 <resources>
     <string name="app_name">pr</string>
+    <string name="create_new_item">Create New Item</string>
+    <string name="fill_in_the_details_carefully">Fill in the details carefully</string>
+    <string name="item_name">Item Name</string>
+    <string name="item_type">Item Type</string>
+    <string name="item_note">Item Note</string>
+    <string name="item_price">Item Price</string>
+    <string name="todo">TODO</string>
+    <string name="camera">Camera</string>
+    <string name="gallery">Gallery</string>
+    <string name="create_item">Create Item</string>
+    <string name="back">Back</string>
+    <string name="todoo">TODO</string>
+    <string name="todou">TODO</string>
+    <string name="todop">TODO</string>
+    <string name="welcome_back_nadmin">Welcome Back,\nAdmin</string>
+    <string name="what_would_you_like_to_do_today">What would you like to do today?</string>
+    <string name="add_new_item">Add New Item</string>
+    <string name="users_list">Users List</string>
+    <string name="items_list">Items List</string>
+    <string name="view_public_website">View Public Website</string>
+    <string name="admin">Admin</string>
+    <string name="john_doe_email_com">john.doe@email.com</string>
+    <string name="john">John</string>
+    <string name="_050_1234567">050-1234567</string>
+    <string name="p">********</string>
 </resources>

@@ -4,10 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -19,7 +17,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.UsersAdapter;
-import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
@@ -31,9 +28,9 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
     private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
     private UsersAdapter usersAdapter;
-    private ScrollView scrollViewFilter;
-    private TextView optionOne, optionTwo, optionThree;
-    private View ToggleFilter;
+    ScrollView scrollViewFilter;
+    TextView optionOne, optionTwo, optionThree;
+    View ToggleFilter;
     private LinearLayout optionsContainer;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
     private List<User> allIusers;
@@ -97,7 +94,7 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
-        databaseService.getUserList(new DatabaseService.DatabaseCallback<List<User>>() {
+        databaseService.getUserList(new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(List<User> users) {
                 // Log.d(TAG, "onCompleted: " + users);

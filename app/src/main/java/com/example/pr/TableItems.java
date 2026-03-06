@@ -25,9 +25,7 @@ public class TableItems extends AppCompatActivity {
     private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
     private ItemsAdapter itemsAdapter;
-    private UsersAdapter adapter;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
-    private SearchView searchView;
     private List<Item> allIitems;
 
     @Override
