@@ -26,9 +26,9 @@
         android:layout_width="211dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="Items Table"
+        android:text="@string/items_table"
         android:textColor="@color/white"
-        android:textSize="35dp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.18"
@@ -50,18 +50,104 @@
         app:srcCompat="@drawable/icon_users_table" />
 
 
+    <!-- חלק הסינון - גמיש וצמוד מתחת לתמונה -->
+    <ScrollView
+        android:id="@+id/ScrollViewFilterItem1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="220dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- הכפתור המעוצב -->
+
+            <!-- רשימת האופציות - נסתרת בהתחלה -->
+            <LinearLayout
+                android:id="@+id/btnShowOptionsItem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/filter_btn_design"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_menu_manage"
+                    app:tint="#7E57C2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/sinun"
+                    android:textColor="#7E57C2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/optionsContainerItem"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/scroll_bg"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/option4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="without"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="high to low"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option6"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="low to high"
+                    android:textColor="#333333" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RcItemes"
-        android:layout_width="360dp"
-        android:layout_height="519dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
+        app:layout_constraintTop_toBottomOf="@+id/ScrollViewFilterItem1" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

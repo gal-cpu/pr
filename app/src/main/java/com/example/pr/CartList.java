@@ -46,6 +46,7 @@ public class CartList extends AppCompatActivity {
             return insets;
         });
 
+
         databaseService = DatabaseService.getInstance();
 
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
@@ -106,31 +107,7 @@ public class CartList extends AppCompatActivity {
         });
         recyclerView.setAdapter(itemsAdapter);
 
-       //fetchItemsFromFirebase();
-
         fetchCartFromFirebase();
-    }
-
-    private void fetchItemsFromFirebase() {
-
-        // טעינת המוצרים
-        databaseService.getUser(current_userId, new DatabaseService.DatabaseCallback<>() {
-            @Override
-            public void onCompleted(User user) {
-                Log.d(TAG, "onCompleted: " + user);
-                allIitems = user.getCart().getItemArrayList();
-                itemsAdapter.setItem(allIitems);
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-                Log.e(TAG, "Failed to load items: ", e);
-                new android.app.AlertDialog.Builder(CartList.this)
-                        .setMessage("נראה שקרתה תקלה בטעינת המוצרים, נסה שוב מאוחר יותר")
-                        .setPositiveButton("אוקי", null)
-                        .show();
-            }
-        });
     }
 
     private void fetchCartFromFirebase() {
@@ -155,6 +132,11 @@ public class CartList extends AppCompatActivity {
 
                 allIitems = new ArrayList<>();
                 itemsAdapter.setItem(allIitems);
+                Log.e(TAG, "Failed to load items: ", e);
+                new android.app.AlertDialog.Builder(CartList.this)
+                        .setMessage("נראה שקרתה תקלה בטעינת המוצרים, נסה שוב מאוחר יותר")
+                        .setPositiveButton("אוקי", null)
+                        .show();
             }
         });
     }

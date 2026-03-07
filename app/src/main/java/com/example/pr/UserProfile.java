@@ -56,6 +56,7 @@ public class UserProfile extends AppCompatActivity {
     public void userProfileClick(View view) {
         Intent go = new Intent(UserProfile.this, UpdateUser.class);
         go.putExtra("USER_UID", current_userId);
+        go.putExtra("Deliver", "U");
         startActivity(go);
     }
 

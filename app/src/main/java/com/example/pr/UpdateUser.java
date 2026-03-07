@@ -25,7 +25,7 @@ public class UpdateUser extends AppCompatActivity {
     private String mfname = "", mlname = "", mphone = "";
     private CheckBox isAdminCheckBox;
     private Button updateBtn, deleteBtn;
-    private String selectedUserId = "";
+    private String selectedUserId = "", selectedDeliver = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,6 +42,7 @@ public class UpdateUser extends AppCompatActivity {
         databaseService = DatabaseService.getInstance();
 
         selectedUserId = getIntent().getSerializableExtra("USER_UID").toString();
+        selectedDeliver = getIntent().getSerializableExtra("Deliver").toString();
 
         if (!selectedUserId.isEmpty()) {
 
@@ -176,7 +177,7 @@ public class UpdateUser extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
 
                 Intent intent;
-                if (current_user.isAd()) {
+                if (selectedDeliver.equals("A")) {
                     intent = new Intent(UpdateUser.this, TableUsers.class);
                 } else {
                     intent = new Intent(UpdateUser.this, UserProfile.class);

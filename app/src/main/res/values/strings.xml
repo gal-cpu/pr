@@ -25,4 +25,8 @@
     <string name="john">John</string>
     <string name="_050_1234567">050-1234567</string>
     <string name="p">********</string>
+    <string name="items_table">Items Table</string>
+    <string name="sinun">סינון מוצרים</string>
+    <string name="adminTable">מנהלים</string>
+    <string name="users">משתמשים</string>
 </resources>

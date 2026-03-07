@@ -74,6 +74,7 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
                 Log.d(TAG, "User clicked: " + user);
                 Intent intent = new Intent(TableUsers.this, UpdateUser.class);
                 intent.putExtra("USER_UID", user.getId());
+                intent.putExtra("Deliver", "A");
                 startActivity(intent);
             }
 
