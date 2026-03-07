@@ -50,9 +50,6 @@ public class UserProfile extends AppCompatActivity {
         startActivity(go);
     }
 
-    public void favorite(View view) {
-    }
-
     public void userProfileClick(View view) {
         Intent go = new Intent(UserProfile.this, UpdateUser.class);
         go.putExtra("USER_UID", current_userId);

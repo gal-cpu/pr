@@ -36,7 +36,7 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
     int locationM,locationL;
     double max, min;
     Item maxItem, minItem;
-    TextView optionFore, optionFive, optionSix;
+    TextView optionFore, optionFive, optionSix, optionSeven;
     View ToggleFilter;
     private LinearLayout optionsContainer;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
@@ -66,12 +66,14 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         optionFore = findViewById(R.id.option4);
         optionFive = findViewById(R.id.option5);
         optionSix = findViewById(R.id.option6);
+        optionSeven = findViewById(R.id.option7);
 
         // 2. הגדרת מאזינים (כולם מפנים ל-onClick שנמצא למטה)
         ToggleFilter.setOnClickListener(this);
         optionFore.setOnClickListener(this);
         optionFive.setOnClickListener(this);
         optionSix.setOnClickListener(this);
+        optionSeven.setOnClickListener(this);
 
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -130,6 +132,9 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             } else if (selectedCategory.contains("low")) {
                 // מיון מהנמוך לגבוה
                 Collections.sort(filteredItems, (a, b) -> Double.compare(a.getPrice(), b.getPrice()));
+            }else if (selectedCategory.contains("rate")) {
+                // מיון מהנמוך לגבוה
+                Collections.sort(filteredItems, (a, b) -> Double.compare(a.getRate(), b.getRate()));
             }else{
                 fetchItemsFromFirebase();
             }
@@ -170,6 +175,12 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         else if (id == R.id.option6) {
             // לחיצה על "low to high"
             selectedCategory = "low";
+            filterUsersByCategory();
+            optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
+        }
+        else if (id == R.id.option7) {
+            // לחיצה על "rate to high"
+            selectedCategory = "rate";
             filterUsersByCategory();
             optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
         }

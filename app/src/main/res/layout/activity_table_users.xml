@@ -14,6 +14,7 @@
         android:layout_height="200dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -27,9 +28,9 @@
         android:layout_width="211dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="Users Table"
+        android:text="@string/users_table"
         android:textColor="@color/white"
-        android:textSize="35dp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.18"
@@ -68,8 +69,8 @@
             <!-- הכפתור המעוצב -->
             <LinearLayout
                 android:id="@+id/btnShowOptions"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
                 android:background="@drawable/filter_btn_design"
                 android:clickable="true"
                 android:elevation="4dp"
@@ -81,6 +82,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:importantForAccessibility="no"
                     android:src="@android:drawable/ic_menu_manage"
                     app:tint="#7E57C2" />
 
@@ -88,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="סינון משתמשים"
+                    android:text="@string/userss"
                     android:textColor="#7E57C2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -97,7 +99,7 @@
             <!-- רשימת האופציות - נסתרת בהתחלה -->
             <LinearLayout
                 android:id="@+id/optionsContainer"
-                android:layout_width="200dp"
+                android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
                 android:layout_marginEnd="25dp"
@@ -112,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="הכל"
+                    android:text="@string/everything"
                     android:textColor="#333333" />
 
                 <TextView
@@ -121,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="מנהלים"
+                    android:text="@string/ad"
                     android:textColor="#333333" />
 
                 <TextView
@@ -130,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="משתמשים"
+                    android:text="@string/us"
                     android:textColor="#333333" />
             </LinearLayout>
         </LinearLayout>
