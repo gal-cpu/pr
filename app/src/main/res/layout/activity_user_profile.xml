@@ -10,6 +10,9 @@
     tools:context=".UserProfile">
 
     <!-- כותרת מעוצבת -->
+
+    <!-- רשימת האפשרויות -->
+
     <LinearLayout
         android:id="@+id/header"
         android:layout_width="match_parent"
@@ -17,7 +20,13 @@
         android:background="#FFFFFF"
         android:elevation="8dp"
         android:orientation="vertical"
-        android:padding="24dp">
+        android:padding="24dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0">
 
         <TextView
             android:layout_width="wrap_content"
@@ -26,7 +35,7 @@
             android:layout_marginTop="50dp"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.1"
-            android:text="House of Shopping"
+            android:text="@string/house_of_shopping"
             android:textAllCaps="true"
             android:textColor="#9E9E9E"
             android:textSize="14sp" />
@@ -35,13 +44,12 @@
             android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:layout_marginTop="50dp"
-            android:text="הפרופיל שלך"
+            android:text="@string/pro"
             android:textColor="#212121"
             android:textSize="30sp"
             android:textStyle="bold" />
     </LinearLayout>
 
-    <!-- רשימת האפשרויות -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="0dp"
@@ -70,6 +78,7 @@
                     android:layout_height="32dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/icon_user" />
 
                 <TextView
@@ -78,7 +87,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
                     android:layout_toStartOf="@id/userInformation"
-                    android:text="פרטים אישיים"
+                    android:text="@string/po"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -86,6 +95,7 @@
                     android:layout_height="24dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
+                    android:importantForAccessibility="no"
                     android:rotation="180"
                     android:src="@android:drawable/ic_media_play" />
             </RelativeLayout>
@@ -94,8 +104,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="64dp"
-                android:layout_marginTop="8dp"
-                android:onClick="favoriteClick">
+                android:layout_marginTop="8dp">
 
                 <ImageView
                     android:id="@+id/favorite"
@@ -103,6 +112,7 @@
                     android:layout_height="32dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
+                    android:importantForAccessibility="no"
                     android:src="@drawable/icon_favorite"
                     app:tint="#E53935" />
 
@@ -112,7 +122,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
                     android:layout_toStartOf="@id/favorite"
-                    android:text="מועדפים"
+                    android:text="@string/fav"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -143,7 +153,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
                     android:layout_toStartOf="@id/icon2"
-                    android:text="מועדפים"
+                    android:text="@string/tr"
                     android:textSize="18sp" />
 
                 <ImageView

@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#D1C4E9"> <!-- צבע ה"גל" שמופיע כשלוחצים (סגול בהיר) -->
+
+    <item>
+        <shape android:shape="rectangle">
+            <!-- צבע הרקע של הכפתור (לבן נקי) -->
+            <solid android:color="#FFFFFF" />
+
+            <!-- פינות מעוגלות (30dp יוצר צורה של קפסולה) -->
+            <corners android:radius="30dp" />
+
+            <!-- מסגרת סגולה שמתאימה לכרטיס ה-Users Table שלך -->
+            <stroke
+                android:width="2dp"
+                android:color="#7E57C2" />
+        </shape>
+    </item>
+
+</ripple>

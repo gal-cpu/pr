@@ -26,7 +26,7 @@ public class splash extends AppCompatActivity {
 
         cachedUser = SharedPreferencesUtil.getUser(splash.this);
 
-        VideoView VideoView = (VideoView) findViewById(R.id.vdSplash);
+        VideoView VideoView = findViewById(R.id.vdSplash);
         VideoView.setVideoURI(Uri.parse("android.resource://" + getPackageName() + "/" + R.raw.splash));
 
         //new set media controller

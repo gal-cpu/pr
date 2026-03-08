@@ -25,7 +25,7 @@ public class UpdateUser extends AppCompatActivity {
     private String mfname = "", mlname = "", mphone = "";
     private CheckBox isAdminCheckBox;
     private Button updateBtn, deleteBtn;
-    private String selectedUserId = "";
+    private String selectedUserId = "", selectedDeliver = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,10 +42,11 @@ public class UpdateUser extends AppCompatActivity {
         databaseService = DatabaseService.getInstance();
 
         selectedUserId = getIntent().getSerializableExtra("USER_UID").toString();
+        selectedDeliver = getIntent().getSerializableExtra("Deliver").toString();
 
-        if (selectedUserId != "") {
+        if (!selectedUserId.isEmpty()) {
 
-            databaseService.getUser(selectedUserId, new DatabaseService.DatabaseCallback<User>() {
+            databaseService.getUser(selectedUserId, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(User user) {
                     current_user = user;
@@ -119,6 +120,7 @@ public class UpdateUser extends AppCompatActivity {
                 if (firstname.contains(i + "")) {
                     fnamecheck = false;
                     mfname = "no digits";
+                    break;
                 }
             }
         } else {
@@ -134,6 +136,7 @@ public class UpdateUser extends AppCompatActivity {
                 if (lastname.contains(i + "")) {
                     lnamecheck = false;
                     mlname = "no digits";
+                    break;
                 }
             }
         } else {
@@ -156,7 +159,7 @@ public class UpdateUser extends AppCompatActivity {
             return;
         }
 
-        if (fnamecheck == false || lnamecheck == false || phonecheck == false) {
+        if (!fnamecheck|| !lnamecheck || !phonecheck) {
             return;
         }
 
@@ -166,23 +169,21 @@ public class UpdateUser extends AppCompatActivity {
         current_user.setAd(isAdmin);
 
         // Save user
-        DatabaseService.getInstance().updateUser(current_user, new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().updateUser(current_user, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void v) {
                 Toast.makeText(UpdateUser.this,
                         "User updated successfully",
                         Toast.LENGTH_SHORT).show();
 
-                if (current_user.isAd()) {
-                    Intent intent = new Intent(UpdateUser.this, TableUsers.class);
-                    startActivity(intent);
-                    finish();
+                Intent intent;
+                if (selectedDeliver.equals("A")) {
+                    intent = new Intent(UpdateUser.this, TableUsers.class);
+                } else {
+                    intent = new Intent(UpdateUser.this, UserProfile.class);
                 }
-                else {
-                    Intent intent = new Intent(UpdateUser.this, UserProfile.class);
-                    startActivity(intent);
-                    finish();
-                }
+                startActivity(intent);
+                finish();
             }
 
             @Override
@@ -198,7 +199,7 @@ public class UpdateUser extends AppCompatActivity {
     private void deleteUser() {
         if (selectedUserId == null) return;
 
-        DatabaseService.getInstance().deleteUser(current_user.getId(), new DatabaseService.DatabaseCallback<Void>() {
+        DatabaseService.getInstance().deleteUser(current_user.getId(), new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void v) {
                 Toast.makeText(UpdateUser.this, "User deleted", Toast.LENGTH_SHORT).show();

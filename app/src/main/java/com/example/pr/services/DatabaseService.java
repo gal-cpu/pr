@@ -504,7 +504,6 @@ public class DatabaseService {
 
     /// get all the carts of a specific user from the database
     ///
-    /// @param uid      the id of the user to get the carts for
     /// @param callback the callback to call when the operation is completed
 
     public void updateCart(@NotNull final String userId, @NonNull UnaryOperator<User> function, @NotNull final DatabaseCallback<User> callback) {
@@ -513,7 +512,6 @@ public class DatabaseService {
 
     /// get a cart from the database
     ///
-    /// @param the      id of the cart to get
     /// @param callback the callback to call when the operation is completed
     ///                                                the callback will receive the cart object
     ///                                               if the operation fails, the callback will receive an exception
@@ -526,7 +524,6 @@ public class DatabaseService {
 
     /// delete a cart from the database
     ///
-    /// @param the      user id of the cart to delete
     /// @param callback the callback to call when the operation is completed
     public void deleteCart(@NotNull final String userId, @Nullable final DatabaseCallback<Void> callback) {
         deleteData(USERS_PATH + "/" + userId + "/cart", callback);
