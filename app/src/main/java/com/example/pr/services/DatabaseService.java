@@ -70,6 +70,30 @@ public class DatabaseService {
         return instance;
     }
 
+    public void addItem(Item item, DatabaseCallback<Void> callback) {
+        // אנחנו משתמשים ב-"items" באות קטנה בדיוק כמו שמופיע אצלך ב-Firebase
+        String id = item.getId();
+
+        if (id == null || id.isEmpty()) {
+            // אם אין ID, מייצרים אחד חדש תחת ענף items
+            id = databaseReference.child("items").push().getKey();
+            item.setId(id);
+        }
+
+        // עדכון הנתונים בנתיב המדויק: items -> {id}
+        databaseReference.child("items").child(id).setValue(item)
+                .addOnSuccessListener(aVoid -> {
+                    if (callback != null) {
+                        callback.onCompleted(null);
+                    }
+                })
+                .addOnFailureListener(e -> {
+                    if (callback != null) {
+                        callback.onFailed(e);
+                    }
+                });
+    }
+
     /// write data to the database at a specific path
     ///
     /// @param path     the path to write the data to

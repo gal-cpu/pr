@@ -9,10 +9,9 @@ public class Item {
     protected String pNote; //הערה בהתאם למוצר
 
     protected String type; //סוג המוצר
-    protected double rate;
+    protected double rate; //דירוג המוצר
     protected double sumRate;//דירוג המוצר
-
-    protected int numCounter;
+    protected int numCounter; //ספירת משתמשים שדירגו
     protected String image; //תמונה של המוצר
     protected double price; //מחיר המוצר
 
@@ -105,6 +104,22 @@ public class Item {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    public void updateRating(double oldUserRating, double newUserRating, boolean isFirstTime) {
+        if (isFirstTime) {
+            // אם זו פעם ראשונה: מוסיפים דירוג חדש ומעלים את המונה
+            this.sumRate += newUserRating;
+            this.numCounter++;
+        } else {
+            // אם המשתמש משנה דירוג: מחסירים את הישן ומוסיפים את החדש (המונה לא משתנה)
+            this.sumRate = (this.sumRate - oldUserRating) + newUserRating;
+        }
+
+        // חישוב הממוצע החדש שיוצג
+        if (this.numCounter > 0) {
+            this.rate = this.sumRate / this.numCounter;
+        }
     }
 
     @NonNull

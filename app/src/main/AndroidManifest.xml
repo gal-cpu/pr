@@ -38,9 +38,6 @@
             android:name=".Item_page"
             android:exported="false" />
         <activity
-            android:name=".AdminLogIn"
-            android:exported="false" />
-        <activity
             android:name=".AdminPage"
             android:exported="false" />
         <activity

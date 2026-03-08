@@ -67,37 +67,58 @@ public class CartList extends AppCompatActivity {
                 intent.putExtra("Item_UID", item.getId());
                 startActivity(intent);
             }
+            // בתוך ה-onLongClick של ה-ItemsAdapter
             @Override
             public void onLongClick(Item item, int position) {
-                new AlertDialog.Builder(CartList.this)
+                // יצירת הדיאלוג המעוצב של Material Design
+                new com.google.android.material.dialog.MaterialAlertDialogBuilder(CartList.this)
                         .setTitle("הסרה מהעגלה")
-                        .setMessage("האם להסיר את " + item.getpName() + "?")
-                        .setPositiveButton("כן", (dialog, which) -> {
+                        .setMessage("האם אתה בטוח שברצונך להסיר את " + item.getpName() + " מהסל?")
 
-                            // 1. מחיקה מה-Firebase לפי המיקום המדויק
-                            FirebaseDatabase.getInstance().getReference("users")
-                                    .child(current_userId)
-                                    .child("cart")
-                                    .child("itemArrayList")
-                                    .child(String.valueOf(position))
-                                    .removeValue()
-                                    .addOnSuccessListener(aVoid -> {
+                        // חיבור קובץ ה-XML של הפינות המעוגלות שיצרת ב-drawable
+                        .setBackground(getResources().getDrawable(R.drawable.dialog_rounded_bg, getTheme()))
 
-                                        // 2. בדיקה שהמיקום עדיין רלוונטי לרשימה המקומית
-                                        if (position < allIitems.size()) {
-                                            // 3. הסרה מהרשימה המקומית
-                                            allIitems.remove(position);
+                        // הוספת אייקון (אופציונלי, מוסיף המון לעיצוב)
+                        .setIcon(R.drawable.baseline_shopping_cart_24)
 
-                                            // 4. עדכון ה-Adapter (בלי setAdapter מחדש!)
-                                            itemsAdapter.notifyItemRemoved(position);
-                                            itemsAdapter.notifyItemRangeChanged(position, allIitems.size());
+                        // הגדרת כפתור המחיקה (חיובי)
+                        .setPositiveButton("כן, הסר", (dialog, which) -> {
 
-                                            sumPrice();
-                                            Toast.makeText(CartList.this, "הוסר בהצלחה", Toast.LENGTH_SHORT).show();
-                                        }
-                                    });
+                            // בדיקת הגנה למניעת קריסה
+                            if (allIitems != null && position < allIitems.size()) {
+
+                                // 1. הסרה מהרשימה המקומית ב-Activity
+                                allIitems.remove(position);
+
+                                // 2. עדכון ה-Adapter (יפעיל את ה-setItem שכתבת עם notifyDataSetChanged)
+                                itemsAdapter.setItem(allIitems);
+
+                                // 3. עדכון סכום המחיר לתשלום במסך
+                                sumPrice();
+
+                                // 4. עדכון ה-Firebase - דריסת הרשימה הישנה ברשימה החדשה (הכי בטוח)
+                                FirebaseDatabase.getInstance().getReference("users")
+                                        .child(current_userId)
+                                        .child("cart")
+                                        .child("itemArrayList")
+                                        .setValue(allIitems)
+                                        .addOnSuccessListener(aVoid -> {
+                                            Toast.makeText(CartList.this, "המוצר הוסר בהצלחה", Toast.LENGTH_SHORT).show();
+                                        })
+                                        .addOnFailureListener(e -> {
+                                            Toast.makeText(CartList.this, "שגיאה בסנכרון מול השרת", Toast.LENGTH_SHORT).show();
+                                            // במקרה של שגיאה, נטען את העגלה מחדש מה-DB כדי להישאר מסונכרנים
+                                            fetchCartFromFirebase();
+                                        });
+                            }
                         })
-                        .setNegativeButton("ביטול", null)
+
+                        // הגדרת כפתור הביטול (שלילי)
+                        .setNegativeButton("ביטול", (dialog, which) -> {
+                            dialog.dismiss(); // פשוט סוגר את הדיאלוג בלי לעשות כלום
+                        })
+
+                        // הצגת הדיאלוג על המסך
                         .show();
             }
 
@@ -159,14 +180,17 @@ public class CartList extends AppCompatActivity {
         });
     }
 
-    private void sumPrice(){
-        double sum=0.0;
-        if (allIitems!=null && !allIitems.isEmpty()) {
-            for (int i = 0; i < allIitems.toArray().length; i++) {
-                if (allIitems.get(i) != null)
-                    sum = sum + allIitems.get(i).getPrice();
+    private void sumPrice() {
+        double sum = 0.0;
+        if (allIitems != null) {
+            for (Item item : allIitems) {
+                if (item != null) {
+                    sum += item.getPrice();
+                }
             }
         }
-        tvPay.setText("Total sum is: " + sum + "$");
+        // עיגול ל-2 ספרות אחרי הנקודה כדי שזה יראה טוב
+        tvPay.setText("Total sum is: " + String.format("%.2f", sum) + "$");
     }
+
 }
