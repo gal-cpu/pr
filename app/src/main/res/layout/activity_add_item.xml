@@ -27,7 +27,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="6dp"
-                android:text="@string/create_new_item"
+                android:text="Create new item"
                 android:textColor="#111111"
                 android:textSize="30sp"
                 android:textStyle="bold" />
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="24dp"
-                android:text="@string/fill_in_the_details_carefully"
+                android:text="fill in the details carefully"
                 android:textColor="#777777"
                 android:textSize="16sp" />
 
@@ -60,7 +60,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:hint="@string/item_name"
+                        android:hint="Item name"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="12dp"
                         app:boxCornerRadiusBottomStart="12dp"
@@ -96,7 +96,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/item_type"
+                        android:hint="Item type"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="12dp"
                         app:boxCornerRadiusBottomStart="12dp"
@@ -132,7 +132,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/item_note"
+                        android:hint="Item note"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="12dp"
                         app:boxCornerRadiusBottomStart="12dp"
@@ -169,7 +169,7 @@
                     <com.google.android.material.textfield.TextInputLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:hint="@string/item_price"
+                        android:hint="Item price"
                         app:boxBackgroundMode="outline"
                         app:boxCornerRadiusBottomEnd="12dp"
                         app:boxCornerRadiusBottomStart="12dp"
@@ -221,7 +221,7 @@
                         android:id="@+id/imageViewPicture"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:contentDescription="@string/todo"
+                        android:contentDescription="todo"
                         android:scaleType="centerCrop"
                         tools:srcCompat="@tools:sample/avatars" />
                 </com.google.android.material.card.MaterialCardView>
@@ -233,14 +233,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="5dp"
                     android:layout_marginEnd="5dp"
-                    android:text="@string/camera" />
+                    android:text="Camera" />
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btnGallery"
                     style="@style/Widget.MaterialComponents.Button.OutlinedButton"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:text="@string/gallery" />
+                    android:text="Gallery" />
             </LinearLayout>
 
             <!-- IMAGE BUTTONS -->
@@ -253,7 +253,7 @@
                 android:layout_marginBottom="12dp"
                 android:backgroundTint="#6C63FF"
                 android:elevation="6dp"
-                android:text="@string/create_item"
+                android:text="Create item"
                 android:textColor="@android:color/white"
                 android:textSize="16sp"
                 android:textStyle="bold"
@@ -264,7 +264,7 @@
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:text="@string/back" />
+                android:text="Back" />
 
         </LinearLayout>
     </ScrollView>

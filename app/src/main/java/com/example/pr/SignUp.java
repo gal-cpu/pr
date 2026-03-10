@@ -142,10 +142,10 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
 
             if (email.length() >= 6 && email.length() <= 30) {
-                if (email.contains("@gmail.com")) {
+                if (email.contains("@")) {
                     emailcheck = true;
                 } else {
-                    memail = "@gmail.com does not exist";
+                    memail = "@ does not exist";
                 }
             } else {
                 memail = "the length should be 6-30";

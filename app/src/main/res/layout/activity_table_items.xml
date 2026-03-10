@@ -27,7 +27,7 @@
         android:layout_width="211dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="@string/items_table"
+        android:text="Items table"
         android:textColor="@color/white"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -94,7 +94,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@string/sinun"
+                    android:text="סינון"
                     android:textColor="#7E57C2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="@string/without"
+                    android:text="without"
                     android:textColor="#333333" />
 
                 <TextView
@@ -126,7 +126,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="@string/HTL"
+                    android:text="high to low"
                     android:textColor="#333333" />
 
                 <TextView
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="@string/LTH"
+                    android:text="low to high"
                     android:textColor="#333333" />
                 <TextView
                     android:id="@+id/option7"
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="@string/rate"
+                    android:text="rate"
                     android:textColor="#333333" />
             </LinearLayout>
         </LinearLayout>

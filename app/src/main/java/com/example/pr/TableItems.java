@@ -33,9 +33,6 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
     DatabaseService databaseService;
     private ItemsAdapter itemsAdapter;
     ScrollView scrollViewFilter;
-    int locationM,locationL;
-    double max, min;
-    Item maxItem, minItem;
     TextView optionFore, optionFive, optionSix, optionSeven;
     View ToggleFilter;
     private LinearLayout optionsContainer;
@@ -134,7 +131,7 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
                 Collections.sort(filteredItems, (a, b) -> Double.compare(a.getPrice(), b.getPrice()));
             }else if (selectedCategory.contains("rate")) {
                 // מיון מהנמוך לגבוה
-                Collections.sort(filteredItems, (a, b) -> Double.compare(a.getRate(), b.getRate()));
+                Collections.sort(filteredItems, (a, b) -> Double.compare(b.getRate(), a.getRate()));
             }else{
                 fetchItemsFromFirebase();
             }

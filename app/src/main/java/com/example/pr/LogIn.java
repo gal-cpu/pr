@@ -133,10 +133,10 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
 
             if (emailUserInput.length() >= 6 && emailUserInput.length() <= 30) {
-                if (emailUserInput.contains("@gmail.com")) {
+                if (emailUserInput.contains("@")) {
                     emailcheck = true;
                 } else {
-                    memail = "@gmail.com does not exist";
+                    memail = "@ does not exist";
                 }
             } else {
                 memail = "the length should be 6-30";

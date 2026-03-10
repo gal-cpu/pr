@@ -28,7 +28,7 @@
         android:layout_width="211dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="@string/users_table"
+        android:text="Users table"
         android:textColor="@color/white"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="@string/userss"
+                    android:text="סינון"
                     android:textColor="#7E57C2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="@string/everything"
+                    android:text="everything"
                     android:textColor="#333333" />
 
                 <TextView
@@ -123,7 +123,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="@string/ad"
+                    android:text="admins"
                     android:textColor="#333333" />
 
                 <TextView
@@ -132,7 +132,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="@string/us"
+                    android:text="users"
                     android:textColor="#333333" />
             </LinearLayout>
         </LinearLayout>

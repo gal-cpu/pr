@@ -35,7 +35,7 @@
             android:layout_marginTop="50dp"
             android:fontFamily="sans-serif-medium"
             android:letterSpacing="0.1"
-            android:text="@string/house_of_shopping"
+            android:text="House of shopping"
             android:textAllCaps="true"
             android:textColor="#9E9E9E"
             android:textSize="14sp" />
@@ -44,7 +44,7 @@
             android:layout_width="wrap_content"
             android:layout_height="58dp"
             android:layout_marginTop="50dp"
-            android:text="@string/pro"
+            android:text="profile"
             android:textColor="#212121"
             android:textSize="30sp"
             android:textStyle="bold" />
@@ -87,7 +87,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
                     android:layout_toStartOf="@id/userInformation"
-                    android:text="@string/po"
+                    android:text="user"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -122,7 +122,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
                     android:layout_toStartOf="@id/favorite"
-                    android:text="@string/fav"
+                    android:text="favorites"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -153,7 +153,7 @@
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
                     android:layout_toStartOf="@id/icon2"
-                    android:text="@string/tr"
+                    android:text="tr"
                     android:textSize="18sp" />
 
                 <ImageView
@@ -250,7 +250,7 @@
         app:layout_constraintBottom_toBottomOf="parent">
 
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="IVuserClick"
@@ -258,7 +258,7 @@
             android:src="@drawable/icon_user" /> <!-- פרופיל -->
 
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="IVcartClick"
@@ -266,7 +266,7 @@
             android:src="@drawable/icon_cart" /> <!-- עגלה -->
 
         <ImageView
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:onClick="IVhouseClick"
