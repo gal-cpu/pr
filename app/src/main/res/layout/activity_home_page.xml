@@ -17,7 +17,7 @@
         android:layout_marginBottom="128dp"
         android:gravity="center"
         android:text="Welcome to my website"
-        android:textSize="30dp"
+        android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/btSignUp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

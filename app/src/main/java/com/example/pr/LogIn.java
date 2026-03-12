@@ -78,7 +78,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
                         editor.commit();
 
-                        databaseService.getUser(userId, new DatabaseService.DatabaseCallback<User>() {
+                        databaseService.getUser(userId, new DatabaseService.DatabaseCallback<>() {
                             @Override
                             public void onCompleted(User user) {
 
@@ -122,8 +122,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     @Override
     public void onClick(View view) {
         if (view == btnLogIn) {
-            emailUserInput = etEmail.getText().toString() + "";
-            passwordUserInput = etPassword.getText().toString() + "";
+            emailUserInput = etEmail.getText().toString();
+            passwordUserInput = etPassword.getText().toString();
 
             memail = "";
             mpassword = "";

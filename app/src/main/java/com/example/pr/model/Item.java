@@ -14,6 +14,7 @@ public class Item {
     protected int numCounter; //ספירת משתמשים שדירגו
     protected String image; //תמונה של המוצר
     protected double price; //מחיר המוצר
+    protected int quantity = 1; //כמות המוצר להזמנה, משתנה בעבור כל משתמש
 
 
     public Item(String id, String image, int numCounter, String pName, String pNote, double price, double rate, double sumRate, String type) {
@@ -26,6 +27,7 @@ public class Item {
         this.rate = rate;
         this.sumRate = sumRate;
         this.type = type;
+        this.quantity=1;
     }
 
     public Item() {
@@ -105,6 +107,15 @@ public class Item {
     public void setType(String type) {
         this.type = type;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 
     public void updateRating(double oldUserRating, double newUserRating, boolean isFirstTime) {
         if (isFirstTime) {

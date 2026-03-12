@@ -14,7 +14,7 @@ public class User {
     protected Cart cart;
 
     public User(String email, String fName, String id, String lName,
-                String password, String phone, boolean isAd, Cart cart) {
+                String password, String phone, boolean isAd) {
         this.email = email;
         this.fName = fName;
         this.id = id;
@@ -22,7 +22,7 @@ public class User {
         this.password = password;
         this.phone = phone;
         this.isAd = isAd;
-        this.cart = cart;
+        this.cart = new Cart();
     }
 
     public User() {

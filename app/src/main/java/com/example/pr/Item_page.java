@@ -1,6 +1,5 @@
 package com.example.pr;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -22,26 +21,23 @@ import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.DatabaseReference;
-import com.google.firebase.database.FirebaseDatabase;
 
 import org.jetbrains.annotations.Nullable;
-
-import java.util.function.UnaryOperator;
+import java.util.ArrayList;
 
 public class Item_page extends AppCompatActivity {
-    private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
-    Item current_item; // השתמשנו במשתנה הזה באופן עקבי
-    TextView tvName, tvNote, tvPrice, tvAverageRating;
+    Item current_item;
+    TextView tvName, tvNote, tvPrice, tvAverageRating, tvQuantityPage;
     FirebaseAuth mAuth;
     String userId;
     Cart userCart = null;
     private RatingBar ratingBarUser;
-    private Button btnSubmitRating;
+    private Button btnSubmitRating, btnPlusPage, btnMinusPage;
 
     private double lastRatingByUser = 0;
     private boolean hasRatedBefore = false;
+    private int selectedQuantity = 1; // כמות שנבחרה בדף
 
     private Button AddToFav, CartItemBtn;
     private ImageView ivItemField;
@@ -52,59 +48,38 @@ public class Item_page extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_item_page);
+
         ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
             Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         initViews();
-        mAuth = FirebaseAuth.getInstance();
-        userId = mAuth.getCurrentUser().getUid();
         databaseService = DatabaseService.getInstance();
+        mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            userId = mAuth.getCurrentUser().getUid();
+        }
 
-        // קבלת ה-ID של המוצר מה-Intent
-        Object itemIntentId = getIntent().getSerializableExtra("Item_UID");
-        if (itemIntentId != null) {
-            selectedItemId = itemIntentId.toString();
+        selectedItemId = getIntent().getStringExtra("Item_UID");
 
-        databaseService.getCart(userId, new DatabaseService.DatabaseCallback<Cart>() {
-            @Override
-            public void onCompleted(Cart cart) {
-
-                if (cart == null)
-                    cart = new Cart();
-
-                userCart = cart;
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-                userCart = new Cart();
-            }
-        });
-
-        selectedItemId = getIntent().getSerializableExtra("Item_UID").toString();
-
-
-        if (selectedItemId != "") {
-
+        if (selectedItemId != null && !selectedItemId.isEmpty()) {
+            // טעינת המוצר מהדאטהבייס
             databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
                 @Override
                 public void onCompleted(Item item) {
                     current_item = item;
-                    setupListeners();
                     populateFields();
-                    setupListeners(); // מפעילים מאזינים רק כשיש אובייקט
+                    setupListeners();
                 }
-
                 @Override
                 public void onFailed(Exception e) {
                     Toast.makeText(Item_page.this, "טעינת מוצר נכשלה", Toast.LENGTH_SHORT).show();
                 }
             });
-        }
 
-            // טעינת העגלה
+            // טעינת העגלה של המשתמש
             databaseService.getCart(userId, new DatabaseService.DatabaseCallback<Cart>() {
                 @Override
                 public void onCompleted(Cart cart) {
@@ -115,11 +90,6 @@ public class Item_page extends AppCompatActivity {
                     userCart = new Cart();
                 }
             });
-
-        } else {
-            Toast.makeText(Item_page.this,
-                    " " + selectedItemId,
-                    Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -130,96 +100,139 @@ public class Item_page extends AppCompatActivity {
         ivItemField = findViewById(R.id.ivItemAddCart);
         AddToFav = findViewById(R.id.AddTOFavBtn);
         CartItemBtn = findViewById(R.id.CartItemBtn);
-
-        // רכיבי הדירוג
         ratingBarUser = findViewById(R.id.ratingBarUser);
         tvAverageRating = findViewById(R.id.tvAverageRating);
         btnSubmitRating = findViewById(R.id.btnSubmitRating);
-        CartItemBtn = findViewById(R.id.CartItemBtn);
+
+        // רכיבי הכמות החדשים
+        tvQuantityPage = findViewById(R.id.tvQuantityPage);
+        btnPlusPage = findViewById(R.id.btnPlusPage);
+        btnMinusPage = findViewById(R.id.btnMinusPage);
     }
 
     private void setupListeners() {
+        // כפתור הוספה לעגלה
         CartItemBtn.setOnClickListener(v -> addCartItem());
 
+        // לוגיקה לכפתורי פלוס ומינוס (בחירת כמות)
+        btnPlusPage.setOnClickListener(v -> {
+            selectedQuantity++;
+            tvQuantityPage.setText(String.valueOf(selectedQuantity));
+        });
 
-        // כפתור דירוג
+        btnMinusPage.setOnClickListener(v -> {
+            if (selectedQuantity > 1) {
+                selectedQuantity--;
+                tvQuantityPage.setText(String.valueOf(selectedQuantity));
+            }
+        });
+
+        // כפתור שליחת דירוג
         btnSubmitRating.setOnClickListener(v -> {
             if (current_item == null) return;
-
             double newUserRating = ratingBarUser.getRating();
             if (newUserRating > 0) {
-                // 1. עדכון לוגי באובייקט (חובה להוסיף את הפונקציה ב-Item.java כפי שהסברתי קודם)
                 current_item.updateRating(lastRatingByUser, newUserRating, !hasRatedBefore);
-
-                // 2. עדכון התצוגה
                 tvAverageRating.setText(String.format("דירוג ממוצע: %.1f", current_item.getRate()));
-
-                // 3. שמירה ל-Firebase (שימוש ב-DatabaseService הקיים שלך)
-                // כאן אנחנו מעדכנים את המוצר בטבלת המוצרים הכללית
                 databaseService.addItem(current_item, new DatabaseService.DatabaseCallback<Void>() {
                     @Override
                     public void onCompleted(Void unused) {
                         lastRatingByUser = newUserRating;
                         hasRatedBefore = true;
-                        Toast.makeText(Item_page.this, "הדירוג עודכן!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(Item_page.this, "הדירוג נשמר!", Toast.LENGTH_SHORT).show();
                     }
                     @Override
-                    public void onFailed(Exception e) {
-                        Toast.makeText(Item_page.this, "שגיאה בשמירה", Toast.LENGTH_SHORT).show();
-                    }
+                    public void onFailed(Exception e) {}
                 });
-            } else {
-                Toast.makeText(this, "אנא בחר כוכבים לדירוג", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
+    private void addCartItem() {
+        if (userCart != null && current_item != null) {
+            databaseService.updateCart(userId, user -> {
+                if (user == null) return null;
+                Cart cart = user.getCart();
+
+                // אתחול הרשימה אם היא null למניעת קריסה
+                if (cart.getItemArrayList() == null) {
+                    cart.setItemArrayList(new ArrayList<Item>());
+                }
+
+                ArrayList<Item> list = cart.getItemArrayList();
+                boolean isAlreadyInCart = false;
+
+                // בדיקה האם המוצר כבר קיים בעגלה
+                for (Item itemInCart : list) {
+                    if (itemInCart != null && itemInCart.getId().equals(current_item.getId())) {
+                        // עדכון כמות: הוספת הכמות שנבחרה בדף לכמות הקיימת בעגלה
+                        itemInCart.setQuantity(itemInCart.getQuantity() + selectedQuantity);
+                        isAlreadyInCart = true;
+                        break;
+                    }
+                }
+
+                if (!isAlreadyInCart) {
+                    // מוצר חדש בעגלה - מקבל את הכמות שנבחרה
+                    current_item.setQuantity(selectedQuantity);
+                    list.add(current_item);
+                }
+                return user;
+            }, new DatabaseService.DatabaseCallback<User>() {
+                @Override
+                public void onCompleted(User updatedUser) {
+                    Toast.makeText(Item_page.this, "נוספו " + selectedQuantity + " יחידות לעגלה", Toast.LENGTH_SHORT).show();
+
+                    // מעבר דף לפי סוג המוצר
+                    Intent go;
+                    String type = current_item.getType();
+                    if (type == null) type = "";
+
+                    switch (type) {
+                        case "book":
+                            go = new Intent(Item_page.this, Book_page.class);
+                            go.putExtra("type", "book");
+                            break;
+                        case "toy":
+                            go = new Intent(Item_page.this, Book_page.class);
+                            go.putExtra("type", "toy");
+                            break;
+                        case "device":
+                            go = new Intent(Item_page.this, Book_page.class);
+                            go.putExtra("type", "device");
+                            break;
+                        case "shoe":
+                            go = new Intent(Item_page.this, Book_page.class);
+                            go.putExtra("type", "shoe");
+                            break;
+                        default:
+                            go = new Intent(Item_page.this, MainActivity.class);
+                            break;
+                    }
+                    startActivity(go);
+                    finish(); // סגירת הדף הנוכחי
+                }
+
+                @Override
+                public void onFailed(Exception e) {
+                    Toast.makeText(Item_page.this, "שגיאה בעדכון העגלה", Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
+    }
+
     private void populateFields() {
-
         if (current_item != null) {
-
             tvName.setText("Name: " + current_item.getpName());
             tvNote.setText("Information: " + current_item.getpNote());
             tvPrice.setText("Price: " + current_item.getPrice() + "$");
             tvAverageRating.setText(String.format("דירוג ממוצע: %.1f", current_item.getRate()));
-            @Nullable Bitmap iv = ImageUtil.convertFrom64base(current_item.getImage());
-            if (iv != null) ivItemField.setImageBitmap(iv);
-        }
-    }
 
-    private void addCartItem() {
-        if (userCart != null && current_item != null) {
-                databaseService.updateCart(userId, user -> {
-                    if (user == null) return null;
-                    user.getCart().addItem(current_item);
-                    return user;
-                }, new DatabaseService.DatabaseCallback<User>() {
-                    @Override
-                    public void onCompleted(User updatedUser) {
-                        Intent go;
-                        if (current_item.getType().equals("book")) {
-                            go = new Intent(Item_page.this, Book_page.class);
-                            go.putExtra("type", "book");
-                        }else if (current_item.getType().equals("toy")) {
-                            go = new Intent(Item_page.this, Book_page.class);
-                            go.putExtra("type", "toy");
-                        }else if (current_item.getType().equals("device")) {
-                            go = new Intent(Item_page.this, Book_page.class);
-                            go.putExtra("type", "device");
-                        }else if (current_item.getType().equals("shoe")) {
-                            go = new Intent(Item_page.this, Book_page.class);
-                            go.putExtra("type", "shoe");
-                        }else {
-                            go = new Intent(Item_page.this, MainActivity.class);
-                        }
-                        startActivity(go);
-                        finish();
-                    }
-                    @Override
-                    public void onFailed(Exception e) {
-                        Toast.makeText(Item_page.this, "שגיאה: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+            // צביעת הכוכבים בצהוב לפי הדירוג הממוצע הקיים במוצר
+            ratingBarUser.setRating((float) current_item.getRate());
+
+            Bitmap bitmap = ImageUtil.convertFrom64base(current_item.getImage());
+            if (bitmap != null) ivItemField.setImageBitmap(bitmap);
         }
     }
 }

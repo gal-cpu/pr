@@ -17,6 +17,8 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
+import java.util.Objects;
+
 public class UpdateUser extends AppCompatActivity {
     DatabaseService databaseService;
     User current_user = null;
@@ -41,8 +43,8 @@ public class UpdateUser extends AppCompatActivity {
         initViews();
         databaseService = DatabaseService.getInstance();
 
-        selectedUserId = getIntent().getSerializableExtra("USER_UID").toString();
-        selectedDeliver = getIntent().getSerializableExtra("Deliver").toString();
+        selectedUserId = Objects.requireNonNull(getIntent().getSerializableExtra("USER_UID")).toString();
+        selectedDeliver = Objects.requireNonNull(getIntent().getSerializableExtra("Deliver")).toString();
 
         if (!selectedUserId.isEmpty()) {
 
@@ -91,7 +93,7 @@ public class UpdateUser extends AppCompatActivity {
 
         if (current_user != null) {
 
-            emailField.setText(current_user.getEmail() + "");
+            emailField.setText(current_user.getEmail());
             emailField.setEnabled(false);
             passwordField.setText(current_user.getPassword());
             passwordField.setEnabled(false);

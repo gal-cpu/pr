@@ -109,18 +109,23 @@ public class Book_page extends AppCompatActivity {
                     filteredItems.add(item);
                 }
             }
-            if (selectedCategory.equals("book")) {
-                ivTitleIteams.setImageResource(R.drawable.icon_books_page);
-                tvTitle.setText("Books store");
-            } else if (selectedCategory.equals("toy")) {
-                ivTitleIteams.setImageResource(R.drawable.icon_toys_page);
-                tvTitle.setText("Toys store");
-            } else if (selectedCategory.equals("device")) {
-                ivTitleIteams.setImageResource(R.drawable.icon_devices_page);
-                tvTitle.setText("Devices store");
-            } else if (selectedCategory.equals("shoe")) {
-                ivTitleIteams.setImageResource(R.drawable.icon_shoe_shop_page);
-                tvTitle.setText("Shoes store");
+            switch (selectedCategory) {
+                case "book":
+                    ivTitleIteams.setImageResource(R.drawable.icon_books_page);
+                    tvTitle.setText("Books store");
+                    break;
+                case "toy":
+                    ivTitleIteams.setImageResource(R.drawable.icon_toys_page);
+                    tvTitle.setText("Toys store");
+                    break;
+                case "device":
+                    ivTitleIteams.setImageResource(R.drawable.icon_devices_page);
+                    tvTitle.setText("Devices store");
+                    break;
+                case "shoe":
+                    ivTitleIteams.setImageResource(R.drawable.icon_shoe_shop_page);
+                    tvTitle.setText("Shoes store");
+                    break;
             }
 
         } else {

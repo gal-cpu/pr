@@ -1,12 +1,10 @@
 package com.example.pr;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.activity.EdgeToEdge;
@@ -18,13 +16,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.ItemsAdapter;
-import com.example.pr.adapers.UsersAdapter;
 import com.example.pr.model.Item;
-import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
 import java.util.ArrayList;
-import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class TableItems extends AppCompatActivity implements View.OnClickListener {
@@ -100,7 +96,7 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
     private void fetchItemsFromFirebase() {
 
         // טעינת המוצרים
-        databaseService.getItemList(new DatabaseService.DatabaseCallback<List<Item>>() {
+        databaseService.getItemList(new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(List<Item> items) {
                 Log.d(TAG, "!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!: " + items.size());
@@ -125,13 +121,13 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         if (selectedCategory != null && !selectedCategory.isEmpty()) {
             if (selectedCategory.contains("high")) {
                 // מיון מהגבוה לנמוך
-                Collections.sort(filteredItems, (a, b) -> Double.compare(b.getPrice(), a.getPrice()));
+                filteredItems.sort((a, b) -> Double.compare(b.getPrice(), a.getPrice()));
             } else if (selectedCategory.contains("low")) {
                 // מיון מהנמוך לגבוה
-                Collections.sort(filteredItems, (a, b) -> Double.compare(a.getPrice(), b.getPrice()));
+                filteredItems.sort(Comparator.comparingDouble(Item::getPrice));
             }else if (selectedCategory.contains("rate")) {
                 // מיון מהנמוך לגבוה
-                Collections.sort(filteredItems, (a, b) -> Double.compare(b.getRate(), a.getRate()));
+                filteredItems.sort((a, b) -> Double.compare(b.getRate(), a.getRate()));
             }else{
                 fetchItemsFromFirebase();
             }

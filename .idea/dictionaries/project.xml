@@ -1,7 +1,22 @@
 <component name="ProjectDictionaryState">
   <dictionary name="project">
     <words>
+      <w>audot</w>
+      <w>clicksign</w>
+      <w>fname</w>
+      <w>fnamecheck</w>
       <w>homepagebackground</w>
+      <w>lname</w>
+      <w>lnamecheck</w>
+      <w>memail</w>
+      <w>mpassword</w>
+      <w>tvemail</w>
+      <w>tvfname</w>
+      <w>tvlname</w>
+      <w>tvpassword</w>
+      <w>tvphone</w>
+      <w>אודות</w>
+      <w>האתר</w>
       <w>מהעגלה</w>
     </words>
   </dictionary>

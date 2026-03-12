@@ -25,6 +25,8 @@ import com.example.pr.util.ImageUtil;
 
 import org.jetbrains.annotations.Nullable;
 
+import java.util.Objects;
+
 public class UpdateItem extends AppCompatActivity {
 
     DatabaseService databaseService;
@@ -32,7 +34,6 @@ public class UpdateItem extends AppCompatActivity {
     private EditText namelField, typeField, noteField, priceField;
     private ImageView ivItemField;
     private Button updateBtn, deleteBtn;
-    private String selectedItemId = "";
 
     // אובייקט לניהול בחירת תמונה מהגלריה
     private final ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
@@ -61,9 +62,9 @@ public class UpdateItem extends AppCompatActivity {
 
         // קבלת ה-ID של המוצר מה-Intent
         if (getIntent().getSerializableExtra("Item_UID") != null) {
-            selectedItemId = getIntent().getSerializableExtra("Item_UID").toString();
+            String selectedItemId = Objects.requireNonNull(getIntent().getSerializableExtra("Item_UID")).toString();
 
-            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
+            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(Item item) {
                     current_item = item;
@@ -153,7 +154,7 @@ public class UpdateItem extends AppCompatActivity {
             }
 
             // 3. שמירה ב-Firebase
-            databaseService.updateItem(current_item, new DatabaseService.DatabaseCallback<Void>() {
+            databaseService.updateItem(current_item, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(Void v) {
                     Toast.makeText(UpdateItem.this, "המוצר עודכן בהצלחה", Toast.LENGTH_SHORT).show();
@@ -176,7 +177,7 @@ public class UpdateItem extends AppCompatActivity {
     private void deleteItem() {
         if (current_item == null) return;
 
-        databaseService.deleteItem(current_item.getId(), new DatabaseService.DatabaseCallback<Void>() {            @Override
+        databaseService.deleteItem(current_item.getId(), new DatabaseService.DatabaseCallback<>() {            @Override
             public void onCompleted(Void v) {
             Toast.makeText(UpdateItem.this, "המוצר נמחק", Toast.LENGTH_SHORT).show();                Intent intent = new Intent(UpdateItem.this, TableItems.class);
                 startActivity(intent);

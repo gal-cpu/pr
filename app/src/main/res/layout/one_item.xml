@@ -4,9 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="8dp"
-    app:cardCornerRadius="12dp"
-    app:cardElevation="4dp">
+    android:layout_margin="8dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
@@ -18,7 +16,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- תמונת המוצר - גודל קבוע ועיגול פינות דרך ScaleType -->
+        <!-- תמונת המוצר -->
         <ImageView
             android:id="@+id/ivItem"
             android:layout_width="100dp"
@@ -30,12 +28,13 @@
             app:layout_constraintTop_toTopOf="parent"
             tools:srcCompat="@tools:sample/avatars" />
 
-        <!-- שם המוצר - טקסט מודגש והיררכיה ברורה -->
+        <!-- שם המוצר -->
         <TextView
             android:id="@+id/tvItemName"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
+            android:layout_marginEnd="50dp"
             android:ellipsize="end"
             android:maxLines="2"
             android:text="product name"
@@ -46,7 +45,8 @@
             app:layout_constraintStart_toEndOf="@id/ivItem"
             app:layout_constraintTop_toTopOf="@id/ivItem" />
 
-        <!-- מחיר המוצר - צבע בולט -->
+
+        <!-- מחיר המוצר -->
         <TextView
             android:id="@+id/tvPrice"
             android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
             app:layout_constraintStart_toStartOf="@id/tvItemName"
             app:layout_constraintTop_toBottomOf="@id/tvItemName" />
 
-        <!-- דירוג - קטן ופחות דומיננטי -->
+        <!-- דירוג -->
         <TextView
             android:id="@+id/tvRate"
             android:layout_width="wrap_content"
@@ -69,6 +69,26 @@
             android:textSize="14sp"
             app:layout_constraintBottom_toBottomOf="@id/ivItem"
             app:layout_constraintStart_toStartOf="@id/tvItemName" />
+
+        <!-- הכמות (חדש!) - מוצג רק בעגלה -->
+        <TextView
+            android:id="@+id/tvQuantity"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#F3E5F5"
+            android:minWidth="35dp"
+            android:minHeight="35dp"
+            android:gravity="center"
+            android:text="x1"
+            android:padding="4dp"
+            android:textColor="#6A1B9A"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
+
+
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
