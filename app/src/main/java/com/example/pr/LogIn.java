@@ -84,7 +84,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
                                 current_user = user;
 
-
                                 if (current_user.gatIsAd()) {
                                     Intent go = new Intent(LogIn.this, AdminPage.class);
                                     startActivity(go);
@@ -94,17 +93,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                                     startActivity(go);
                                     finish();
                                 }
-
-
                             }
-
                             @Override
                             public void onFailed(Exception e) {
-
                             }
                         });
-
-
                     }
 
                     @Override
@@ -130,7 +123,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
             emailcheck = false;
             passwordcheck = false;
-
 
             if (emailUserInput.length() >= 6 && emailUserInput.length() <= 30) {
                 if (emailUserInput.contains("@")) {

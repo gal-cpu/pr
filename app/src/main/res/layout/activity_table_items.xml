@@ -3,6 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
+    android:clipChildren="false"
+    android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TableItems">
@@ -51,6 +53,18 @@
         app:layout_constraintVertical_bias="0.143"
         app:srcCompat="@drawable/icon_users_table" />
 
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RcItemes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/ScrollViewFilterItem1" />
+
 
     <!-- חלק הסינון - גמיש וצמוד מתחת לתמונה -->
     <ScrollView
@@ -71,13 +85,12 @@
 
             <!-- רשימת האופציות - נסתרת בהתחלה -->
             <LinearLayout
-                android:id="@+id/btnShowOptionsItem"
+                android:id="@+id/btnShowOptionsItem1"
                 android:layout_width="170dp"
                 android:layout_height="50dp"
                 android:background="@drawable/filter_btn_design"
                 android:clickable="true"
-                android:elevation="4dp"
-                android:focusable="true"
+                android:elevation="10dp"                android:focusable="true"
                 android:layout_marginEnd="25dp"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -94,14 +107,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="סינון"
+                    android:text="sort"
                     android:textColor="#7E57C2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
             </LinearLayout>
 
             <LinearLayout
-                android:id="@+id/optionsContainerItem"
+                android:id="@+id/optionsContainerItem1"
                 android:layout_width="170dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="5dp"
@@ -149,17 +162,126 @@
         </LinearLayout>
     </ScrollView>
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RcItemes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
+    <!-- חלק הסינון - גמיש וצמוד מתחת לתמונה -->
+    <ScrollView
+        android:id="@+id/ScrollViewFilterItem2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/ScrollViewFilterItem1" />
+        android:layout_marginStart="220dp"
+        >
 
+        <LinearLayout
+            android:layout_width="170dp"
+            android:layout_height="50dp"
+            android:orientation="vertical">
+
+            <!-- הכפתור המעוצב -->
+
+            <!-- רשימת האופציות - נסתרת בהתחלה -->
+
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- חלק הסינון - קטגוריות (הצד השני) -->
+    <ScrollView
+        android:id="@+id/ScrollViewFilterItem2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="25dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+
+        <LinearLayout
+            android:layout_width="170dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/btnShowOptionsItem2"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:background="@drawable/filter_btn_design"
+                android:elevation="10dp"
+                android:clickable="true"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:src="@android:drawable/ic_menu_manage"
+                    app:tint="#7E57C2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="category"
+                    android:textColor="#7E57C2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- הרשימה - עכשיו היא מחוץ לכפתור ויש לה מקום להיפתח -->
+            <LinearLayout
+                android:id="@+id/optionsContainerItem2"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/scroll_bg"
+                android:elevation="10dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/option8"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="all"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option9"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="books"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option10"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="toys"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option11"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="devices"
+                    android:textColor="#333333" />
+                <TextView
+                    android:id="@+id/option12"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="shoes"
+                    android:textColor="#333333" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
