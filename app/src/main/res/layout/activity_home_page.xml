@@ -8,13 +8,14 @@
     android:background="@drawable/home_page_background"
     tools:context=".HomePage">
 
+    <!-- כפתור הרשמה עם פינות מעוגלות וצל -->
     <TextView
         android:id="@+id/Title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="41dp"
-        android:layout_marginTop="202dp"
-        android:layout_marginBottom="128dp"
+        android:layout_marginStart="44dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginBottom="170dp"
         android:gravity="center"
         android:text="Welcome to my website"
         android:textSize="30sp"
@@ -22,43 +23,52 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btSignUp"
-        android:layout_width="214dp"
-        android:layout_height="50dp"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="170dp"
         android:backgroundTint="#D9ACAC"
         android:onClick="onClicksignUp"
-        android:text="Sign UP"
-        app:layout_constraintBottom_toTopOf="@+id/btLogIn"
-        app:layout_constraintEnd_toEndOf="@+id/btLogIn"
-        app:layout_constraintStart_toStartOf="@+id/btLogIn"
+        android:text="Sign Up"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:cornerRadius="30dp"
+        app:elevation="4dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/Title" />
 
-    <Button
+    <!-- כפתור התחברות -->
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/btLogIn"
-        android:layout_width="214dp"
-        android:layout_height="50dp"
-        android:layout_marginBottom="24dp"
+        android:layout_width="280dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="16dp"
         android:backgroundTint="#8ABAE9"
         android:onClick="onClickLogIn"
         android:text="Log In"
-        app:layout_constraintBottom_toTopOf="@+id/details"
+        android:textAllCaps="false"
+        android:textSize="18sp"
+        app:cornerRadius="30dp"
+        app:elevation="4dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btSignUp" />
 
+    <!-- כפתור אודות - עיצוב שונה (Text Button) כדי לא להעמיס -->
     <Button
         android:id="@+id/details"
-        android:layout_width="168dp"
-        android:layout_height="42dp"
-        android:layout_marginBottom="186dp"
-        android:backgroundTint="#DAECFB"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="40dp"
         android:onClick="onClickAudot"
         android:text="אודות האתר"
+        android:textColor="@color/white"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.497"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btLogIn" />
+        app:layout_constraintStart_toStartOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
