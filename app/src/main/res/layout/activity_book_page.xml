@@ -120,7 +120,7 @@
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcItemes"
-        android:layout_width="358dp"
+        android:layout_width="match_parent"
         android:layout_height="364dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"

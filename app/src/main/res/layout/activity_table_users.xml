@@ -90,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="סינון"
+                    android:text="sort"
                     android:textColor="#7E57C2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -114,7 +114,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="everything"
+                    android:text="all"
                     android:textColor="#333333" />
 
                 <TextView
