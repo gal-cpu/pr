@@ -84,15 +84,15 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
                                 current_user = user;
 
+                                Intent go;
                                 if (current_user.gatIsAd()) {
-                                    Intent go = new Intent(LogIn.this, AdminPage.class);
-                                    startActivity(go);
+                                    go = new Intent(LogIn.this, AdminPage.class);
 
                                 } else {
-                                    Intent go = new Intent(LogIn.this, MainActivity.class);
-                                    startActivity(go);
-                                    finish();
+                                    go = new Intent(LogIn.this, MainActivity.class);
                                 }
+                                startActivity(go);
+                                finish();
                             }
                             @Override
                             public void onFailed(Exception e) {
@@ -147,5 +147,10 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                 loginUser(emailUserInput, passwordUserInput);
             }
         }
+    }
+
+    public void onClickBackToSignUp(View view) {
+        Intent go = new Intent(LogIn.this, SignUp.class);
+        startActivity(go);
     }
 }

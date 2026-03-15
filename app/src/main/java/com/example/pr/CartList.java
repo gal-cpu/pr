@@ -1,5 +1,7 @@
 package com.example.pr;
 
+import static androidx.core.content.ContextCompat.startActivity;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -17,7 +19,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.adapers.CartAdapter; // שינוי למתאם העגלה
 import com.example.pr.model.Cart;
 import com.example.pr.model.Item;
-import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
@@ -104,9 +105,7 @@ public class CartList extends AppCompatActivity {
                 .child("cart")
                 .child("itemArrayList")
                 .setValue(allIitems)
-                .addOnSuccessListener(aVoid -> {
-                    Toast.makeText(CartList.this, "הסל עודכן בהצלחה", Toast.LENGTH_SHORT).show();
-                })
+                .addOnSuccessListener(aVoid -> Toast.makeText(CartList.this, "הסל עודכן בהצלחה", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> {
                     Toast.makeText(CartList.this, "שגיאה בסנכרון", Toast.LENGTH_SHORT).show();
                     fetchCartFromFirebase(); // טעינה מחדש במקרה של שגיאה
@@ -114,7 +113,7 @@ public class CartList extends AppCompatActivity {
     }
 
     private void fetchCartFromFirebase() {
-        databaseService.getCart(current_userId, new DatabaseService.DatabaseCallback<Cart>() {
+        databaseService.getCart(current_userId, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Cart cart) {
                 if (cart != null && cart.getItemArrayList() != null) {

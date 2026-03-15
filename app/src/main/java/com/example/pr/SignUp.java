@@ -200,7 +200,7 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
 
         editor.commit();
 
-        databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<String>() {
+        databaseService.createNewUser(user, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(String uid) {
                 Log.d(TAG, "createUserInDatabase: User created successfully");
@@ -231,5 +231,13 @@ public class SignUp extends AppCompatActivity implements View.OnClickListener {
     public void onClickBackSignUp(View view) {
         Intent go = new Intent(SignUp.this, HomePage.class);
         startActivity(go);
+        finish();
+    }
+
+    public void onClickBackToLogIn(View view) {
+        Intent go = new Intent(SignUp.this, LogIn.class);
+        startActivity(go);
+        finish();
+
     }
 }

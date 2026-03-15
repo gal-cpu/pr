@@ -25,6 +25,8 @@ import com.example.pr.model.Item;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
 
+import java.util.Objects;
+
 public class AddItem extends AppCompatActivity implements View.OnClickListener {
     TextView tvPname, tvPtype, tvPnote, tvPprice;
     String mPname = "", mPtype = "", mPnote = "", mPprice = "";
@@ -34,7 +36,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     int SELECT_PICTURE = 200;
     private EditText etItemName, etItemType, etItemNote, etItemPrice;
     private Button btnGallery, btnTakePic, btnAddItem;
-    Double rate, sumRate, numCount;
+    //Double rate, sumRate, numCount;
     private ImageView imageView;
 
     private DatabaseService databaseService;
@@ -73,7 +75,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
                     if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                        Bitmap bitmap = (Bitmap) result.getData().getExtras().get("data");
+                        Bitmap bitmap = (Bitmap) Objects.requireNonNull(result.getData().getExtras()).get("data");
                         imageView.setImageBitmap(bitmap);
                     }
                 });
@@ -91,96 +93,83 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         });
 
 
-        btnGallery.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                selectImageFromGallery();
+        btnGallery.setOnClickListener(v -> selectImageFromGallery());
+
+        btnTakePic.setOnClickListener(v -> captureImageFromCamera());
+
+        btnAddItem.setOnClickListener(v -> {
+            mPname = "";
+            mPtype = "";
+            mPnote = "";
+            mPprice = "";
+
+            String itemName = etItemName.getText().toString();
+            String itemNote = etItemNote.getText().toString();
+            String itemPrice = etItemPrice.getText().toString();
+            String itemType = etItemType.getText().toString();
+            String imageBase64 = ImageUtil.convertTo64Base(imageView);
+            double price;
+            if (itemPrice.isEmpty())
+                price=0.0;
+            else
+                price = Double.parseDouble(itemPrice);
+
+            if (itemName.isEmpty()) {
+                namecheck = false;
+                mPname = "This field cannot be empty";
             }
-        });
 
-        btnTakePic.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                captureImageFromCamera();
+            tvPname.setText(mPname);
+
+            if (itemType.equals("book") || itemType.equals("toy") || itemType.equals("shoe") || itemType.equals("device")) {
+                typecheck = true;
+            } else {
+                mPtype = "book/toy/shoe/device";
             }
-        });
 
-        btnAddItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mPname = "";
-                mPtype = "";
-                mPnote = "";
-                mPprice = "";
+            tvPtype.setText(mPtype);
 
-                String itemName = etItemName.getText().toString();
-                String itemNote = etItemNote.getText().toString();
-                String itemPrice = etItemPrice.getText().toString();
-                String itemType = etItemType.getText().toString();
-                String imageBase64 = ImageUtil.convertTo64Base(imageView);
-                double price;
-                if (itemPrice.isEmpty())
-                    price=0.0;
-                else
-                    price = Double.parseDouble(itemPrice);
+            if (itemNote.isEmpty()) {
+                mPnote = "the length should be at least 1";
+                notecheck = false;
+            }
+            tvPnote.setText(mPnote);
 
-                if (itemName.isEmpty()) {
-                    namecheck = false;
-                    mPname = "This field cannot be empty";
-                }
+            if (itemPrice.isEmpty() || (price < 0.1)) {
+                mPprice = "the price should be above 0$";
+                pricecheck = false;
+            }
 
-                tvPname.setText(mPname);
+            tvPprice.setText(mPprice);
 
-                if (itemType.equals("book") || itemType.equals("toy") || itemType.equals("shoe") || itemType.equals("device")) {
-                    typecheck = true;
-                } else {
-                    mPtype = "book/toy/shoe/device";
-                }
+            if (namecheck && typecheck && notecheck && pricecheck) {
+                Toast.makeText(AddItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
 
-                tvPtype.setText(mPtype);
+                String id = databaseService.generateItemId();
 
-                if (itemNote.isEmpty()) {
-                    mPnote = "the length should be at least 1";
-                    notecheck = false;
-                }
-                tvPnote.setText(mPnote);
+                Item newItem = new Item(id, imageBase64, 0, itemName, itemNote, price, 0.0, 0.0, itemType);
 
-                if (itemPrice.isEmpty() || (price < 0.1)) {
-                    mPprice = "the price should be above 0$";
-                    pricecheck = false;
-                }
+                /// generate a new id for the item
 
-                tvPprice.setText(mPprice);
+                /// save the item to the database and get the result in the callback
+                databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<>() {
+                    @Override
+                    public void onCompleted(Void object) {
+                        Log.d("TAG", "Item added successfully");
+                        Toast.makeText(AddItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
+                        /// clear the input fields after adding the item for the next item
+                        Log.d("TAG", "Clearing input fields");
+                        Intent intent = new Intent(AddItem.this, AdminPage.class);
+                        startActivity(intent);
+                        finish();
+                    }
 
-                if (namecheck && typecheck && notecheck && pricecheck) {
-                    Toast.makeText(AddItem.this, "המוצר נוסף בהצלחה!", Toast.LENGTH_SHORT).show();
-
-                    String id = databaseService.generateItemId();
-
-                    Item newItem = new Item(id, imageBase64, 0, itemName, itemNote, price, 0.0, 0.0, itemType);
-
-                    /// generate a new id for the item
-
-                    /// save the item to the database and get the result in the callback
-                    databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<>() {
-                        @Override
-                        public void onCompleted(Void object) {
-                            Log.d("TAG", "Item added successfully");
-                            Toast.makeText(AddItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
-                            /// clear the input fields after adding the item for the next item
-                            Log.d("TAG", "Clearing input fields");
-                            Intent intent = new Intent(AddItem.this, AdminPage.class);
-                            startActivity(intent);
-                            finish();
-                        }
-
-                        @Override
-                        public void onFailed(Exception e) {
-                            Log.e("TAG", "Failed to add item", e);
-                            Toast.makeText(AddItem.this, "Failed to add item", Toast.LENGTH_SHORT).show();
-                        }
-                    });
-                }
+                    @Override
+                    public void onFailed(Exception e) {
+                        Log.e("TAG", "Failed to add item", e);
+                        Toast.makeText(AddItem.this, "Failed to add item", Toast.LENGTH_SHORT).show();
+                    }
+                });
             }
         });
     }

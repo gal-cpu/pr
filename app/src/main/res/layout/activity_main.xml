@@ -226,7 +226,6 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <!-- פרופיל -->
-
         <ImageView
             android:layout_width="0dp"
             android:layout_height="match_parent"

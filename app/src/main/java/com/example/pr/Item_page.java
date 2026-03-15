@@ -21,8 +21,6 @@ import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
 import com.google.firebase.auth.FirebaseAuth;
-
-import org.jetbrains.annotations.Nullable;
 import java.util.ArrayList;
 
 public class Item_page extends AppCompatActivity {
@@ -39,9 +37,9 @@ public class Item_page extends AppCompatActivity {
     private boolean hasRatedBefore = false;
     private int selectedQuantity = 1; // כמות שנבחרה בדף
 
-    private Button AddToFav, CartItemBtn;
-    private ImageView ivItemField;
-    private String selectedItemId;
+    Button AddToFav, CartItemBtn;
+    ImageView ivItemField;
+    String selectedItemId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +64,7 @@ public class Item_page extends AppCompatActivity {
 
         if (selectedItemId != null && !selectedItemId.isEmpty()) {
             // טעינת המוצר מהדאטהבייס
-            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<Item>() {
+            databaseService.getItem(selectedItemId, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(Item item) {
                     current_item = item;
@@ -80,7 +78,7 @@ public class Item_page extends AppCompatActivity {
             });
 
             // טעינת העגלה של המשתמש
-            databaseService.getCart(userId, new DatabaseService.DatabaseCallback<Cart>() {
+            databaseService.getCart(userId, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(Cart cart) {
                     userCart = (cart == null) ? new Cart() : cart;
@@ -134,7 +132,7 @@ public class Item_page extends AppCompatActivity {
             if (newUserRating > 0) {
                 current_item.updateRating(lastRatingByUser, newUserRating, !hasRatedBefore);
                 tvAverageRating.setText(String.format("דירוג ממוצע: %.1f", current_item.getRate()));
-                databaseService.addItem(current_item, new DatabaseService.DatabaseCallback<Void>() {
+                databaseService.addItem(current_item, new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(Void unused) {
                         lastRatingByUser = newUserRating;
@@ -156,7 +154,7 @@ public class Item_page extends AppCompatActivity {
 
                 // אתחול הרשימה אם היא null למניעת קריסה
                 if (cart.getItemArrayList() == null) {
-                    cart.setItemArrayList(new ArrayList<Item>());
+                    cart.setItemArrayList(new ArrayList<>());
                 }
 
                 ArrayList<Item> list = cart.getItemArrayList();
@@ -178,7 +176,7 @@ public class Item_page extends AppCompatActivity {
                     list.add(current_item);
                 }
                 return user;
-            }, new DatabaseService.DatabaseCallback<User>() {
+            }, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(User updatedUser) {
                     Toast.makeText(Item_page.this, "נוספו " + selectedQuantity + " יחידות לעגלה", Toast.LENGTH_SHORT).show();
