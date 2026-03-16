@@ -1,10 +1,11 @@
 package com.example.pr;
 
-import static androidx.core.content.ContextCompat.startActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,6 +18,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.CartAdapter; // שינוי למתאם העגלה
+import com.example.pr.adapers.ItemsAdapter;
 import com.example.pr.model.Cart;
 import com.example.pr.model.Item;
 import com.example.pr.services.DatabaseService;
@@ -25,16 +27,24 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
-public class CartList extends AppCompatActivity {
+public class CartList extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "cart";
     private DatabaseService databaseService;
+    private ItemsAdapter itemsAdapter;
+    ScrollView scrollViewFilter;
+    TextView optionOne, optionTwo, optionThree, optionFore;
+    View ToggleFilter;
+    private LinearLayout optionsContainer;
     private TextView tvPay;
     private CartAdapter cartAdapter; // שימוש ב-CartAdapter
-    private List<Item> allIitems = new ArrayList<>();
-    private String current_userId = "";
+    private List<Item> allItems = new ArrayList<>();
+    private ArrayList<Item> filteredItems = new ArrayList<>();
+
+    private String selectedCategory, current_userId = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +61,22 @@ public class CartList extends AppCompatActivity {
         databaseService = DatabaseService.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
+        scrollViewFilter= findViewById(R.id.ScrollViewFilterCart);
+
+        scrollViewFilter.setSmoothScrollingEnabled(true);
+        optionsContainer = findViewById(R.id.optionsContainerCart); // וודא שיש ID כזה ב-XML
+        ToggleFilter = findViewById(R.id.btnShowOptionsCart); // הכפתור הראשי שפותח
+        optionOne = findViewById(R.id.option1);
+        optionTwo = findViewById(R.id.option2);
+        optionThree=findViewById(R.id.option3);
+        optionFore=findViewById(R.id.option4);
+
+        // 2. הגדרת מאזינים (כולם מפנים ל-onClick שנמצא למטה)
+        ToggleFilter.setOnClickListener(this);
+        optionOne.setOnClickListener(this);
+        optionTwo.setOnClickListener(this);
+        optionThree.setOnClickListener(this);
+
         if (mAuth.getCurrentUser() != null) {
             current_userId = mAuth.getCurrentUser().getUid();
         }
@@ -61,7 +87,7 @@ public class CartList extends AppCompatActivity {
         tvPay = findViewById(R.id.tvPay);
 
         // אתחול ה-CartAdapter עם ה-Listener המתאים
-        cartAdapter = new CartAdapter(this, allIitems, new CartAdapter.CartClickListener() {
+        cartAdapter = new CartAdapter(this, allItems, new CartAdapter.CartClickListener() {
             @Override
             public void onClick(Item item) {
                 Log.d(TAG, "Item clicked: " + item);
@@ -79,11 +105,11 @@ public class CartList extends AppCompatActivity {
                         .setBackground(getResources().getDrawable(R.drawable.dialog_rounded_bg, getTheme()))
                         .setIcon(R.drawable.baseline_shopping_cart_24)
                         .setPositiveButton("כן, הסר", (dialog, which) -> {
-                            if (allIitems != null && position < allIitems.size()) {
+                            if (allItems != null && position < allItems.size()) {
                                 // 1. הסרה מהרשימה המקומית
-                                allIitems.remove(position);
+                                allItems.remove(position);
                                 // 2. עדכון ה-Adapter
-                                cartAdapter.setItem(allIitems);
+                                cartAdapter.setItem(allItems);
                                 // 3. עדכון המחיר הכולל
                                 sumPrice();
                                 // 4. עדכון Firebase
@@ -104,7 +130,7 @@ public class CartList extends AppCompatActivity {
                 .child(current_userId)
                 .child("cart")
                 .child("itemArrayList")
-                .setValue(allIitems)
+                .setValue(allItems)
                 .addOnSuccessListener(aVoid -> Toast.makeText(CartList.this, "הסל עודכן בהצלחה", Toast.LENGTH_SHORT).show())
                 .addOnFailureListener(e -> {
                     Toast.makeText(CartList.this, "שגיאה בסנכרון", Toast.LENGTH_SHORT).show();
@@ -117,28 +143,79 @@ public class CartList extends AppCompatActivity {
             @Override
             public void onCompleted(Cart cart) {
                 if (cart != null && cart.getItemArrayList() != null) {
-                    allIitems = cart.getItemArrayList();
+                    allItems = cart.getItemArrayList();
                 } else {
-                    allIitems = new ArrayList<>();
+                    allItems = new ArrayList<>();
                 }
-                cartAdapter.setItem(allIitems);
+                filteredItems = new ArrayList<>(allItems);
+                cartAdapter.setItem(allItems);
                 sumPrice();
             }
 
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "Failed to load cart", e);
-                allIitems = new ArrayList<>();
-                cartAdapter.setItem(allIitems);
+                allItems = new ArrayList<>();
+                cartAdapter.setItem(allItems);
                 sumPrice();
             }
         });
     }
 
+    private void filterItemsBySorting() {
+        filteredItems = new ArrayList<>(allItems);
+        
+        if (filteredItems == null) return;
+
+        if ("high".equals(selectedCategory)) {
+            filteredItems.sort((a, b) -> Double.compare(b.getPrice(), a.getPrice()));
+        } else if ("low".equals(selectedCategory)) {
+            filteredItems.sort(Comparator.comparingDouble(Item::getPrice));
+        } else if ("rate".equals(selectedCategory)) {
+            filteredItems.sort((a, b) -> Double.compare(b.getRate(), a.getRate()));
+        }
+
+        itemsAdapter.setItem(filteredItems);
+        itemsAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onClick(View v) {
+        int id = v.getId();
+
+        // טיפול בתפריט (מיון)
+        if (id == R.id.btnShowOptionsCart) {
+            // פתיחה או סגירה של התפריט
+            if (optionsContainer.getVisibility() == View.GONE) {
+                optionsContainer.setVisibility(View.VISIBLE);
+                optionsContainer.setAlpha(0f);
+                optionsContainer.animate().alpha(1f).setDuration(300);
+            } else {
+                optionsContainer.setVisibility(View.GONE);
+            }
+        }else if (id == R.id.option1) {
+            selectedCategory = "without";
+            filterItemsBySorting();
+            optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
+        }else if (id == R.id.option2) {
+            selectedCategory = "high";
+            filterItemsBySorting();
+            optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
+        }else if (id == R.id.option3) {
+            selectedCategory = "low";
+            filterItemsBySorting();
+            optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
+        }else if (id == R.id.option4) {
+            selectedCategory = "rate";
+            filterItemsBySorting();
+            optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
+        }
+    }
+
     private void sumPrice() {
         double sum = 0.0;
-        if (allIitems != null) {
-            for (Item item : allIitems) {
+        if (allItems != null) {
+            for (Item item : allItems) {
                 if (item != null) {
                     sum += (item.getPrice() * item.getQuantity());
                 }

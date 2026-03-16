@@ -29,7 +29,7 @@
         android:layout_width="211dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="Items table"
+        android:text="@string/items_table"
         android:textColor="@color/white"
         android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -93,7 +93,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="sort"
+                    android:text="@string/sort"
                     android:textColor="#7E57C2"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -149,6 +149,7 @@
                 <ImageView
                     android:layout_width="20dp"
                     android:layout_height="20dp"
+                    android:importantForAccessibility="no"
                     android:src="@android:drawable/ic_menu_manage"
                     app:tint="#7E57C2" />
 
@@ -156,7 +157,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="8dp"
-                    android:text="category"
+                    android:text="@string/category"
                     android:textColor="#7E57C2"
                     android:textSize="16sp"
                     android:textStyle="bold" />

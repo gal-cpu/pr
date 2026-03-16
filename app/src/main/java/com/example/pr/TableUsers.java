@@ -28,9 +28,9 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
     private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
     private UsersAdapter usersAdapter;
-    ScrollView scrollViewFilter;
-    TextView optionOne, optionTwo, optionThree;
-    View ToggleFilter;
+    private ScrollView scrollViewFilter;
+    private TextView optionOne, optionTwo, optionThree;
+    private View ToggleFilter;
     private LinearLayout optionsContainer;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
     private List<User> allIusers;
@@ -155,8 +155,7 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
             } else {
                 optionsContainer.setVisibility(View.GONE);
             }
-        }
-        else if (id == R.id.option1) {
+        } else if (id == R.id.option1) {
             // לחיצה על "הכל"
             selectedCategory = "all";
             filterUsersByCategory();

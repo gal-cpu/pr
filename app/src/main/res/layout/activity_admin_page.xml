@@ -132,7 +132,7 @@
             android:id="@+id/bottomNavigation"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="800dp"
+            android:layout_marginTop="760dp"
             android:background="#F5F5F5"
             android:orientation="horizontal"
             android:weightSum="3"
@@ -166,6 +166,5 @@
                 android:src="@drawable/icon_house" /> <!-- בית -->
         </LinearLayout>
     </androidx.cardview.widget.CardView>
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

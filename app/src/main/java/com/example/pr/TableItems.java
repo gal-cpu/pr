@@ -30,8 +30,8 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
     DatabaseService databaseService;
     private ItemsAdapter itemsAdapter;
     ScrollView scrollViewFilter1, scrollViewFilter2;
-    TextView optionFore, optionFive, optionSix, optionSeven, optionEight, optionNine, optionTen, optionEleven, optionTwelve;
-    View ToggleFilter1, ToggleFilter2;
+    private TextView optionFore, optionFive, optionSix, optionSeven, optionEight, optionNine, optionTen, optionEleven, optionTwelve;
+   private View ToggleFilter1, ToggleFilter2;
     private LinearLayout optionsContainer1, optionsContainer2;
     private String selectedCategory1 = "without", selectedCategory2 = "all";
     private List<Item> allItems = new ArrayList<>();
@@ -198,10 +198,9 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             filterUsersByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option12) {
-            selectedCategory2 = "shoes"; // שנה לשם הקטגוריה האמיתי שלך
+            selectedCategory2 = "shoe"; // שנה לשם הקטגוריה האמיתי שלך
             filterUsersByCategory();
             optionsContainer2.setVisibility(View.GONE);
         }
-
     }
 }

@@ -6,6 +6,22 @@
     <string name="item_note">Item note</string>
     <string name="item_price">Item price</string>
     <string name="information_of_the_website">Information of\nthe website</string>
+    <string name="information_of_the_page">מטרת האתר</string>
+    <string name="audot">המטרה שלנו היא לספק לכל משתמש גישה למוצרים דיגיטליים איכותיים ממגוון רחב של מוכרים, תוך שילוב ממשק ידידותי ויכולת ניווט פשוטה.</string>
+    <string name="audot_information">אודות האתר</string>
+    <string name="how_using">איך משתמשים באפליקציה?</string>
+    <string name="long_text">1. הרשמה או התחברות\nנכנסים לאפליקציה ויוצרים חשבון כדי לקבל גישה מלאה.\n\n2. חיפוש מוצרים\nניתן לחפש מוצרים דרך שורת החיפוש או לדפדף בקטגוריות.\n\n3. צפייה בפרטי מוצר\nכל מוצר מגיע עם תיאור מפורט ומידע על המוכר.\n\n4. רכישה בטוחה\nמוסיפים לסל ורוכשים ישירות ובאופן מאובטח.</string>
+    <string name="pay">Pay</string>
+    <string name="cart">Cart</string>
+    <string name="sort">sort</string>
+    <string name="items_table">Items table</string>
+    <string name="category">category</string>
+    <string name="all">all</string>
+    <string name="sortCart">sort</string>
+    <string name="without">without</string>
+    <string name="high_to_lowCart">high to low</string>
+    <string name="rateCart">rate</string>
+    <string name="low_to_highCart">low to high</string>
 
 
 </resources>

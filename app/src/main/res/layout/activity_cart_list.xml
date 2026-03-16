@@ -7,13 +7,13 @@
     android:layout_height="match_parent"
     tools:context=".CartList">
 
-
     <ImageView
         android:id="@+id/imageView5"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -27,21 +27,22 @@
         android:layout_width="211dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="Cart"
+        android:text="@string/cart"
         android:textColor="@color/white"
-        android:textSize="35dp"
+        android:textSize="35sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.132"
-        tools:ignore="MissingConstraints" /><![CDATA[
+        tools:ignore="MissingConstraints" />
 
-    ]]><ImageView
+    <ImageView
         android:id="@+id/imageView7"
         android:layout_width="93dp"
         android:layout_height="95dp"
+        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.817"
@@ -50,19 +51,119 @@
         app:layout_constraintVertical_bias="0.143"
         app:srcCompat="@drawable/icon_users_table" />
 
+    <!-- חלק הסינון - גמיש וצמוד מתחת לתמונה -->
+    <ScrollView
+        android:id="@+id/ScrollViewFilterCart"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="220dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!-- הכפתור המעוצב -->
+            <LinearLayout
+                android:id="@+id/btnShowOptionsCart"
+                android:layout_width="170dp"
+                android:layout_height="50dp"
+                android:background="@drawable/filter_btn_design"
+                android:clickable="true"
+                android:elevation="4dp"
+                android:focusable="true"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:padding="12dp">
+
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:importantForAccessibility="no"
+                    android:src="@android:drawable/ic_menu_manage"
+                    app:tint="#7E57C2" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:text="@string/sortCart"
+                    android:textColor="#7E57C2"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <!-- רשימת האופציות - נסתרת בהתחלה -->
+            <LinearLayout
+                android:id="@+id/optionsContainerCart"
+                android:layout_width="170dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="25dp"
+                android:background="@drawable/scroll_bg"
+                android:elevation="2dp"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView android:id="@+id/option1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/without"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/high_to_lowCart"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/low_to_highCart"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp"
+                    android:text="@string/rateCart"
+                    android:textColor="#333333" />
+
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <!-- המחסום הדינמי - דואג ששני התפריטים ידחפו את הרשימה -->
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/filterBarrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="ScrollViewFilterCart" />
+
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RcCart"
         android:layout_width="match_parent"
-        android:layout_height="426dp"
+        android:layout_height="299dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.652" />
+        app:layout_constraintVertical_bias="0.687" />
 
     <TextView
         android:id="@+id/tvPay"
@@ -90,7 +191,7 @@
         android:insetTop="0dp"
         android:insetRight="0dp"
         android:insetBottom="0dp"
-        android:text="Pay"
+        android:text="@string/pay"
         android:textAllCaps="false"
         android:textColor="#FFFFFF"
         android:textSize="16sp"

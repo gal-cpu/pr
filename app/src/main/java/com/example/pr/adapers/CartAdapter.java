@@ -49,7 +49,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         // חישוב מחיר שורה: מחיר X כמות
         double totalPriceForItem = item.getPrice() * item.getQuantity();
-        holder.tvPrice.setText(String.format("%.2f", totalPriceForItem) + "$");
+        holder.tvPrice.setText(String.format("%.2f", item.getPrice()) + "$");
 
         holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
 
