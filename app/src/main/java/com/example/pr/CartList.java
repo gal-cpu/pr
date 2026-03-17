@@ -76,6 +76,7 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
         optionOne.setOnClickListener(this);
         optionTwo.setOnClickListener(this);
         optionThree.setOnClickListener(this);
+        optionFore.setOnClickListener(this);
 
         if (mAuth.getCurrentUser() != null) {
             current_userId = mAuth.getCurrentUser().getUid();
@@ -163,20 +164,20 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
     }
 
     private void filterItemsBySorting() {
-        filteredItems = new ArrayList<>(allItems);
-        
         if (filteredItems == null) return;
+        filteredItems.clear();
+        filteredItems.addAll(allItems);
+        if ("without".equals(selectedCategory)) {
 
-        if ("high".equals(selectedCategory)) {
+        }else if ("high".equals(selectedCategory)) {
             filteredItems.sort((a, b) -> Double.compare(b.getPrice(), a.getPrice()));
         } else if ("low".equals(selectedCategory)) {
             filteredItems.sort(Comparator.comparingDouble(Item::getPrice));
         } else if ("rate".equals(selectedCategory)) {
             filteredItems.sort((a, b) -> Double.compare(b.getRate(), a.getRate()));
         }
-
-        itemsAdapter.setItem(filteredItems);
-        itemsAdapter.notifyDataSetChanged();
+        cartAdapter.setItem(filteredItems);
+        cartAdapter.notifyDataSetChanged();
     }
 
     @Override

@@ -154,14 +154,14 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="28dp"
         android:onClick="onClickBackToSignUp"
-        android:text="I already have an acount"
+        android:text="I don't have an account yet"
         android:textColor="#CEB0FA"
         android:textSize="15sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btSendSignUP" />
+        app:layout_constraintTop_toBottomOf="@+id/btnSendLogIn" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

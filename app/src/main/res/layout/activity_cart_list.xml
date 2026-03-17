@@ -143,27 +143,19 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- המחסום הדינמי - דואג ששני התפריטים ידחפו את הרשימה -->
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/filterBarrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="ScrollViewFilterCart" />
-
-
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RcCart"
         android:layout_width="match_parent"
-        android:layout_height="299dp"
+        android:layout_height="390dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPay"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.687" />
+        app:layout_constraintTop_toBottomOf="@+id/ScrollViewFilterCart"
+        app:layout_constraintVertical_bias="0.0" />
 
     <TextView
         android:id="@+id/tvPay"
@@ -174,10 +166,10 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.887" />
+        app:layout_constraintTop_toBottomOf="@+id/ScrollViewFilterCart"
+        app:layout_constraintVertical_bias="0.856" />
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnBook"
@@ -185,6 +177,7 @@
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:layout_marginStart="25dp"
+        android:layout_marginTop="14dp"
         android:layout_marginEnd="25dp"
         android:backgroundTint="#A881F8"
         android:drawableStart="@drawable/icon_pay_cart"
@@ -204,8 +197,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.963" />
+        app:layout_constraintTop_toBottomOf="@+id/tvPay"
+        app:layout_constraintVertical_bias="0.515" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
