@@ -16,6 +16,7 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
 import com.example.pr.model.Cart;
+import com.example.pr.model.FavoriteList;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
@@ -30,13 +31,13 @@ public class Item_page extends AppCompatActivity {
     FirebaseAuth mAuth;
     String userId;
     Cart userCart = null;
+    FavoriteList userFavorites;
     private RatingBar ratingBarUser;
     private Button btnSubmitRating, btnPlusPage, btnMinusPage;
 
     private double lastRatingByUser = 0;
     private boolean hasRatedBefore = false;
     private int selectedQuantity = 1; // כמות שנבחרה בדף
-
     Button AddToFav, CartItemBtn;
     ImageView ivItemField;
     String selectedItemId;
@@ -88,6 +89,22 @@ public class Item_page extends AppCompatActivity {
                     userCart = new Cart();
                 }
             });
+
+            databaseService.getFavorites(userId, new DatabaseService.DatabaseCallback<FavoriteList>() {
+                @Override
+                public void onCompleted(FavoriteList favorites) {
+                    // עכשיו זה יעבוד חלק כמו ה-Cart!
+                    userFavorites = (favorites == null) ? new FavoriteList() : favorites;
+                }
+                @Override
+                public void onFailed(Exception e) {
+                    userFavorites = new FavoriteList();
+                }
+            });
+
+
+
+
         }
     }
 
@@ -111,6 +128,8 @@ public class Item_page extends AppCompatActivity {
     private void setupListeners() {
         // כפתור הוספה לעגלה
         CartItemBtn.setOnClickListener(v -> addCartItem());
+        AddToFav.setOnClickListener(v -> addFavoritesItem());
+
 
         // לוגיקה לכפתורי פלוס ומינוס (בחירת כמות)
         btnPlusPage.setOnClickListener(v -> {
@@ -218,6 +237,51 @@ public class Item_page extends AppCompatActivity {
             });
         }
     }
+
+    private void addFavoritesItem() {
+        // שימוש ב-userFavorites (מסוג FavoriteList) וב-current_item
+        if (userFavorites != null && current_item != null) {
+
+            // אתחול הרשימה בתוך האובייקט אם היא null
+            if (userFavorites.getFavoriteItemsList() == null) {
+                userFavorites.setFavoriteItemsList(new ArrayList<>());
+            }
+
+            ArrayList<Item> list = userFavorites.getFavoriteItemsList();
+            boolean isAlreadyInFavorites = false;
+
+            // בדיקה האם המוצר כבר קיים במועדפים לפי ה-ID שלו
+            for (Item itemInFav : list) {
+                if (itemInFav != null && itemInFav.getId().equals(current_item.getId())) {
+                    isAlreadyInFavorites = true;
+                    break;
+                }
+            }
+
+            if (!isAlreadyInFavorites) {
+                // מוסיפים את המוצר לרשימה המקומית
+                list.add(current_item);
+
+                // עדכון ב-Firebase דרך ה-DatabaseService
+                databaseService.updateFavorites(list, new DatabaseService.DatabaseCallback<Void>() {
+                    @Override
+                    public void onCompleted(Void unused) {
+                        Toast.makeText(Item_page.this, current_item.getpName() + " נוסף למועדפים שלך!", Toast.LENGTH_SHORT).show();
+                        // במועדפים בדרך כלל לא עוברים דף, אבל אם תרצה לעבור - תוכל להוסיף כאן את ה-Intent
+                    }
+
+                    @Override
+                    public void onFailed(Exception e) {
+                        Toast.makeText(Item_page.this, "שגיאה בהוספה למועדפים", Toast.LENGTH_SHORT).show();
+                    }
+                });
+            } else {
+                // אם המוצר כבר שם, אפשר להודיע למשתמש
+                Toast.makeText(this, "המוצר כבר קיים במועדפים", Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
+
 
     private void populateFields() {
         if (current_item != null) {

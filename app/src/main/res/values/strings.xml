@@ -22,6 +22,7 @@
     <string name="high_to_lowCart">high to low</string>
     <string name="rateCart">rate</string>
     <string name="low_to_highCart">low to high</string>
+    <string name="favorites">Favorites</string>
 
 
 </resources>

@@ -2,6 +2,8 @@ package com.example.pr.model;
 
 import androidx.annotation.NonNull;
 
+import com.example.pr.Favorites;
+
 public class User {
     protected String id;
     protected String fName;
@@ -12,6 +14,7 @@ public class User {
     protected String password;
     protected boolean isAd;
     protected Cart cart;
+    protected Favorites favorites;
 
     public User(String email, String fName, String id, String lName,
                 String password, String phone, boolean isAd) {
@@ -23,6 +26,7 @@ public class User {
         this.phone = phone;
         this.isAd = isAd;
         this.cart = new Cart();
+        this.favorites = new Favorites();
     }
 
     public User() {
@@ -92,6 +96,16 @@ public class User {
         isAd = ad;
     }
 
+    public Favorites getFavorites() {
+        if (this.favorites==null)
+            this.favorites=new Favorites();
+        return favorites;
+    }
+
+    public void setFavorites(Favorites favorites) {
+        this.favorites = favorites;
+    }
+
     public Cart getCart() {
         if (cart == null)
             this.cart = new Cart();
@@ -114,6 +128,7 @@ public class User {
                 ", password='" + password + '\'' +
                 ", isAd=" + isAd +
                 ", cart=" + cart +
+                ", favorites=" + favorites +
                 '}';
     }
 }

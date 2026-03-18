@@ -6,6 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import com.example.pr.model.Cart;
+import com.example.pr.model.FavoriteList;
 import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.google.firebase.auth.FirebaseAuth;
@@ -40,7 +41,8 @@ public class DatabaseService {
     ///
     /// @see DatabaseService#readData(String)
     private static final String USERS_PATH = "users",
-            ITEMS_PATH = "items";
+            ITEMS_PATH = "items",
+            FAVORITES_PATH = "favorites"; // נתיב חדש למועדפים
     /// the instance of this class
     ///
     /// @see #getInstance()
@@ -490,8 +492,54 @@ public class DatabaseService {
 
     // region cart section
 
+    // עדכון/שמירה של כל רשימת המועדפים (למשל אחרי מחיקה)
+    // שליפת אובייקט המועדפים (השתמש בנתיב המלא של המודל)
+    public void getFavorites(String userId, DatabaseCallback<FavoriteList> callback) {
+        getData("favorites/" + userId, FavoriteList.class, callback);
+    }
 
 
+    // עדכון המועדפים
+    public void updateFavorites(List<Item> favoriteItems, DatabaseCallback<Void> callback) {
+        String uid = FirebaseAuth.getInstance().getUid();
+        if (uid == null) return;
+
+        // יצירת אובייקט מודל חדש כדי לשמור אותו בצורה מסודרת ב-Firebase
+        FavoriteList favModel = new FavoriteList((ArrayList<Item>) favoriteItems);
+        writeData("favorites/" + uid, favModel, callback);
+    }
+
+
+    // הוספת פריט בודד למועדפים (משתמש בטרנזקציה כדי למנוע כפילויות)
+    public void addFavoriteItem(Item item) {
+        String uid = FirebaseAuth.getInstance().getUid();
+        if (uid == null) return;
+
+        DatabaseReference ref = readData(FAVORITES_PATH + "/" + uid + "/favoriteItemsList");
+
+        ref.get().addOnCompleteListener(task -> {
+            if (task.isSuccessful()) {
+                List<Item> items = new ArrayList<>();
+                if (task.getResult().exists()) {
+                    for (DataSnapshot snapshot : task.getResult().getChildren()) {
+                        items.add(snapshot.getValue(Item.class));
+                    }
+                }
+                // בדיקה שהפריט לא קיים כבר לפי ID
+                boolean exists = false;
+                for (Item i : items) {
+                    if (i.getId().equals(item.getId())) {
+                        exists = true;
+                        break;
+                    }
+                }
+                if (!exists) {
+                    items.add(item);
+                    ref.setValue(items);
+                }
+            }
+        });
+    }
 
 
     /// create a new cart in the database

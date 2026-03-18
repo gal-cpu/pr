@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.CartAdapter; // שינוי למתאם העגלה
-import com.example.pr.adapers.ItemsAdapter;
 import com.example.pr.model.Cart;
 import com.example.pr.model.Item;
 import com.example.pr.services.DatabaseService;
@@ -34,7 +33,6 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
 
     private static final String TAG = "cart";
     private DatabaseService databaseService;
-    private ItemsAdapter itemsAdapter;
     ScrollView scrollViewFilter;
     TextView optionOne, optionTwo, optionThree, optionFore;
     View ToggleFilter;
@@ -43,7 +41,6 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
     private CartAdapter cartAdapter; // שימוש ב-CartAdapter
     private List<Item> allItems = new ArrayList<>();
     private ArrayList<Item> filteredItems = new ArrayList<>();
-
     private String selectedCategory, current_userId = "";
 
     @Override

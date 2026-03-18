@@ -68,7 +68,7 @@ public class UserProfile extends AppCompatActivity {
         finish();
     }
 
-    public void FavoriesClick(View view) {
+    public void FavoritesClick(View view) {
         Intent go = new Intent(UserProfile.this, Favorites.class);
         startActivity(go);
     }
