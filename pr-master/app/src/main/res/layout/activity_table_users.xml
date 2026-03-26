@@ -50,7 +50,47 @@
         app:layout_constraintVertical_bias="0.143"
         app:srcCompat="@drawable/icon_users_table" />
 
-    <!-- חלק הסינון - גמיש וצמוד מתחת לתמונה -->
+    <!-- שורת החיפוש שהתווספה -->
+    <FrameLayout
+        android:id="@+id/searchContainer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+
+        <EditText
+            android:id="@+id/edSearchUser"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/search_edit_background"
+            android:drawablePadding="8dp"
+            android:elevation="3dp"
+            android:hint="search for..."
+            android:inputType="text"
+            android:paddingStart="15dp"
+            android:paddingEnd="50dp"
+            android:layout_marginBottom="5dp"
+            android:textColorHint="#8d8d8d"
+            android:textStyle="italic" />
+
+        <ImageButton
+            android:id="@+id/btnSearchIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:elevation="4dp"
+            android:onClick="serchClickCart"
+            android:src="@drawable/searchicon"
+            android:scaleType="centerInside" />
+    </FrameLayout>
+
+    <!-- חלק הסינון - כעת צמוד לתחתית שורת החיפוש -->
     <ScrollView
         android:id="@+id/ScrollViewFilter"
         android:layout_width="wrap_content"
@@ -58,14 +98,13 @@
         android:layout_marginTop="10dp"
         android:layout_marginStart="220dp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="vertical">
 
-            <!-- הכפתור המעוצב -->
             <LinearLayout
                 android:id="@+id/btnShowOptions"
                 android:layout_width="170dp"
@@ -95,7 +134,6 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- רשימת האופציות - נסתרת בהתחלה -->
             <LinearLayout
                 android:id="@+id/optionsContainer"
                 android:layout_width="170dp"
@@ -137,7 +175,6 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- רשימת המשתמשים - תופסת את שאר המסך -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcUsers"
         android:layout_width="0dp"
@@ -149,4 +186,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/ScrollViewFilter" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

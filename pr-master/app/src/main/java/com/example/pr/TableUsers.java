@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -17,11 +18,13 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.adapers.UsersAdapter;
+import com.example.pr.model.Item;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 public class TableUsers extends AppCompatActivity implements View.OnClickListener {
 
@@ -34,6 +37,9 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
     private LinearLayout optionsContainer;
     private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
     private List<User> allIusers;
+    EditText edSearch;
+    ArrayList<User> filteredUsers = new ArrayList<>();
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,6 +57,7 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
         RecyclerView recyclerView = findViewById(R.id.rcUsers);
 
         scrollViewFilter= findViewById(R.id.ScrollViewFilter);
+        edSearch = findViewById(R.id.edSearchUser);
 
         scrollViewFilter.setSmoothScrollingEnabled(true);
         optionsContainer = findViewById(R.id.optionsContainer); // וודא שיש ID כזה ב-XML
@@ -115,7 +122,6 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
     }
 
     private void filterUsersByCategory() {
-        ArrayList<User> filteredUsers = new ArrayList<>();
         if (selectedCategory != null && !selectedCategory.isEmpty()) {
             if(selectedCategory.contains("all")){
                 filteredUsers.addAll(allIusers);
@@ -175,4 +181,19 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
         }
     }
 
+    public void serchClickCart(View view) {
+        String search = edSearch.getText().toString().trim();
+
+        filteredUsers.clear();
+
+        for (User user : allIusers) {
+            if (user.getfName().toLowerCase().contains(search.toLowerCase()) || user.getlName().contains(search.toLowerCase()) || user.getEmail().contains(search.toLowerCase()) || user.getPhone().contains(search.toLowerCase())) {
+                filteredUsers.add(user);
+            }
+        }
+
+        usersAdapter.setUsers(filteredUsers);
+        usersAdapter.notifyDataSetChanged(); // מוודא שהרשימה על המסך מתעדכנת
+        //filterUsersByCategory();
+    }
 }
