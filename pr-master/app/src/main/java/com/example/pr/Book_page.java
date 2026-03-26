@@ -1,0 +1,156 @@
+package com.example.pr;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
+
+import androidx.activity.EdgeToEdge;
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.graphics.Insets;
+import androidx.core.view.ViewCompat;
+import androidx.core.view.WindowInsetsCompat;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.pr.adapers.ItemsAdapter;
+import com.example.pr.model.Item;
+import com.example.pr.services.DatabaseService;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class Book_page extends AppCompatActivity {
+
+    private static final String TAG = "ItemsActivity";
+    DatabaseService databaseService;
+    private ItemsAdapter itemsAdapter;
+    EditText edSearch;
+    private TextView tvTitle;
+    private ImageView ivTitleIteams;
+    ArrayList<Item> filteredItems = new ArrayList<>();
+    private String selectedCategory; // משתנה לאחסון הקטגוריה שנבחרה
+    private List<Item> allItems;
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        EdgeToEdge.enable(this);
+        setContentView(R.layout.activity_book_page);
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main), (v, insets) -> {
+            Insets systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars());
+            v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
+            return insets;
+        });
+
+
+        // קבלת שם הקטגוריה מ-Intent
+        selectedCategory = getIntent().getStringExtra("type");
+
+        databaseService = DatabaseService.getInstance();
+
+        RecyclerView recyclerView = findViewById(R.id.rcItemes);
+
+        tvTitle = findViewById(R.id.tvTitleIteams);
+
+        edSearch = findViewById(R.id.edSearch);
+
+        ivTitleIteams = findViewById(R.id.ivTitleIteams);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        itemsAdapter = new ItemsAdapter(new ItemsAdapter.ItemClickListener() {
+            @Override
+            public void onLongClick(Item item, int position) {
+
+            }
+
+            @Override
+            public void onClick(Item item) {
+                // Handle item click
+                Log.d(TAG, "Item clicked: " + item);
+                Intent intent = new Intent(Book_page.this, Item_page.class);
+                intent.putExtra("Item_UID", item.getId());
+                startActivity(intent);
+            }
+        });
+        recyclerView.setAdapter(itemsAdapter);
+
+        fetchItemsFromFirebase();
+    }
+
+    private void fetchItemsFromFirebase() {
+
+        // טעינת המוצרים
+        databaseService.getItemList(new DatabaseService.DatabaseCallback<>() {
+            @Override
+            public void onCompleted(List<Item> items) {
+                // Log.d(TAG, "onCompleted: " + items);
+                allItems = items;
+                itemsAdapter.setItem(items);
+                filterItemsByCategory();
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+                Log.e(TAG, "Failed to load items: ", e);
+                new android.app.AlertDialog.Builder(Book_page.this)
+                        .setMessage("נראה שקרתה תקלה בטעינת המוצרים, נסה שוב מאוחר יותר")
+                        .setPositiveButton("אוקי", null)
+                        .show();
+            }
+        });
+    }
+
+    private void filterItemsByCategory() {
+        if (selectedCategory != null && !selectedCategory.isEmpty()) {
+            // אם נבחרה קטגוריה מסוימת, נבצע סינון
+            for (Item item : allItems) {
+                if (item.getType().equals(selectedCategory)) {
+                    filteredItems.add(item);
+                }
+            }
+            switch (selectedCategory) {
+                case "book":
+                    ivTitleIteams.setImageResource(R.drawable.icon_books_page);
+                    tvTitle.setText("Books store");
+                    break;
+                case "toy":
+                    ivTitleIteams.setImageResource(R.drawable.icon_toys_page);
+                    tvTitle.setText("Toys store");
+                    break;
+                case "device":
+                    ivTitleIteams.setImageResource(R.drawable.icon_devices_page);
+                    tvTitle.setText("Devices store");
+                    break;
+                case "shoe":
+                    ivTitleIteams.setImageResource(R.drawable.icon_shoe_shop_page);
+                    tvTitle.setText("Shoes store");
+                    break;
+            }
+
+        } else {
+            filteredItems.addAll(allItems);
+        }
+        itemsAdapter.setItem(filteredItems);
+    }
+
+    public void serchClickBook(View view) {
+        String search = edSearch.getText().toString().trim();
+
+        filteredItems.clear();
+
+        for (Item item : allItems) {
+            if (item.getType().equals(selectedCategory) && item.getpName().toLowerCase().contains(search.toLowerCase())) {
+                filteredItems.add(item);
+            }
+        }
+
+        itemsAdapter.setItem(filteredItems);
+        itemsAdapter.notifyDataSetChanged(); // מוודא שהרשימה על המסך מתעדכנת
+    }
+}

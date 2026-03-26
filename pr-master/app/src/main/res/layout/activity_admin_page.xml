@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F5F7FA"
+    android:padding="24dp"
+    tools:context=".AdminPage">
+
+    <androidx.cardview.widget.CardView
+        android:id="@+id/formCard"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:cardBackgroundColor="#FFFFFF"
+        app:cardCornerRadius="35dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginEnd="10dp"
+        android:layout_marginStart="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <!-- כותרת ראשית מעוצבת -->
+        <TextView
+            android:id="@+id/LogInTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="100dp"
+            android:fontFamily="sans-serif-black"
+            android:lineSpacingExtra="4dp"
+            android:text="Welcome back \nadmin"
+            android:textColor="#1A1C1E"
+            android:textSize="36sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="200dp"
+            android:text="What would you like to do today"
+            android:textColor="#6C757D"
+            android:textSize="18sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/LogInTitle" />
+
+        <!-- קונטיינר לכפתורים לסידור נקי -->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textView6"
+            app:layout_constraintVertical_bias="0.4">
+
+            <Button
+                android:id="@+id/btnAddItemAdmin"
+                style="@style/Widget.MaterialComponents.Button"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginTop="380dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#4A90E2"
+                android:onClick="GoToAddItem"
+                android:text="Add new item"
+                android:textAllCaps="false"
+                android:textSize="18sp"
+                app:cornerRadius="12dp"
+                app:icon="@android:drawable/ic_menu_add" />
+
+            <Button
+                android:id="@+id/ListOfUsers"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#FFFFFF"
+                android:onClick="OnClickUsersTable"
+                android:text="Users list"
+                android:textAllCaps="false"
+                android:textColor="#4A90E2"
+                android:textSize="18sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="#4A90E2"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/ListOfItems"
+                style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:layout_marginBottom="16dp"
+                android:backgroundTint="#FFFFFF"
+                android:onClick="OnClickItemsTable"
+                android:text="Items list"
+                android:textAllCaps="false"
+                android:textColor="#4A90E2"
+                android:textSize="18sp"
+                app:cornerRadius="12dp"
+                app:strokeColor="#4A90E2"
+                app:strokeWidth="2dp" />
+
+            <Button
+                android:id="@+id/Website"
+                style="@style/Widget.MaterialComponents.Button.TextButton"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:onClick="OnClickWebsite"
+                android:text="View public website"
+                android:textAllCaps="false"
+                android:textColor="#6C757D"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/bottomNavigation"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_marginTop="760dp"
+            android:background="#F5F5F5"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintBottom_toBottomOf="parent">
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="todop"
+                android:onClick="IVuserClick"
+                android:padding="16dp"
+                android:src="@drawable/icon_user" /> <!-- פרופיל -->
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="todou"
+                android:onClick="IVcartClick"
+                android:padding="16dp"
+                android:src="@drawable/icon_cart" /> <!-- עגלה -->
+
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:contentDescription="todoo"
+                android:onClick="IVhouseClick"
+                android:padding="16dp"
+                android:src="@drawable/icon_house" /> <!-- בית -->
+        </LinearLayout>
+    </androidx.cardview.widget.CardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
