@@ -73,6 +73,7 @@
             android:inputType="text"
             android:paddingStart="15dp"
             android:paddingEnd="50dp"
+            android:layout_marginBottom="5dp"
             android:textColorHint="#8d8d8d"
             android:textStyle="italic" />
 
