@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr" >
         <activity
+            android:name=".payment_page"
+            android:exported="false" />
+        <activity
             android:name=".Favorites"
             android:exported="false" />
         <activity
