@@ -187,9 +187,8 @@ public class TableUsers extends AppCompatActivity implements View.OnClickListene
         filteredUsers.clear();
 
         for (User user : allIusers) {
-            if (user.getfName().toLowerCase().contains(search.toLowerCase()) || user.getlName().contains(search.toLowerCase()) || user.getEmail().contains(search.toLowerCase()) || user.getPhone().contains(search.toLowerCase())) {
+            if (user.getfName().toLowerCase().contains(search.toLowerCase()) || user.getlName().contains(search.toLowerCase()) || user.getEmail().contains(search.toLowerCase()) || user.getPhone().contains(search.toLowerCase()))
                 filteredUsers.add(user);
-            }
         }
 
         usersAdapter.setUsers(filteredUsers);

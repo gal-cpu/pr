@@ -1,9 +1,11 @@
 package com.example.pr;
-
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -23,13 +25,13 @@ import com.example.pr.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
-
+import java.util.Locale;
 public class TableItems extends AppCompatActivity implements View.OnClickListener {
-
     private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
     private ItemsAdapter itemsAdapter;
     ScrollView scrollViewFilter1, scrollViewFilter2;
+    EditText edSearchItem;
     private TextView optionFore, optionFive, optionSix, optionSeven, optionEight, optionNine, optionTen, optionEleven, optionTwelve;
    private View ToggleFilter1, ToggleFilter2;
     private LinearLayout optionsContainer1, optionsContainer2;
@@ -49,8 +51,18 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             return insets;
         });
 
+        // edSearchItem.addTextChangedListener(new TextWatcher() { //ברגע שמקלידים החיפוש מתבצע
+        //@Override
+        //    public void onTextChanged(CharSequence s, int start, int before, int count) {
+        //        filterItemsByCategory(); // קורא לסינון בכל שינוי טקסט
+       //     }
+       //     @Override public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+       //     @Override public void afterTextChanged(Editable s) {}
+       // });
+
         databaseService = DatabaseService.getInstance();
         RecyclerView recyclerView = findViewById(R.id.RcItemes);
+        edSearchItem = findViewById(R.id.edSearchItem);
 
         scrollViewFilter1 = findViewById(R.id.ScrollViewFilterItem1);
         scrollViewFilter2 = findViewById(R.id.ScrollViewFilterItem2);
@@ -100,7 +112,6 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         recyclerView.setAdapter(itemsAdapter);
         fetchItemsFromFirebase();
     }
-
     private void fetchItemsFromFirebase() {
         databaseService.getItemList(new DatabaseService.DatabaseCallback<>() {
             @Override
@@ -112,7 +123,6 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
                     itemsAdapter.notifyDataSetChanged();
                 }
             }
-
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "Failed to load items", e);
@@ -120,7 +130,7 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         });
     }
 
-    private void filterUsersBySorting() {
+    private void filterItemsBySorting() {
         if (filteredItems == null) return;
 
         if ("high".equals(selectedCategory1)) {
@@ -135,10 +145,15 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         itemsAdapter.notifyDataSetChanged();
     }
 
-    private void filterUsersByCategory() {
+    private void filterItemsByCategory() {
         if (allItems == null) return;
 
-        if ("all".equals(selectedCategory2)) {
+        if (filteredItems == null) {
+            filteredItems = new ArrayList<>();
+        }
+
+        // שלב 1: סינון לפי קטגוריה
+        if ("all".equals(selectedCategory2) || selectedCategory2 == null || selectedCategory2.isEmpty()) {
             filteredItems = new ArrayList<>(allItems);
         } else {
             filteredItems.clear();
@@ -148,8 +163,27 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
                 }
             }
         }
-        filterUsersBySorting();
+
+        // שלב 2: סינון לפי טקסט החיפוש (רק אם המשתמש הקליד משהו)
+        if (edSearchItem != null) {
+            String searchText = edSearchItem.getText().toString().trim().toLowerCase();
+
+            if (!searchText.isEmpty()) { // מסננים רק אם יש טקסט
+                ArrayList<Item> arrayTemp = new ArrayList<>();
+                // עוברים רק על מה שעבר את סינון הקטגוריה
+                for (Item item : filteredItems) {
+                    if (item.getpName() != null && item.getpName().toLowerCase().contains(searchText)) {
+                        arrayTemp.add(item);
+                    }
+                }
+                filteredItems = arrayTemp; // מעדכנים את הרשימה המסוננת
+            }
+        }
+        // שלב 3: מיון סופי והצגה
+        filterItemsBySorting();
     }
+
+
 
     @Override
     public void onClick(View v) {
@@ -161,19 +195,19 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             optionsContainer1.setVisibility(optionsContainer1.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
         } else if (id == R.id.option4) {
             selectedCategory1 = "without";
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer1.setVisibility(View.GONE);
         } else if (id == R.id.option5) {
             selectedCategory1 = "high";
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer1.setVisibility(View.GONE);
         } else if (id == R.id.option6) {
             selectedCategory1 = "low";
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer1.setVisibility(View.GONE);
         } else if (id == R.id.option7) {
             selectedCategory1 = "rate";
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer1.setVisibility(View.GONE);
         }
 
@@ -183,24 +217,28 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             optionsContainer2.setVisibility(optionsContainer2.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
         } else if (id == R.id.option8) {
             selectedCategory2 = "all";
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option9) {
             selectedCategory2 = "book"; // שנה לשם הקטגוריה האמיתי שלך
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option10) {
             selectedCategory2 = "toy"; // שנה לשם הקטגוריה האמיתי שלך
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option11) {
             selectedCategory2 = "device"; // שנה לשם הקטגוריה האמיתי שלך
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option12) {
             selectedCategory2 = "shoe"; // שנה לשם הקטגוריה האמיתי שלך
-            filterUsersByCategory();
+            filterItemsByCategory();
             optionsContainer2.setVisibility(View.GONE);
         }
+    }
+
+    public void serchClickItem(View view) {
+        filterItemsByCategory();
     }
 }

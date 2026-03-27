@@ -53,7 +53,47 @@
         app:layout_constraintVertical_bias="0.143"
         app:srcCompat="@drawable/icon_users_table" />
 
-    <!-- חלק הסינון 1 - מיון -->
+    <!-- שורת החיפוש שהתווספה -->
+    <FrameLayout
+        android:id="@+id/searchContainer"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_marginStart="25dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="25dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+
+        <EditText
+            android:id="@+id/edSearchItem"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/search_edit_background"
+            android:drawablePadding="8dp"
+            android:elevation="3dp"
+            android:hint="search for..."
+            android:inputType="text"
+            android:paddingStart="15dp"
+            android:paddingEnd="50dp"
+            android:layout_marginBottom="5dp"
+            android:textColorHint="#8d8d8d"
+            android:textStyle="italic" />
+
+        <ImageButton
+            android:id="@+id/btnSearchIcon"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_gravity="end|center_vertical"
+            android:layout_marginEnd="8dp"
+            android:background="?attr/selectableItemBackgroundBorderless"
+            android:elevation="4dp"
+            android:onClick="serchClickItem"
+            android:src="@drawable/searchicon"
+            android:scaleType="centerInside" />
+    </FrameLayout>
+
+    <!-- חלק הסינון 1 - מיון (עודכן להיות מתחת לחיפוש) -->
     <ScrollView
         android:id="@+id/ScrollViewFilterItem1"
         android:layout_width="170dp"
@@ -63,7 +103,7 @@
         android:elevation="10dp"
         android:clipToPadding="false"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -117,7 +157,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- חלק הסינון 2 - קטגוריות -->
+    <!-- חלק הסינון 2 - קטגוריות (עודכן להיות מתחת לחיפוש) -->
     <ScrollView
         android:id="@+id/ScrollViewFilterItem2"
         android:layout_width="170dp"
@@ -127,7 +167,7 @@
         android:elevation="10dp"
         android:clipToPadding="false"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+        app:layout_constraintTop_toBottomOf="@+id/searchContainer">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -175,7 +215,7 @@
 
                 <TextView android:id="@+id/option8" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="all" android:textColor="#333333" />
                 <TextView android:id="@+id/option9" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="book" android:textColor="#333333" />
-                <TextView android:id="@+id/option10" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="toy" android:textColor="#333333" />
+                <TextView android:id="@+id/option10" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="tech" android:textColor="#333333" />
                 <TextView android:id="@+id/option11" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="device" android:textColor="#333333" />
                 <TextView android:id="@+id/option12" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="shoes" android:textColor="#333333" />
             </LinearLayout>
