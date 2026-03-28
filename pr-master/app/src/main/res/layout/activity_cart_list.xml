@@ -173,7 +173,7 @@
 
         <!-- הכפתור עבר להתחלה (שמאל) וקיבל משקל 1.5 כדי להיות ארוך יותר -->
         <com.google.android.material.button.MaterialButton
-            android:id="@+id/btnBook"
+            android:id="@+id/btnPay"
             style="@style/Widget.MaterialComponents.Button.UnelevatedButton"
             android:layout_width="0dp"
             android:layout_height="55dp"

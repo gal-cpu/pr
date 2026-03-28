@@ -132,8 +132,9 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
 
     private void filterItemsBySorting() {
         if (filteredItems == null) return;
-
-        if ("high".equals(selectedCategory1)) {
+        if ("without".equals(selectedCategory1)) {
+            filteredItems.addAll(allItems);
+        } else if ("high".equals(selectedCategory1)) {
             filteredItems.sort((a, b) -> Double.compare(b.getPrice(), a.getPrice()));
         } else if ("low".equals(selectedCategory1)) {
             filteredItems.sort(Comparator.comparingDouble(Item::getPrice));
@@ -180,9 +181,10 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             }
         }
         // שלב 3: מיון סופי והצגה
-        filterItemsBySorting();
+        if (!selectedCategory1.equals("without")){
+            filterItemsBySorting();
+        }
     }
-
 
 
     @Override

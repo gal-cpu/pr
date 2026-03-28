@@ -56,7 +56,7 @@
     </EditText>
 
     <EditText
-        android:id="@+id/edfullNAme"
+        android:id="@+id/edFullName"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="15dp"
@@ -87,7 +87,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/edfullNAme">
+        app:layout_constraintTop_toBottomOf="@+id/edFullName">
 
     </EditText>
 
@@ -139,7 +139,7 @@
     </LinearLayout>
 
     <EditText
-        android:id="@+id/editTextCVV"
+        android:id="@+id/edCVV"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="#b380ff"
@@ -167,7 +167,7 @@
         android:text="Total price:"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/editTextCVV">
+        app:layout_constraintTop_toBottomOf="@+id/edCVV">
 
     </TextView>
 

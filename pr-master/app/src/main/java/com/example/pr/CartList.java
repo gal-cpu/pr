@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
@@ -16,18 +17,13 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.pr.adapers.CartAdapter; // שינוי למתאם העגלה
 import com.example.pr.model.Cart;
-import com.example.pr.model.Item;
 import com.example.pr.model.ItemCart;
 import com.example.pr.services.DatabaseService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
-
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class CartList extends AppCompatActivity implements View.OnClickListener {
@@ -39,7 +35,8 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
     View ToggleFilter;
     private LinearLayout optionsContainer;
     private TextView tvPay;
-
+    Button btnPay;
+    double sum = 0.0;
     Cart cart=null;
     private CartAdapter cartAdapter; // שימוש ב-CartAdapter
     private List<ItemCart> allItems = new ArrayList<>();
@@ -61,9 +58,8 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
         databaseService = DatabaseService.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
 
-
-
         scrollViewFilter= findViewById(R.id.ScrollViewFilterCart);
+        btnPay = findViewById(R.id.btnPay);
 
         scrollViewFilter.setSmoothScrollingEnabled(true);
         optionsContainer = findViewById(R.id.optionsContainerCart); // וודא שיש ID כזה ב-XML
@@ -148,9 +144,6 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
 
             }
         });
-
-
-
     }
 
     private void fetchCartFromFirebase() {
@@ -186,7 +179,7 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
         filteredItems.clear();
         filteredItems.addAll(cart.getItemArrayList());
         if ("without".equals(selectedCategory)) {
-
+            filteredItems.addAll(allItems);
         }else if ("high".equals(selectedCategory)) {
             filteredItems.sort((a, b) -> Double.compare(b.getItem().getPrice(), a.getItem().getPrice()));
         } else if ("low".equals(selectedCategory)) {
@@ -230,9 +223,13 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             filterItemsBySorting();
             optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
         }
+        if (id == R.id.btnPay){
+            Intent intent = new Intent(CartList.this, payment_page.class);
+            intent.putExtra("price", sum);
+            startActivity(intent);
+        }
     }
     private void sumPrice() {
-        double sum = 0.0;
         // 1. בדיקה שכל אובייקט העגלה (cart) אינו null
         if (cart != null && cart.getItemArrayList() != null && !cart.getItemArrayList().isEmpty()) {
             for (ItemCart item : cart.getItemArrayList()) {
