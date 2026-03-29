@@ -2,14 +2,13 @@ package com.example.pr;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
@@ -124,9 +123,6 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
-
-
-
         recyclerView.setAdapter(cartAdapter);
         fetchCartFromFirebase();
     }
@@ -152,7 +148,6 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             public void onCompleted(Cart cart2) {
                 if (cart2 != null && cart2.getItemArrayList() != null) {
                     allItems = cart2.getItemArrayList();
-
                     cart=cart2;
                 } else {
                     allItems = new ArrayList<>();
@@ -226,6 +221,8 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
         if (id == R.id.btnPay){
             Intent intent = new Intent(CartList.this, payment_page.class);
             intent.putExtra("price", sum);
+            intent.putExtra("ItemCart", (Parcelable) allItems);
+            intent.putExtra("USER_UID", current_userId);
             startActivity(intent);
         }
     }
