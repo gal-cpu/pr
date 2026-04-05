@@ -13,23 +13,23 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.R;
 import com.example.pr.model.Item;
+import com.example.pr.model.ItemCart;
 import com.example.pr.util.ImageUtil;
 
 import java.util.List;
 
 public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder> {
 
-    private Context context;
-    private List<Item> cartItems;
+    private List<ItemCart> cartItems;
     private CartClickListener listener;
 
     public interface CartClickListener {
-        void onClick(Item item);
-        void onLongClick(Item item, int position);
+        void onClick(ItemCart item);
+        void onLongClick(ItemCart item, int position);
     }
 
-    public CartAdapter(Context context, List<Item> cartItems, CartClickListener listener) {
-        this.context = context;
+    public CartAdapter( List<ItemCart> cartItems, CartClickListener listener) {
+
         this.cartItems = cartItems;
         this.listener = listener;
     }
@@ -37,30 +37,39 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     @NonNull
     @Override
     public CartViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.one_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.one_item, parent, false);
         return new CartViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull CartViewHolder holder, int position) {
-        Item item = cartItems.get(position);
+        ItemCart item = cartItems.get(position);
 
-        holder.tvName.setText(item.getpName());
+        // הגנה: אם ה-ItemCart עצמו null או שהמוצר (Item) שבתוכו null - אל תנסה להציג
+        if (item == null || item.getItem() == null) {
+            holder.tvName.setText("מוצר לא זמין");
+            holder.tvPrice.setText("");
+            holder.tvRate.setText("");
+            holder.tvQuantity.setVisibility(View.GONE);
+            holder.ivItem.setImageBitmap(null);
+            return;
+        }
 
-        // חישוב מחיר שורה: מחיר X כמות
-        double totalPriceForItem = item.getPrice() * item.getQuantity();
-        holder.tvPrice.setText(String.format("%.2f", item.getPrice()) + "$");
+        // מעכשיו בטוח להשתמש ב-item.getItem()
+        holder.tvName.setText(item.getItem().getpName());
 
-        holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
+        // חישוב מחיר שורה
+        holder.tvPrice.setText(String.format("%.2f", item.getItem().getPrice()) + "$");
+        holder.tvRate.setText(String.format("%.1f", item.getItem().getRate()) + "⭐");
 
         // הצגת כמות
-        holder.tvQuantity.setText("x" + item.getQuantity());
+        holder.tvQuantity.setText("x" + item.getAmount());
         holder.tvQuantity.setVisibility(View.VISIBLE);
 
-        // טעינת תמונה עם ניקוי זיכרון למניעת כפילויות בגלילה
+        // טעינת תמונה
         holder.ivItem.setImageBitmap(null);
-        if (item.getImage() != null && !item.getImage().isEmpty()) {
-            Bitmap bitmap = ImageUtil.convertFrom64base(item.getImage());
+        if (item.getItem().getImage() != null && !item.getItem().getImage().isEmpty()) {
+            Bitmap bitmap = ImageUtil.convertFrom64base(item.getItem().getImage());
             if (bitmap != null) {
                 holder.ivItem.setImageBitmap(bitmap);
             }
@@ -76,13 +85,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         });
     }
 
+
     @Override
     public int getItemCount() {
         return cartItems != null ? cartItems.size() : 0;
     }
 
     // הפעולה שביקשת להוסיף
-    public void setItem(List<Item> newCartItems) {
+    public void setItem(List<ItemCart> newCartItems) {
         this.cartItems = newCartItems;
         notifyDataSetChanged();
     }

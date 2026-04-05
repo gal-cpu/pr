@@ -20,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.adapers.CartAdapter; // שינוי למתאם העגלה
 import com.example.pr.model.Cart;
 import com.example.pr.model.Item;
+import com.example.pr.model.ItemCart;
 import com.example.pr.services.DatabaseService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
@@ -38,9 +39,11 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
     View ToggleFilter;
     private LinearLayout optionsContainer;
     private TextView tvPay;
+
+    Cart cart=null;
     private CartAdapter cartAdapter; // שימוש ב-CartAdapter
-    private List<Item> allItems = new ArrayList<>();
-    private ArrayList<Item> filteredItems = new ArrayList<>();
+    private List<ItemCart> allItems = new ArrayList<>();
+    private ArrayList<ItemCart> filteredItems = new ArrayList<>();
     private String selectedCategory, current_userId = "";
 
     @Override
@@ -57,6 +60,8 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
 
         databaseService = DatabaseService.getInstance();
         FirebaseAuth mAuth = FirebaseAuth.getInstance();
+
+
 
         scrollViewFilter= findViewById(R.id.ScrollViewFilterCart);
 
@@ -79,35 +84,39 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             current_userId = mAuth.getCurrentUser().getUid();
         }
 
+        fetchCartFromFirebase() ;
+
+
         RecyclerView recyclerView = findViewById(R.id.RcCart);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         tvPay = findViewById(R.id.tvPay);
 
         // אתחול ה-CartAdapter עם ה-Listener המתאים
-        cartAdapter = new CartAdapter(this, allItems, new CartAdapter.CartClickListener() {
+        cartAdapter = new CartAdapter(allItems, new CartAdapter.CartClickListener() {
             @Override
-            public void onClick(Item item) {
+            public void onClick(ItemCart item) {
                 Log.d(TAG, "Item clicked: " + item);
                 Intent intent = new Intent(CartList.this, Item_page.class);
-                intent.putExtra("Item_UID", item.getId());
+                intent.putExtra("Item_UID", item.getItem().getId());
                 startActivity(intent);
+
             }
 
             @Override
-            public void onLongClick(Item item, int position) {
-                // דיאלוג הסרה מהעגלה
+            public void onLongClick(ItemCart item, int position) {
                 new MaterialAlertDialogBuilder(CartList.this)
                         .setTitle("הסרה מהעגלה")
-                        .setMessage("האם אתה בטוח שברצונך להסיר את " + item.getpName() + " מהסל?")
+                        .setMessage("האם אתה בטוח שברצונך להסיר את " + item.getItem().getpName() + " מהסל?")
                         .setBackground(getResources().getDrawable(R.drawable.dialog_rounded_bg, getTheme()))
                         .setIcon(R.drawable.baseline_shopping_cart_24)
                         .setPositiveButton("כן, הסר", (dialog, which) -> {
                             if (allItems != null && position < allItems.size()) {
                                 // 1. הסרה מהרשימה המקומית
                                 allItems.remove(position);
+
                                 // 2. עדכון ה-Adapter
-                                cartAdapter.setItem(allItems);
+                                cartAdapter.notifyDataSetChanged();
                                 // 3. עדכון המחיר הכולל
                                 sumPrice();
                                 // 4. עדכון Firebase
@@ -119,31 +128,42 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
+
+
+
         recyclerView.setAdapter(cartAdapter);
         fetchCartFromFirebase();
     }
 
     private void updateCartInFirebase() {
-        FirebaseDatabase.getInstance().getReference("users")
-                .child(current_userId)
-                .child("cart")
-                .child("itemArrayList")
-                .setValue(allItems)
-                .addOnSuccessListener(aVoid -> Toast.makeText(CartList.this, "הסל עודכן בהצלחה", Toast.LENGTH_SHORT).show())
-                .addOnFailureListener(e -> {
-                    Toast.makeText(CartList.this, "שגיאה בסנכרון", Toast.LENGTH_SHORT).show();
-                    fetchCartFromFirebase(); // טעינה מחדש במקרה של שגיאה
-                });
+
+        databaseService.updateCart(current_userId, new Cart(), new DatabaseService.DatabaseCallback<Void>() {
+            @Override
+            public void onCompleted(Void object) {
+
+            }
+
+            @Override
+            public void onFailed(Exception e) {
+
+            }
+        });
+
+
+
     }
 
     private void fetchCartFromFirebase() {
         databaseService.getCart(current_userId, new DatabaseService.DatabaseCallback<>() {
             @Override
-            public void onCompleted(Cart cart) {
-                if (cart != null && cart.getItemArrayList() != null) {
-                    allItems = cart.getItemArrayList();
+            public void onCompleted(Cart cart2) {
+                if (cart2 != null && cart2.getItemArrayList() != null) {
+                    allItems = cart2.getItemArrayList();
+
+                    cart=cart2;
                 } else {
                     allItems = new ArrayList<>();
+                    cart=new Cart();
                 }
                 filteredItems = new ArrayList<>(allItems);
                 cartAdapter.setItem(allItems);
@@ -154,6 +174,7 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             public void onFailed(Exception e) {
                 Log.e(TAG, "Failed to load cart", e);
                 allItems = new ArrayList<>();
+                cart=new Cart();
                 cartAdapter.setItem(allItems);
                 sumPrice();
             }
@@ -163,16 +184,17 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
     private void filterItemsBySorting() {
         if (filteredItems == null) return;
         filteredItems.clear();
-        filteredItems.addAll(allItems);
+        filteredItems.addAll(cart.getItemArrayList());
         if ("without".equals(selectedCategory)) {
 
         }else if ("high".equals(selectedCategory)) {
-            filteredItems.sort((a, b) -> Double.compare(b.getPrice(), a.getPrice()));
+            filteredItems.sort((a, b) -> Double.compare(b.getItem().getPrice(), a.getItem().getPrice()));
         } else if ("low".equals(selectedCategory)) {
-            filteredItems.sort(Comparator.comparingDouble(Item::getPrice));
+            filteredItems.sort((a, b) -> Double.compare(a.getItem().getPrice(), b.getItem().getPrice()));
         } else if ("rate".equals(selectedCategory)) {
-            filteredItems.sort((a, b) -> Double.compare(b.getRate(), a.getRate()));
+            filteredItems.sort((a, b) -> Double.compare(b.getItem().getRate(), a.getItem().getRate()));
         }
+
         cartAdapter.setItem(filteredItems);
         cartAdapter.notifyDataSetChanged();
     }
@@ -209,13 +231,14 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
         }
     }
-
     private void sumPrice() {
         double sum = 0.0;
-        if (allItems != null) {
-            for (Item item : allItems) {
-                if (item != null) {
-                    sum += (item.getPrice() * item.getQuantity());
+        // 1. בדיקה שכל אובייקט העגלה (cart) אינו null
+        if (cart != null && cart.getItemArrayList() != null && !cart.getItemArrayList().isEmpty()) {
+            for (ItemCart item : cart.getItemArrayList()) {
+                // 2. בדיקה שה-ItemCart קיים וגם שהמוצר (Item) שבתוכו קיים
+                if (item != null && item.getItem() != null) {
+                    sum += (item.getItem().getPrice() * item.getAmount());
                 }
             }
         }

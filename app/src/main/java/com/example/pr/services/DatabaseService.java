@@ -554,9 +554,14 @@ public class DatabaseService {
     ///
     /// @param callback the callback to call when the operation is completed
 
-    public void updateCart(@NotNull final String userId, @NonNull UnaryOperator<User> function, @NotNull final DatabaseCallback<User> callback) {
+    public void updateCart2222(@NotNull final String userId, @NonNull UnaryOperator<User> function, @NotNull final DatabaseCallback<User> callback) {
         runTransaction(USERS_PATH + "/" + userId, User.class, function, callback);
     }
+
+    public void updateCart(@NotNull final String userId,@Nullable final  Cart cart, @Nullable final DatabaseCallback<Void> callback) {
+        writeData(USERS_PATH + "/" + userId + "/cart/" , cart,callback);
+    }
+
 
     /// get a cart from the database
     ///
@@ -594,4 +599,3 @@ public class DatabaseService {
     // endregion cart section
 
 }
-

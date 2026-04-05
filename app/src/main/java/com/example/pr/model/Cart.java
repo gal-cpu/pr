@@ -5,9 +5,9 @@ import androidx.annotation.NonNull;
 import java.util.ArrayList;
 
 public class Cart {
-    protected ArrayList<Item> itemArrayList;
+    protected ArrayList<ItemCart> itemArrayList;
 
-    public Cart(ArrayList<Item> itemArrayList) {
+    public Cart(ArrayList<ItemCart> itemArrayList) {
         this.itemArrayList = itemArrayList;
     }
 
@@ -16,19 +16,37 @@ public class Cart {
     }
 
 
-    public ArrayList<Item> getItemArrayList() {
+    public ArrayList<ItemCart> getItemArrayList() {
         return itemArrayList;
     }
 
-    public void setItemArrayList(ArrayList<Item> itemArrayList) {
+    public void setItemArrayList(ArrayList<ItemCart> itemArrayList) {
         this.itemArrayList = itemArrayList;
     }
 
-    public void addItem(Item item) {
+    public void addItem(ItemCart item) {
+
+        boolean found=false;
         if (this.itemArrayList == null)
             this.itemArrayList = new ArrayList<>();
+        if(this.itemArrayList.size()>0){
 
-        this.itemArrayList.add(item);
+            for(ItemCart itcart:this.itemArrayList){
+
+                if(itcart.getItem().getId().equals(item.getItem().id)){
+
+                    found=true;
+                }
+            }
+
+
+        }
+        if(found){
+            item.amount++;
+
+        }
+        else
+            this.itemArrayList.add(item);
     }
 
 
