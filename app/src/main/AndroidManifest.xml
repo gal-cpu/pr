@@ -11,10 +11,10 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
-            android:name=".orderrow"
+            android:name=".OneItemOrderCart"
             android:exported="false" />
         <activity
-            android:name=".oneitemorder"
+            android:name=".OrderRowCart"
             android:exported="false" />
         <activity
             android:name=".Payment_page"

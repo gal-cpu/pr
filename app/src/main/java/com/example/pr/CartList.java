@@ -128,9 +128,6 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             }
         });
 
-
-
-
         recyclerView.setAdapter(cartAdapter);
         fetchCartFromFirebase();
     }

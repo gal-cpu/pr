@@ -1,5 +1,4 @@
 package com.example.pr;
-
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -8,17 +7,15 @@ import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
-
 import com.example.pr.model.Cart;
 import com.example.pr.model.FavoriteList;
 import com.example.pr.model.Item;
-import com.example.pr.model.User;
+import com.example.pr.model.ItemCart;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;
 import com.google.firebase.auth.FirebaseAuth;
@@ -27,6 +24,8 @@ import java.util.ArrayList;
 public class Item_page extends AppCompatActivity {
     DatabaseService databaseService;
     Item current_item;
+
+    ItemCart itemCart;
     TextView tvName, tvNote, tvPrice, tvAverageRating, tvQuantityPage;
     FirebaseAuth mAuth;
     String userId;
@@ -69,6 +68,8 @@ public class Item_page extends AppCompatActivity {
                 @Override
                 public void onCompleted(Item item) {
                     current_item = item;
+
+                    itemCart=new ItemCart(current_item,1);
                     populateFields();
                     setupListeners();
                 }
@@ -101,10 +102,6 @@ public class Item_page extends AppCompatActivity {
                     userFavorites = new FavoriteList();
                 }
             });
-
-
-
-
         }
     }
 
@@ -134,12 +131,14 @@ public class Item_page extends AppCompatActivity {
         // לוגיקה לכפתורי פלוס ומינוס (בחירת כמות)
         btnPlusPage.setOnClickListener(v -> {
             selectedQuantity++;
+            itemCart.setAmount(selectedQuantity);
             tvQuantityPage.setText(String.valueOf(selectedQuantity));
         });
 
         btnMinusPage.setOnClickListener(v -> {
             if (selectedQuantity > 1) {
                 selectedQuantity--;
+                itemCart.setAmount(selectedQuantity);
                 tvQuantityPage.setText(String.valueOf(selectedQuantity));
             }
         });
@@ -166,77 +165,62 @@ public class Item_page extends AppCompatActivity {
     }
 
     private void addCartItem() {
-        if (userCart != null && current_item != null) {
-            databaseService.updateCart(userId, user -> {
-                if (user == null) return null;
-                Cart cart = user.getCart();
+        if (userCart != null && itemCart != null) {
+//            databaseService.updateCart(userId, user -> {
+            //       if (user == null) return null;
+            //       Cart cart = user.getCart();
 
-                // אתחול הרשימה אם היא null למניעת קריסה
-                if (cart.getItemArrayList() == null) {
-                    cart.setItemArrayList(new ArrayList<>());
-                }
+            // אתחול הרשימה אם היא null למניעת קריסה
+            //     if (cart.getItemArrayList() == null) {
+            //          cart.setItemArrayList(new ArrayList<>());
+            //      }
 
-                ArrayList<Item> list = cart.getItemArrayList();
-                boolean isAlreadyInCart = false;
+            userCart.addItem(itemCart);
 
-                // בדיקה האם המוצר כבר קיים בעגלה
-                for (Item itemInCart : list) {
-                    if (itemInCart != null && itemInCart.getId().equals(current_item.getId())) {
-                        // עדכון כמות: הוספת הכמות שנבחרה בדף לכמות הקיימת בעגלה
-                        itemInCart.setQuantity(itemInCart.getQuantity() + selectedQuantity);
-                        isAlreadyInCart = true;
-                        break;
-                    }
-                }
-
-                if (!isAlreadyInCart) {
-                    // מוצר חדש בעגלה - מקבל את הכמות שנבחרה
-                    current_item.setQuantity(selectedQuantity);
-                    list.add(current_item);
-                }
-                return user;
-            }, new DatabaseService.DatabaseCallback<>() {
+            databaseService.updateCart(userId, userCart, new DatabaseService.DatabaseCallback<Void>() {
                 @Override
-                public void onCompleted(User updatedUser) {
+                public void onCompleted(Void object) {
                     Toast.makeText(Item_page.this, "נוספו " + selectedQuantity + " יחידות לעגלה", Toast.LENGTH_SHORT).show();
 
-                    // מעבר דף לפי סוג המוצר
-                    Intent go;
-                    String type = current_item.getType();
-                    if (type == null) type = "";
-
-                    switch (type) {
-                        case "book":
-                            go = new Intent(Item_page.this, Book_page.class);
-                            go.putExtra("type", "book");
-                            break;
-                        case "toy":
-                            go = new Intent(Item_page.this, Book_page.class);
-                            go.putExtra("type", "toy");
-                            break;
-                        case "device":
-                            go = new Intent(Item_page.this, Book_page.class);
-                            go.putExtra("type", "device");
-                            break;
-                        case "shoe":
-                            go = new Intent(Item_page.this, Book_page.class);
-                            go.putExtra("type", "shoe");
-                            break;
-                        default:
-                            go = new Intent(Item_page.this, MainActivity.class);
-                            break;
-                    }
-                    startActivity(go);
-                    finish(); // סגירת הדף הנוכחי
                 }
 
                 @Override
                 public void onFailed(Exception e) {
-                    Toast.makeText(Item_page.this, "שגיאה בעדכון העגלה", Toast.LENGTH_SHORT).show();
+
                 }
             });
+
+            // מעבר דף לפי סוג המוצר
+            Intent go;
+            String type = current_item.getType();
+            if (type == null) type = "";
+
+            switch (type) {
+                case "book":
+                    go = new Intent(Item_page.this, Book_page.class);
+                    go.putExtra("type", "book");
+                    break;
+                case "toy":
+                    go = new Intent(Item_page.this, Book_page.class);
+                    go.putExtra("type", "toy");
+                    break;
+                case "device":
+                    go = new Intent(Item_page.this, Book_page.class);
+                    go.putExtra("type", "device");
+                    break;
+                case "shoe":
+                    go = new Intent(Item_page.this, Book_page.class);
+                    go.putExtra("type", "shoe");
+                    break;
+                default:
+                    go = new Intent(Item_page.this, MainActivity.class);
+                    break;
+            }
+            startActivity(go);
+            finish(); // סגירת הדף הנוכחי
         }
     }
+
 
     private void addFavoritesItem() {
         // שימוש ב-userFavorites (מסוג FavoriteList) וב-current_item
@@ -281,8 +265,6 @@ public class Item_page extends AppCompatActivity {
             }
         }
     }
-
-
     private void populateFields() {
         if (current_item != null) {
             tvName.setText("Name: " + current_item.getpName());
