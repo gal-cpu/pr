@@ -51,7 +51,6 @@ public class ItemCartAdapter extends RecyclerView.Adapter<ItemCartAdapter.ViewHo
         ImageView itemCart_image;
         TextView itemCart_name, itemCart_price, itemCart_amount;
 
-
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
             //itemCart_image = itemView.findViewById(R.id.itemCart_imageItemOrder);

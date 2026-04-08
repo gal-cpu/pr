@@ -11,9 +11,7 @@ public class Order implements Serializable {
     private List<ItemCart> items;
     private double totalPrice;
     private String status;
-
     private User user;
-
     private long timestamp;
 
     public Order(String orderId, List<ItemCart> items, double totalPrice, String status, User user, long timestamp) {
