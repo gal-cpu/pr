@@ -39,7 +39,7 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
     View ToggleFilter;
     private LinearLayout optionsContainer;
     private TextView tvPay;
-
+    double sum = 0.0;
     Cart cart=null;
     private CartAdapter cartAdapter; // שימוש ב-CartAdapter
     private List<ItemCart> allItems = new ArrayList<>();
@@ -145,9 +145,6 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
 
             }
         });
-
-
-
     }
 
     private void fetchCartFromFirebase() {
@@ -227,9 +224,13 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             filterItemsBySorting();
             optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
         }
+        if (id == R.id.btnPayCart) {
+            Intent go = new Intent(CartList.this, Payment_page.class);
+            startActivity(go);
+        }
     }
     private void sumPrice() {
-        double sum = 0.0;
+        sum = 0.0;
         // 1. בדיקה שכל אובייקט העגלה (cart) אינו null
         if (cart != null && cart.getItemArrayList() != null && !cart.getItemArrayList().isEmpty()) {
             for (ItemCart item : cart.getItemArrayList()) {
