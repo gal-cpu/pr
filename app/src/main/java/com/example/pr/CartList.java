@@ -224,10 +224,10 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
             filterItemsBySorting();
             optionsContainer.setVisibility(View.GONE); // סגירת התפריט אחרי בחירה
         }
-        if (id == R.id.btnPayCart) {
-            Intent go = new Intent(CartList.this, Payment_page.class);
-            startActivity(go);
-        }
+        //if (id == R.id.btnPayCart) {
+          //  Intent go = new Intent(CartList.this, Payment_page.class);
+            //startActivity(go);
+        //}
     }
     private void sumPrice() {
         sum = 0.0;
