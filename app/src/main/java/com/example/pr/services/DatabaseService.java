@@ -8,6 +8,7 @@ import androidx.annotation.Nullable;
 import com.example.pr.model.Cart;
 import com.example.pr.model.FavoriteList;
 import com.example.pr.model.Item;
+import com.example.pr.model.Order;
 import com.example.pr.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -40,8 +41,32 @@ public class DatabaseService {
     /// paths for different data types in the database
     ///
     /// @see DatabaseService#readData(String)
+    ///
+    ///
+    ///
+
+
+    /// callback interface for database operations
+    ///
+    /// @param <T> the type of the object to return
+    /// @see DatabaseCallback#onCompleted(Object)
+    /// @see DatabaseCallback#onFailed(Exception)
+    public interface DatabaseCallback<T> {
+        /// called when the operation is completed successfully
+        public void onCompleted(T object);
+
+        /// called when the operation fails with an exception
+        public void onFailed(Exception e);
+    }
+
     private static final String USERS_PATH = "users",
             ITEMS_PATH = "items",
+
+            ORDER_PATH = "orders",
+            USERS_ORDERS_PATH = "userOrders",
+
+
+
             FAVORITES_PATH = "favorites"; // נתיב חדש למועדפים
     /// the instance of this class
     ///
@@ -72,29 +97,9 @@ public class DatabaseService {
         return instance;
     }
 
-    public void addItem(Item item, DatabaseCallback<Void> callback) {
-        // אנחנו משתמשים ב-"items" באות קטנה בדיוק כמו שמופיע אצלך ב-Firebase
-        String id = item.getId();
 
-        if (id == null || id.isEmpty()) {
-            // אם אין ID, מייצרים אחד חדש תחת ענף items
-            id = databaseReference.child("items").push().getKey();
-            item.setId(id);
-        }
 
-        // עדכון הנתונים בנתיב המדויק: items -> {id}
-        databaseReference.child("items").child(id).setValue(item)
-                .addOnSuccessListener(aVoid -> {
-                    if (callback != null) {
-                        callback.onCompleted(null);
-                    }
-                })
-                .addOnFailureListener(e -> {
-                    if (callback != null) {
-                        callback.onFailed(e);
-                    }
-                });
-    }
+
 
     /// write data to the database at a specific path
     ///
@@ -424,6 +429,9 @@ public class DatabaseService {
     }
 
 
+
+
+
     // endregion User Section
 
     // region item section
@@ -470,21 +478,7 @@ public class DatabaseService {
     }
 
     public void updateItem(@NotNull final Item item, @Nullable final DatabaseCallback<Void> callback) {
-        runTransaction(ITEMS_PATH + "/" + item.getId(), Item.class, currentItem -> item, new DatabaseCallback<Item>() {
-            @Override
-            public void onCompleted(Item object) {
-                if (callback != null) {
-                    callback.onCompleted(null);
-                }
-            }
-
-            @Override
-            public void onFailed(Exception e) {
-                if (callback != null) {
-                    callback.onFailed(e);
-                }
-            }
-        });
+        writeData(ITEMS_PATH + "/" + item.getId(), item, callback);
     }
 
 
@@ -495,7 +489,7 @@ public class DatabaseService {
     // עדכון/שמירה של כל רשימת המועדפים (למשל אחרי מחיקה)
     // שליפת אובייקט המועדפים (השתמש בנתיב המלא של המודל)
     public void getFavorites(String userId, DatabaseCallback<FavoriteList> callback) {
-        getData("favorites/" + userId, FavoriteList.class, callback);
+        getData(FAVORITES_PATH+ "/" + userId, FavoriteList.class, callback);
     }
 
 
@@ -506,7 +500,7 @@ public class DatabaseService {
 
         // יצירת אובייקט מודל חדש כדי לשמור אותו בצורה מסודרת ב-Firebase
         FavoriteList favModel = new FavoriteList((ArrayList<Item>) favoriteItems);
-        writeData("favorites/" + uid, favModel, callback);
+        writeData(FAVORITES_PATH+ "/" + uid, favModel, callback);
     }
 
 
@@ -544,19 +538,6 @@ public class DatabaseService {
 
     /// create a new cart in the database
     /// @param cart the cart object to create
-    /// @param callback the callback to call when the operation is completed
-    ///               the callback will receive void
-    ///              if the operation fails, the callback will receive an exception
-    /// @see DatabaseCallback
-    /// @see Cart
-
-    /// get all the carts of a specific user from the database
-    ///
-    /// @param callback the callback to call when the operation is completed
-
-    public void updateCart2222(@NotNull final String userId, @NonNull UnaryOperator<User> function, @NotNull final DatabaseCallback<User> callback) {
-        runTransaction(USERS_PATH + "/" + userId, User.class, function, callback);
-    }
 
     public void updateCart(@NotNull final String userId,@Nullable final  Cart cart, @Nullable final DatabaseCallback<Void> callback) {
         writeData(USERS_PATH + "/" + userId + "/cart/" , cart,callback);
@@ -582,20 +563,42 @@ public class DatabaseService {
         deleteData(USERS_PATH + "/" + userId + "/cart", callback);
     }
 
+    // endregion cart section
 
-    /// callback interface for database operations
-    ///
-    /// @param <T> the type of the object to return
-    /// @see DatabaseCallback#onCompleted(Object)
-    /// @see DatabaseCallback#onFailed(Exception)
-    public interface DatabaseCallback<T> {
-        /// called when the operation is completed successfully
-        public void onCompleted(T object);
 
-        /// called when the operation fails with an exception
-        public void onFailed(Exception e);
+
+    /// generate a new id for a new item in the database
+    /// @return a new id for the item
+    /// @see #generateNewId(String)
+    /// @see Item
+    public String generateOrderId() {
+        return generateNewId(ORDER_PATH);
     }
 
-    // endregion cart section
+
+
+    /// create a new item in the database
+    /// @param order the item object to create
+    /// @param callback the callback to call when the operation is completed
+    ///              the callback will receive void
+    ///             if the operation fails, the callback will receive an exception
+    /// @return void
+    /// @see DatabaseCallback
+    /// @see Item
+    public void createNewOreder(@NotNull final Order order,  @Nullable final DatabaseCallback<Void> callback) {
+        writeData(ORDER_PATH + "/"+order.getOrderId(), order, callback);
+        writeData(USERS_ORDERS_PATH +"/"+order.getUser().getId()+"/"+ order.getOrderId(), order, callback);
+
+    }
+
+    public void getUserOrders(@NotNull final String uid,   @NotNull final DatabaseCallback<List<Order>> callback) {
+        getDataList(USERS_ORDERS_PATH+"/" + uid, Order.class, callback);
+    }
+
+
+    public void getAllOrders(@NotNull final DatabaseCallback<List<Order>> callback) {
+        getDataList(ORDER_PATH, Order.class, callback);
+
+    }
 
 }

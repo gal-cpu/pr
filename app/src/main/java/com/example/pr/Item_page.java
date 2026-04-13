@@ -150,7 +150,7 @@ public class Item_page extends AppCompatActivity {
             if (newUserRating > 0) {
                 current_item.updateRating(lastRatingByUser, newUserRating, !hasRatedBefore);
                 tvAverageRating.setText(String.format("דירוג ממוצע: %.1f", current_item.getRate()));
-                databaseService.addItem(current_item, new DatabaseService.DatabaseCallback<>() {
+                databaseService.createNewItem(current_item, new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(Void unused) {
                         lastRatingByUser = newUserRating;

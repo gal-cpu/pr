@@ -180,7 +180,8 @@
             android:layout_weight="1.5"
             android:backgroundTint="#9575CD"
             app:cornerRadius="20dp"
-            android:text="@string/pay"
+            android:onClick="onClickOrder"
+            android:text="@string/order"
             android:textAllCaps="false"
             android:layout_marginEnd="15dp"
             app:icon="@drawable/icon_pay_cart" />

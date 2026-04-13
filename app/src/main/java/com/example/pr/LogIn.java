@@ -85,7 +85,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                                 current_user = user;
 
                                 Intent go;
-                                if (current_user.gatIsAd()) {
+                                if (current_user.isAd()) {
                                     go = new Intent(LogIn.this, AdminPage.class);
 
                                 } else {

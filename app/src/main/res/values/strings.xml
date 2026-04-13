@@ -11,7 +11,7 @@
     <string name="audot_information">אודות האתר</string>
     <string name="how_using">איך משתמשים באפליקציה?</string>
     <string name="long_text">1. הרשמה או התחברות\nנכנסים לאפליקציה ויוצרים חשבון כדי לקבל גישה מלאה.\n\n2. חיפוש מוצרים\nניתן לחפש מוצרים דרך שורת החיפוש או לדפדף בקטגוריות.\n\n3. צפייה בפרטי מוצר\nכל מוצר מגיע עם תיאור מפורט ומידע על המוכר.\n\n4. רכישה בטוחה\nמוסיפים לסל ורוכשים ישירות ובאופן מאובטח.</string>
-    <string name="pay">Pay</string>
+    <string name="order">Oder</string>
     <string name="cart">Cart</string>
     <string name="sort">sort</string>
     <string name="items_table">Items table</string>

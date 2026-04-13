@@ -15,7 +15,6 @@ public class Cart {
         this.itemArrayList = new ArrayList<>();
     }
 
-
     public ArrayList<ItemCart> getItemArrayList() {
         return itemArrayList;
     }
@@ -23,7 +22,6 @@ public class Cart {
     public void setItemArrayList(ArrayList<ItemCart> itemArrayList) {
         this.itemArrayList = itemArrayList;
     }
-
     public void addItem(ItemCart item) {
 
         boolean found=false;
@@ -38,8 +36,6 @@ public class Cart {
                     found=true;
                 }
             }
-
-
         }
         if(found){
             item.amount++;

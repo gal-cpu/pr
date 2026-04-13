@@ -23,8 +23,6 @@ public class Order implements Serializable {
         this.timestamp = timestamp;
     }
 
-
-
     public Order() {
     }
 

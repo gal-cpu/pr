@@ -3,12 +3,12 @@ package com.example.pr.model;
 import androidx.annotation.NonNull;
 
 import com.example.pr.Favorites;
+import com.google.firebase.database.Exclude;
 
 public class User {
     protected String id;
     protected String fName;
     protected String lName;
-
     protected String email;
     protected String phone;
     protected String password;
@@ -32,13 +32,13 @@ public class User {
     public User() {
     }
 
-    public boolean gatIsAd() {
-        return isAd;
-    }
+    //public boolean getIsAd() {
+     //   return isAd;
+    //}
 
-    public void setIsAd(boolean ad) {
-        isAd = ad;
-    }
+    //public void setIsAd(boolean ad) {
+       // isAd = ad;
+   // }
 
     public String getEmail() {
         return email;
@@ -96,6 +96,7 @@ public class User {
         isAd = ad;
     }
 
+    @Exclude
     public Favorites getFavorites() {
         if (this.favorites==null)
             this.favorites=new Favorites();
@@ -106,6 +107,7 @@ public class User {
         this.favorites = favorites;
     }
 
+    @Exclude
     public Cart getCart() {
         if (cart == null)
             this.cart = new Cart();

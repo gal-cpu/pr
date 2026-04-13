@@ -100,7 +100,7 @@ public class UpdateUser extends AppCompatActivity {
             firstnameField.setText(current_user.getfName());
             lastnameField.setText(current_user.getlName());
             phoneField.setText(current_user.getPhone());
-            isAdminCheckBox.setChecked(current_user.gatIsAd());
+            isAdminCheckBox.setChecked(current_user.isAd());
         }
     }
 

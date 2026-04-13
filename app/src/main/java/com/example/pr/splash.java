@@ -45,7 +45,7 @@ public class splash extends AppCompatActivity {
                 public void onCompleted(User user) {
                     if (user != null) {
                         SharedPreferencesUtil.saveUser(splash.this, user);
-                        goTo(user.gatIsAd() ? AdminPage.class : MainActivity.class);
+                        goTo(user.isAd() ? AdminPage.class : MainActivity.class);
                     } else {
                         // User might have been deleted from the server
                         SharedPreferencesUtil.signOutUser(splash.this);
