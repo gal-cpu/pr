@@ -281,8 +281,8 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
 
              //   goUpdateCart(cart);
                 Intent goLog = new Intent(CartList.this, Payment_page.class);
+                goLog.putExtra("total", sum);
                 startActivity(goLog);
-
             }
 
             @Override
