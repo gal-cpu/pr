@@ -11,7 +11,13 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
-            android:name=".OneItemOrderCart"
+            android:name=".OrderHistory"
+            android:exported="false" />
+        <activity
+            android:name=".OneOrder"
+            android:exported="false" />
+        <activity
+            android:name=".OrderHstory"
             android:exported="false" />
         <activity
             android:name=".OrderRowCart"

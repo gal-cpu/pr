@@ -72,4 +72,9 @@ public class UserProfile extends AppCompatActivity {
         Intent go = new Intent(UserProfile.this, Favorites.class);
         startActivity(go);
     }
+
+    public void OnClickHistory(View view) {
+        Intent go = new Intent(UserProfile.this, OrderHistory.class);
+        startActivity(go);
+    }
 }

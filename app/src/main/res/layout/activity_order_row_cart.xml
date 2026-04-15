@@ -270,7 +270,7 @@ tools:context=".OrderRowCart">
                             android:layout_marginTop="4dp">
 
                             <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rcOtrdrItem"
+                                android:id="@+id/rcOrderItem"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"/>
 
