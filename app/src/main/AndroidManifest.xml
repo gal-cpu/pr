@@ -17,9 +17,6 @@
             android:name=".OneOrder"
             android:exported="false" />
         <activity
-            android:name=".OrderHstory"
-            android:exported="false" />
-        <activity
             android:name=".OrderRowCart"
             android:exported="false" />
         <activity
