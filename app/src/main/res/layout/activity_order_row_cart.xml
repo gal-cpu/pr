@@ -9,7 +9,7 @@ android:layout_margin="8dp"
 app:cardBackgroundColor="#746F72"
 app:cardCornerRadius="12dp"
 app:cardElevation="4dp"
-tools:context=".OrderRowCart">
+tools:context=".screens.OrderRowCart">
 
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"

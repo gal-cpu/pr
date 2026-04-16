@@ -8,7 +8,7 @@
     app:cardBackgroundColor="#E2819F"
     app:cardCornerRadius="8dp"
     app:cardElevation="2dp"
-    tools:context=".OneOrder">
+    tools:context=".screens.OneOrder">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

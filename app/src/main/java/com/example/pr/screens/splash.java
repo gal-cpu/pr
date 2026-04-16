@@ -1,4 +1,4 @@
-package com.example.pr;
+package com.example.pr.screens;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -10,6 +10,7 @@ import android.widget.VideoView;
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.example.pr.R;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.SharedPreferencesUtil;

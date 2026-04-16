@@ -1,4 +1,4 @@
-package com.example.pr;
+package com.example.pr.screens;
 
 import static android.content.ContentValues.TAG;
 
@@ -14,11 +14,9 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pr.R;
 import com.example.pr.adapers.OrderAdapter;
-import com.example.pr.model.Cart;
-import com.example.pr.model.ItemCart;
 import com.example.pr.model.Order;
-import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
 

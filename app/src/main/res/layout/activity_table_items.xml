@@ -7,7 +7,7 @@
     android:clipToPadding="false"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TableItems">
+    tools:context=".screens.TableItems">
 
     <ImageView
         android:id="@+id/imageView5"

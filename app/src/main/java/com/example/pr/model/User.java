@@ -2,7 +2,7 @@ package com.example.pr.model;
 
 import androidx.annotation.NonNull;
 
-import com.example.pr.Favorites;
+import com.example.pr.screens.Favorites;
 import com.google.firebase.database.Exclude;
 
 public class User {

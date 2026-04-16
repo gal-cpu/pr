@@ -1,4 +1,4 @@
-package com.example.pr;
+package com.example.pr.screens;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
+
+import com.example.pr.R;
 import com.example.pr.model.Cart;
 import com.example.pr.model.FavoriteList;
 import com.example.pr.model.Item;
