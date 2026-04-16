@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".ItemOrderProductLight"
+            android:exported="false" />
+        <activity
             android:name=".OrderHistory"
             android:exported="false" />
         <activity

@@ -1,285 +1,332 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/main"
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_margin="8dp"
-app:cardBackgroundColor="#746F72"
-app:cardCornerRadius="12dp"
-app:cardElevation="4dp"
-tools:context=".OrderRowCart">
-
-<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:layout_marginHorizontal="14dp"
+    android:layout_marginVertical="7dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="20dp"
+    app:cardElevation="6dp"
+    tools:context=".OrderRowCart">
 
     <LinearLayout
-        android:id="@+id/headerLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="#0A0F0D"
-        android:paddingHorizontal="12dp"
-        android:paddingVertical="6dp"
-        android:gravity="center"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-        <TextView
-            android:id="@+id/tvOrderIdValueO"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="12345"
-            android:textColor="#9BD1E5"
-            android:textSize="16sp" />
-
-        <TextView
-            android:id="@+id/tvOrderIdO"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="הזמנה:   "
-            android:textColor="#9BD1E5"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-    </LinearLayout>
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardBuyerInfo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:cardBackgroundColor="#9BD1E5"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/headerLayout">
+        android:orientation="vertical">
 
+        <!-- Gradient Header -->
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="12dp">
+            android:layout_height="56dp"
+            android:background="@drawable/header_gradient"
+            android:paddingHorizontal="18dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical"
+            android:layoutDirection="rtl">
 
+            <!-- Order ID -->
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="הזמנה  "
+                    android:textColor="#FFFFFF"
+                    android:textSize="12sp"
+                    android:alpha="0.8"/>
+
+                <TextView
+                    android:id="@+id/tvOrderIdValueO"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="#12345"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    android:textStyle="bold"/>
+            </LinearLayout>
+
+            <!-- Status Chip -->
             <TextView
+                android:id="@+id/tvStatusBadge"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="פרטי רוכש"
-                android:textColor="#0A0F0D"
-                android:textSize="16sp"
+                android:text="ממתין"
+                android:textColor="#5B8DEF"
+                android:textSize="11sp"
                 android:textStyle="bold"
-                android:layout_gravity="end" />
+                android:paddingHorizontal="12dp"
+                android:paddingVertical="5dp"
+                android:background="@drawable/chip_white"/>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#0A0F0D"
-                android:layout_marginVertical="4dp" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layoutDirection="rtl">
-
-                <TextView
-                    android:id="@+id/tvUserO"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="שם מלא: "
-                    android:textColor="#0A0F0D"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvUserValueO"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="ישראל ישראלי"
-                    android:textColor="#0A0F0D" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layoutDirection="rtl">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="טלפון: "
-                    android:textColor="#0A0F0D"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tvBuyerPhone"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="0501234567"
-                    android:textColor="#0A0F0D" />
-            </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/cardPurchaseDetails"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        app:cardBackgroundColor="#E1CA96"
-        app:cardCornerRadius="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/cardBuyerInfo">
-
+        <!-- Body -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:padding="12dp">
+            android:paddingHorizontal="18dp"
+            android:paddingTop="16dp"
+            android:paddingBottom="16dp">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="פרטי רכישה"
-                android:textColor="#0A0F0D"
-                android:textSize="16sp"
-                android:textStyle="bold"
-                android:layout_gravity="end" />
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="#0A0F0D"
-                android:layout_marginVertical="4dp" />
-
+            <!-- ───── Buyer Section ───── -->
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layoutDirection="rtl">
+                android:orientation="vertical"
+                android:background="@drawable/soft_section_bg"
+                android:padding="14dp"
+                android:layout_marginBottom="12dp">
 
-                <!-- אזור פרטי רכישה מימין -->
+                <!-- Section label -->
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:layoutDirection="rtl"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/accent_pill"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:text="פרטי רוכש"
+                        android:textColor="#2D3A5F"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Name -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layoutDirection="rtl"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="6dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="👤  "
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="שם:"
+                        android:textColor="#9AA5BE"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="6dp"/>
+
+                    <TextView
+                        android:id="@+id/tvUserValueO"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="ישראל ישראלי"
+                        android:textColor="#2D3A5F"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Phone -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layoutDirection="rtl"
+                    android:gravity="center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="📞  "
+                        android:textSize="13sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="טלפון:"
+                        android:textColor="#9AA5BE"
+                        android:textSize="12sp"
+                        android:layout_marginEnd="6dp"/>
+
+                    <TextView
+                        android:id="@+id/tvBuyerPhone"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="050-123-4567"
+                        android:textColor="#2D3A5F"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- ───── Purchase Details Section ───── -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@drawable/soft_section_bg"
+                android:padding="14dp">
+
+                <!-- Section label -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layoutDirection="rtl"
+                    android:gravity="center_vertical"
+                    android:layout_marginBottom="10dp">
+
+                    <View
+                        android:layout_width="4dp"
+                        android:layout_height="16dp"
+                        android:background="@drawable/accent_pill"
+                        android:layout_marginEnd="8dp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="פרטי רכישה"
+                        android:textColor="#2D3A5F"
+                        android:textSize="13sp"
+                        android:textStyle="bold"/>
+                </LinearLayout>
+
+                <!-- Date + Payment in a row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layoutDirection="rtl"
+                    android:layout_marginBottom="12dp">
+
+                    <!-- Date pill -->
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:background="@drawable/info_pill"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:gravity="center_vertical"
+                        android:layout_marginEnd="8dp">
 
                         <TextView
-                            android:id="@+id/tvTimestampO"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="תאריך: "
-                            android:textColor="#0A0F0D"
-                            android:textStyle="bold" />
+                            android:text="📅  "
+                            android:textSize="11sp"/>
 
                         <TextView
                             android:id="@+id/tvTimestampValueO"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="13/05/2025"
-                            android:textColor="#0A0F0D" />
+                            android:textColor="#5B8DEF"
+                            android:textSize="12sp"
+                            android:textStyle="bold"/>
                     </LinearLayout>
 
+                    <!-- Payment pill -->
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvTotalPriceO"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="סכום כולל: "
-                            android:textColor="#0A0F0D"
-                            android:textStyle="bold" />
-
-                        <TextView
-                            android:id="@+id/tvTotalPriceValueO"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="₪149.90"
-                            android:textColor="#0A0F0D" />
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:background="@drawable/info_pill"
+                        android:paddingHorizontal="10dp"
+                        android:paddingVertical="5dp"
+                        android:gravity="center_vertical">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="אמצעי תשלום: "
-                            android:textColor="#0A0F0D"
-                            android:textStyle="bold" />
+                            android:text="💳  "
+                            android:textSize="11sp"/>
 
                         <TextView
                             android:id="@+id/tvPaymentMethod"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Bit"
-                            android:textColor="#0A0F0D" />
+                            android:textColor="#5B8DEF"
+                            android:textSize="12sp"
+                            android:textStyle="bold"/>
                     </LinearLayout>
                 </LinearLayout>
 
-                <!-- קו מפריד אנכי -->
-                <View
-                    android:layout_width="1dp"
-                    android:layout_height="match_parent"
-                    android:background="#0A0F0D"
-                    android:layout_marginHorizontal="8dp" />
-
-                <!-- אזור רשימת מוצרים משמאל -->
-                <LinearLayout
-                    android:layout_width="0dp"
+                <!-- Products label -->
+                <TextView
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:layoutDirection="rtl">
+                    android:text="🛍️  פירוט מוצרים"
+                    android:textColor="#9AA5BE"
+                    android:textSize="12sp"
+                    android:textStyle="bold"
+                    android:gravity="end"
+                    android:layout_marginBottom="6dp"/>
+
+                <!-- RecyclerView -->
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcOrderItem"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:nestedScrollingEnabled="false"/>
+
+                <!-- Dashed divider -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@drawable/dashed_divider"
+                    android:layout_marginVertical="12dp"/>
+
+                <!-- Total Row -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layoutDirection="rtl"
+                    android:gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/productsValue"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="פירוט מוצרים"
-                        android:textColor="#0A0F0D"
-                        android:textStyle="bold"
-                        android:gravity="right" />
+                        android:text="סכום כולל"
+                        android:textColor="#9AA5BE"
+                        android:textSize="13sp"/>
 
-                    <LinearLayout
-                        android:id="@+id/productListContainer"
-                        android:layout_width="match_parent"
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="1dp"
+                        android:layout_weight="1"/>
+
+                    <TextView
+                        android:id="@+id/tvTotalPriceValueO"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:layoutDirection="rtl"
-                            android:layout_marginTop="4dp">
-
-                            <androidx.recyclerview.widget.RecyclerView
-                                android:id="@+id/rcOrderItem"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"/>
-
-                        </LinearLayout>
-                    </LinearLayout>
+                        android:text="₪149.90"
+                        android:textColor="#2D3A5F"
+                        android:textSize="20sp"
+                        android:textStyle="bold"/>
                 </LinearLayout>
+
             </LinearLayout>
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
+    </LinearLayout>
 
-</androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.cardview.widget.CardView>
