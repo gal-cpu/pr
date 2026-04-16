@@ -11,73 +11,73 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
-            android:name=".ItemOrderProductLight"
+            android:name=".screens.ItemOrderProductLight"
             android:exported="false" />
         <activity
             android:name=".OrderHistory"
             android:exported="false" />
         <activity
-            android:name=".OneOrder"
+            android:name=".screens.OneOrder"
             android:exported="false" />
         <activity
             android:name=".OrderRowCart"
             android:exported="false" />
         <activity
-            android:name=".Payment_page"
+            android:name=".screens.Payment_page"
             android:exported="false" />
         <activity
-            android:name=".Favorites"
+            android:name=".screens.Favorites"
             android:exported="false" />
         <activity
-            android:name=".UserProfile"
+            android:name=".screens.UserProfile"
             android:exported="false" />
         <activity
-            android:name=".CartList"
+            android:name=".screens.CartList"
             android:exported="false" />
         <activity
-            android:name=".TableItems"
+            android:name=".screens.TableItems"
             android:exported="false" />
         <activity
-            android:name=".UpdateItem"
+            android:name=".screens.UpdateItem"
             android:exported="false" />
         <activity
-            android:name=".UpdateUser"
+            android:name=".screens.UpdateUser"
             android:exported="false" />
         <activity
-            android:name=".OneUser"
+            android:name=".screens.OneUser"
             android:exported="false" />
         <activity
-            android:name=".TableUsers"
+            android:name=".screens.TableUsers"
             android:exported="false" />
         <activity
-            android:name=".Item_page"
+            android:name=".screens.Item_page"
             android:exported="false" />
         <activity
-            android:name=".AdminPage"
+            android:name=".screens.AdminPage"
             android:exported="false" />
         <activity
-            android:name=".AddItem"
+            android:name=".screens.AddItem"
             android:exported="false" />
         <activity
-            android:name=".Information_page"
+            android:name=".screens.Information_page"
             android:exported="false" />
         <activity
-            android:name=".Book_page"
+            android:name=".screens.Book_page"
             android:exported="false" />
         <activity
-            android:name=".LogIn"
+            android:name=".screens.LogIn"
             android:exported="false" />
         <activity
-            android:name=".SignUp"
+            android:name=".screens.SignUp"
             android:exported="false" />
         <activity
-            android:name=".HomePage"
+            android:name=".screens.HomePage"
             android:exported="false" />
         <activity
-            android:name=".MainActivity"
+            android:name=".screens.MainActivity"
             android:exported="false" />
         <activity
-            android:name=".splash"
+            android:name=".screens.splash"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
