@@ -1,4 +1,4 @@
-package com.example.pr.screens;
+package com.example.pr;
 
 import static android.content.ContentValues.TAG;
 
@@ -14,9 +14,12 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pr.R;
-import com.example.pr.adapers.OrderAdapter;
+import com.example.pr.adapers.OrdersAdapter;
+import com.example.pr.adapers.OrdersAdapter;
+import com.example.pr.model.Cart;
+import com.example.pr.model.ItemCart;
 import com.example.pr.model.Order;
+import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -25,7 +28,7 @@ import java.util.List;
 
 public class OrderRowCart extends AppCompatActivity {
     private DatabaseService databaseService;
-    private OrderAdapter orderAdapter;
+    private OrdersAdapter ordersAdapter;
     private RecyclerView rcOrders;
     private FirebaseAuth mAuth;
     private String current_userId = "";
@@ -56,8 +59,8 @@ public class OrderRowCart extends AppCompatActivity {
 
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
-        orderAdapter = new OrderAdapter(this, (OrderAdapter.OrderClickListener) this);
-        rcOrders.setAdapter(orderAdapter);
+        ordersAdapter = new OrdersAdapter(this, (OrdersAdapter.OrderClickListener) this);
+        rcOrders.setAdapter(ordersAdapter);
     }
 
     private void fetchOrdersFromFirebase() {

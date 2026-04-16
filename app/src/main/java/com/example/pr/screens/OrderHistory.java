@@ -1,4 +1,4 @@
-package com.example.pr.screens;
+package com.example.pr;
 
 import android.os.Bundle;
 import android.util.Log;
@@ -15,19 +15,18 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.example.pr.R;
-import com.example.pr.adapers.OrderAdapter;
+import com.example.pr.adapers.OrdersAdapter;
 import com.example.pr.model.Order;
 import com.example.pr.services.DatabaseService;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistory extends AppCompatActivity implements View.OnClickListener, OrderAdapter.OrderClickListener {
+public class OrderHistory extends AppCompatActivity implements View.OnClickListener, OrdersAdapter.OrderClickListener {
 
     private static final String TAG = "OrderHistory";
     private DatabaseService databaseService;
-    private OrderAdapter orderAdapter;
+    private OrdersAdapter orderAdapter;
     private RecyclerView rcOrders;
     private View btnShowOptionsOrder;
     private LinearLayout optionsContainerOrder;
@@ -80,7 +79,7 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
         // שליחת this פעמיים: פעם אחת כ-Context ופעם אחת כ-OrderClickListener
-        orderAdapter = new OrderAdapter(this, this);
+        orderAdapter = new OrdersAdapter(this, this);
         rcOrders.setAdapter(orderAdapter);
     }
 
@@ -127,7 +126,7 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
                 break;
         }
 
-        orderAdapter.setOrders(filteredList);
+        orderAdapter.updateOrders(filteredList);
     }
 
     @Override
@@ -154,6 +153,11 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
             applyFiltersAndSorting();
             optionsContainerOrder.setVisibility(View.GONE);
         }
+    }
+
+    @Override
+    public void onOrderClick(Order order) {
+
     }
 
     // מימוש ה-Interface של האדפטר (לחיצה רגילה)

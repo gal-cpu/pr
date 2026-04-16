@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:layoutDirection="rtl"
+    android:gravity="center_vertical"
+    android:paddingVertical="6dp"
+    android:paddingHorizontal="4dp">
+
+    <!-- Color dot -->
+    <View
+        android:layout_width="7dp"
+        android:layout_height="7dp"
+        android:background="@drawable/dot_blue"
+        android:layout_marginEnd="10dp"/>
+
+    <!-- Product name -->
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="שם מוצר"
+        android:textColor="#2D3A5F"
+        android:textSize="12sp"/>
+
+    <!-- Amount badge -->
+    <TextView
+        android:id="@+id/tvItemAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="x2"
+        android:textColor="#5B8DEF"
+        android:textSize="11sp"
+        android:textStyle="bold"
+        android:paddingHorizontal="8dp"
+        android:paddingVertical="2dp"
+        android:background="@drawable/amount_badge"
+        android:layout_marginHorizontal="8dp"/>
+
+    <!-- Line price -->
+    <TextView
+        android:id="@+id/tvItemPrice"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="₪49.90"
+        android:textColor="#2D3A5F"
+        android:textSize="12sp"
+        android:textStyle="bold"/>
+
+</LinearLayout>
