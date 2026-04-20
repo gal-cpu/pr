@@ -1,4 +1,4 @@
-package com.example.pr;
+package com.example.pr.screens;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -19,6 +19,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import com.example.pr.R;
 import com.example.pr.model.Item;
 import com.example.pr.services.DatabaseService;
 import com.example.pr.util.ImageUtil;

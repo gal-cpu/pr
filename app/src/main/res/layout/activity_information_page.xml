@@ -8,7 +8,7 @@
     android:background="#F5F7FA"
     android:fillViewport="true"
     android:layoutDirection="rtl"
-    tools:context=".Information_page">
+    tools:context=".screens.Information_page">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"

@@ -1,4 +1,4 @@
-package com.example.pr;
+package com.example.pr.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,20 +18,17 @@ import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.pr.R;
 import com.example.pr.adapers.CartAdapter; // שינוי למתאם העגלה
 import com.example.pr.model.Cart;
-import com.example.pr.model.Item;
 import com.example.pr.model.ItemCart;
 import com.example.pr.model.Order;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.database.FirebaseDatabase;
 
-import java.time.Instant;
 import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 public class CartList extends AppCompatActivity implements View.OnClickListener {

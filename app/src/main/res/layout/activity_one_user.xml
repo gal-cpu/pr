@@ -11,7 +11,7 @@
     app:cardElevation="4dp"
     app:strokeColor="#E0E0E0"
     app:strokeWidth="1dp"
-    tools:context=".OneUser">
+    tools:context=".screens.OneUser">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
