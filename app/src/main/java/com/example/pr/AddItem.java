@@ -31,18 +31,15 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
     TextView tvPname, tvPtype, tvPnote, tvPprice;
     String mPname = "", mPtype = "", mPnote = "", mPprice = "";
     boolean namecheck = true, notecheck = true, typecheck = false, pricecheck = true;
-    // constant to compare
-    // the activity result code
+
     int SELECT_PICTURE = 200;
     private EditText etItemName, etItemType, etItemNote, etItemPrice;
     private Button btnGallery, btnTakePic, btnAddItem;
-    //Double rate, sumRate, numCount;
     private ImageView imageView;
 
     private DatabaseService databaseService;
 
-
-    /// Activity result launcher for capturing image from camera
+    // Activity result launcher for capturing image from camera
     private ActivityResultLauncher<Intent> captureImageLauncher;
 
     @Override
@@ -63,14 +60,13 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
         InitViews();
 
-        /// request permission for the camera and storage
+        // Request permission for the camera and storage
         ImageUtil.requestPermission(this);
 
-        /// get the instance of the database service
+        // Get the instance of the database service
         databaseService = DatabaseService.getInstance();
 
-
-        /// register the activity result launcher for capturing image from camera
+        // Register the activity result launcher for capturing image from camera
         captureImageLauncher = registerForActivityResult(
                 new ActivityResultContracts.StartActivityForResult(),
                 result -> {
@@ -92,7 +88,6 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
             finish();
         });
 
-
         btnGallery.setOnClickListener(v -> selectImageFromGallery());
 
         btnTakePic.setOnClickListener(v -> captureImageFromCamera());
@@ -110,7 +105,7 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
             String imageBase64 = ImageUtil.convertTo64Base(imageView);
             double price;
             if (itemPrice.isEmpty())
-                price=0.0;
+                price = 0.0;
             else
                 price = Double.parseDouble(itemPrice);
 
@@ -149,15 +144,12 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
 
                 Item newItem = new Item(id, imageBase64, 0, itemName, itemNote, price, 0.0, 0.0, itemType);
 
-                /// generate a new id for the item
-
-                /// save the item to the database and get the result in the callback
+                // Save the item to the database and get the result in the callback
                 databaseService.createNewItem(newItem, new DatabaseService.DatabaseCallback<>() {
                     @Override
                     public void onCompleted(Void object) {
                         Log.d("TAG", "Item added successfully");
                         Toast.makeText(AddItem.this, "Item added successfully", Toast.LENGTH_SHORT).show();
-                        /// clear the input fields after adding the item for the next item
                         Log.d("TAG", "Clearing input fields");
                         Intent intent = new Intent(AddItem.this, AdminPage.class);
                         startActivity(intent);
@@ -185,45 +177,32 @@ public class AddItem extends AppCompatActivity implements View.OnClickListener {
         imageView = findViewById(R.id.imageViewPicture);
     }
 
-    /// select image from gallery
+    // Select image from gallery
     private void selectImageFromGallery() {
-
         imageChooser();
     }
 
-    /// capture image from camera
+    // Capture image from camera
     private void captureImageFromCamera() {
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         captureImageLauncher.launch(takePictureIntent);
     }
 
     void imageChooser() {
-
-        // create an instance of the
-        // intent of the type image
         Intent i = new Intent();
         i.setType("image/*");
         i.setAction(Intent.ACTION_GET_CONTENT);
-
-        // pass the constant to compare it
-        // with the returned requestCode
         startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
     }
 
-    // this function is triggered when user
-    // selects the image from the imageChooser
+    // This function is triggered when user selects the image from the imageChooser
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode == RESULT_OK) {
-
-            // compare the resultCode with the
-            // SELECT_PICTURE constant
             if (requestCode == SELECT_PICTURE) {
-                // Get the url of the image from data
                 Uri selectedImageUri = data.getData();
                 if (null != selectedImageUri) {
-                    // update the preview image in the layout
                     imageView.setImageURI(selectedImageUri);
                 }
             }

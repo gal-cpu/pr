@@ -54,7 +54,7 @@ public class Payment_page extends AppCompatActivity {
         payBox = findViewById(R.id.ibPayBox);
 
         if(total>0)
-            priceTextView.setText("Total price: " +total + "$");
+            priceTextView.setText(String.format("Total price: %,.2f $", total));
         monthAdapter = ArrayAdapter.createFromResource(this, R.array.months_array, android.R.layout.simple_spinner_item);
         monthAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         monthSpinner.setAdapter(monthAdapter);
@@ -121,8 +121,6 @@ public class Payment_page extends AppCompatActivity {
         payPal.setOnClickListener(v -> openApp("com.paypal.android.p2pmobile"));
         payBox.setOnClickListener(v -> openApp("com.cal.paybox"));
     }
-
-
 
     private void openApp(String packageName) {
         PackageManager packageManager = getPackageManager();
