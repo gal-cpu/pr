@@ -1,135 +1,274 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#F7F5FF"
     tools:context=".screens.Book_page">
 
-    <ImageView
-        android:id="@+id/imageView5"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+    <!-- ===== HEADER ===== -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/headerCard"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:cardBackgroundColor="#EDE9FF"
+        app:cardCornerRadius="0dp"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103"
-        app:srcCompat="@drawable/image_transition_page" />
+        app:layout_constraintTop_toTopOf="parent">
 
-    <TextView
-        android:id="@+id/tvTitleIteams"
-        android:layout_width="211dp"
-        android:layout_height="103dp"
-        android:gravity="center"
-        android:text=""
-        android:textColor="@color/white"
-        android:textSize="35dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="24dp"
+            android:paddingEnd="24dp"
+            android:paddingTop="48dp"
+            android:paddingBottom="28dp">
+
+            <!-- כותרת הקטגוריה -->
+            <TextView
+                android:id="@+id/tvTitleIteams"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:text=""
+                android:textColor="#2D1F6E"
+                android:textSize="32sp"
+                android:textStyle="bold"
+                android:letterSpacing="-0.02"
+                android:lineSpacingExtra="2dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintEnd_toStartOf="@+id/ivTitleIteams"
+                tools:text="Books store" />
+
+            <TextView
+                android:id="@+id/tvHeaderSub"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="Find what you love"
+                android:textColor="#7B6DAA"
+                android:textSize="14sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/tvTitleIteams"
+                app:layout_constraintEnd_toStartOf="@+id/ivTitleIteams" />
+
+            <!-- אייקון קטגוריה -->
+            <ImageView
+                android:id="@+id/ivTitleIteams"
+                android:layout_width="72dp"
+                android:layout_height="72dp"
+                android:background="@drawable/icon_circle_bg"
+                android:padding="8dp"
+                android:scaleType="centerInside"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toBottomOf="parent" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- ===== BANNER ===== -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/bannerCard"
+        android:layout_width="0dp"
+        android:layout_height="90dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="16dp"
+        app:cardBackgroundColor="#7B6DAA"
+        app:cardCornerRadius="20dp"
+        app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132"
-        tools:ignore="MissingConstraints" />
+        app:layout_constraintTop_toBottomOf="@+id/headerCard">
 
-    <ImageView
-        android:id="@+id/ivTitleIteams"
-        android:layout_width="93dp"
-        android:layout_height="95dp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/iconComputer"
+                android:layout_width="90dp"
+                android:layout_height="90dp"
+                android:layout_gravity="end|bottom"
+                android:scaleType="centerCrop"
+                android:alpha="0.35"
+                app:srcCompat="@drawable/icon_computer" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="18dp"
+                android:text="Welcome! Find everything you want here."
+                android:textColor="#FFFFFF"
+                android:textSize="14sp"
+                android:lineSpacingExtra="3dp" />
+
+        </FrameLayout>
+    </androidx.cardview.widget.CardView>
+
+    <!-- ===== SEARCH + SORT ROW ===== -->
+    <LinearLayout
+        android:id="@+id/searchAndFilterRow"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.817"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.143" />
+        app:layout_constraintTop_toBottomOf="@+id/bannerCard">
 
-    <EditText
-        android:id="@+id/edSearch"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="20dp"
-        android:background="@drawable/search_edit_background"
-        android:drawableEnd="@drawable/searchicon"
-        android:drawablePadding="8dp"
-        android:elevation="3dp"
-        android:hint="search for..."
-        android:inputType="text"
-        android:padding="8dp"
-        android:textColorHint="#8d8d8d"
-        android:textStyle="italic"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.511"
-        tools:ignore="MissingConstraints" />
+        <!-- שדה חיפוש -->
+        <EditText
+            android:id="@+id/edSearch"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/search_edit_background"
+            android:drawableEnd="@drawable/searchicon"
+            android:drawablePadding="10dp"
+            android:elevation="0dp"
+            android:hint="Search items..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingEnd="12dp"
+            android:textColorHint="#A89DC8"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
 
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="24dp"
-        android:layout_marginEnd="25dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.36"
-        app:srcCompat="@drawable/background_banner"
-        tools:ignore="MissingConstraints" />
+        <!-- כפתור מיון -->
+        <LinearLayout
+            android:id="@+id/btnShowOptionsBook"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/sort_btn_bg"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-    <ImageView
-        android:id="@+id/iconComputer"
-        android:layout_width="96dp"
-        android:layout_height="94dp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="1.0"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="0.0"
-        app:srcCompat="@drawable/icon_computer"
-        tools:ignore="MissingConstraints" />
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:importantForAccessibility="no"
+                android:src="@android:drawable/ic_menu_manage"
+                app:tint="#7B6DAA" />
 
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="227dp"
-        android:layout_height="89dp"
-        android:text="Welcome to my website, I hope you find everything you want."
-        android:textColor="@color/white"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="@+id/imageView2"
-        app:layout_constraintEnd_toEndOf="@+id/imageView2"
-        app:layout_constraintHorizontal_bias="0.1"
-        app:layout_constraintStart_toStartOf="@+id/imageView2"
-        app:layout_constraintTop_toTopOf="@+id/imageView2"
-        app:layout_constraintVertical_bias="1.0"
-        tools:ignore="MissingConstraints" />
+        </LinearLayout>
 
+    </LinearLayout>
 
+    <!-- ===== DROPDOWN מיון ===== -->
+    <LinearLayout
+        android:id="@+id/optionsContainerBook"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/dropdown_bg"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/searchAndFilterRow"
+        app:layout_constraintTop_toBottomOf="@+id/searchAndFilterRow">
+
+        <TextView
+            android:id="@+id/optionBook1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:text="Default order"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E8E4F4"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/optionBook2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:text="Price: high to low"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E8E4F4"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/optionBook3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:text="Price: low to high"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E8E4F4"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/optionBook4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:text="Top rated"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <!-- ===== RECYCLER VIEW ===== -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rcItemes"
-        android:layout_width="match_parent"
-        android:layout_height="364dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="16dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="1.0" />
-
+        app:layout_constraintTop_toBottomOf="@+id/searchAndFilterRow" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -53,7 +53,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         holder.tvPrice.setText(String.format("%.2f", item.getPrice()) + "$");
 
         // הצגת דירוג
-        holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
+        //holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
 
         // במועדפים בדרך כלל לא מציגים כמות, אז נסתיר את ה-TextView של הכמות
         holder.tvQuantity.setVisibility(View.GONE);
@@ -92,14 +92,14 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
 
     public class FavoritesViewHolder extends RecyclerView.ViewHolder {
         ImageView ivItem;
-        TextView tvName, tvPrice, tvRate, tvQuantity;
+        TextView tvName, tvPrice, tvQuantity;
 
         public FavoritesViewHolder(@NonNull View itemView) {
             super(itemView);
             ivItem = itemView.findViewById(R.id.ivItem);
             tvName = itemView.findViewById(R.id.tvItemName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
-            tvRate = itemView.findViewById(R.id.tvRate);
+            //tvRate = itemView.findViewById(R.id.tvRate);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
         }
     }

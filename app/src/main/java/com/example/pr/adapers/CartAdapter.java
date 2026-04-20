@@ -49,7 +49,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         if (item == null || item.getItem() == null) {
             holder.tvName.setText("מוצר לא זמין");
             holder.tvPrice.setText("");
-            holder.tvRate.setText("");
+            //holder.tvRate.setText("");
             holder.tvQuantity.setVisibility(View.GONE);
             holder.ivItem.setImageBitmap(null);
             return;
@@ -60,7 +60,7 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         // חישוב מחיר שורה
         holder.tvPrice.setText(String.format("%.2f", item.getItem().getPrice()) + "$");
-        holder.tvRate.setText(String.format("%.1f", item.getItem().getRate()) + "⭐");
+        //holder.tvRate.setText(String.format("%.1f", item.getItem().getRate()) + "⭐");
 
         // הצגת כמות
         holder.tvQuantity.setText("x" + item.getAmount());
@@ -99,14 +99,14 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
     public class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView ivItem;
-        TextView tvName, tvPrice, tvRate, tvQuantity;
+        TextView tvName, tvPrice, tvQuantity;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             ivItem = itemView.findViewById(R.id.ivItem);
             tvName = itemView.findViewById(R.id.tvItemName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
-            tvRate = itemView.findViewById(R.id.tvRate);
+            //tvRate = itemView.findViewById(R.id.tvRate);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
         }
     }

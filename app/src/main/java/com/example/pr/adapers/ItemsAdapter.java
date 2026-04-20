@@ -44,7 +44,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
                 holder.ivItem.setImageBitmap(bitmap);
             }
             holder.tvName.setText(item.getpName());
-            holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
+            //holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
             holder.tvPrice.setText(item.getPrice() + "$");
             holder.tvQuantity.setVisibility(View.INVISIBLE);
 
@@ -94,7 +94,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivItem;
-        private TextView tvName, tvPrice, tvRate, tvQuantity;
+        private TextView tvName, tvPrice, tvQuantity;
         private String itemId;
         private TextView dealtag;
 
@@ -102,7 +102,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
             super(itemView);
             tvName = itemView.findViewById(R.id.tvItemName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
-            tvRate = itemView.findViewById(R.id.tvRate);
+            //tvRate = itemView.findViewById(R.id.tvRate);
             ivItem = itemView.findViewById(R.id.ivItem);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
         }
@@ -110,7 +110,7 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         public void bindItem(final Item item) {
             ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
             tvName.setText(item.getpName());
-            tvRate.setText("Rate: " + String.format("%.1f", item.getRate()) + "⭐");
+            //tvRate.setText("Rate: " + String.format("%.1f", item.getRate()) + "⭐");
             tvPrice.setText("Price: " + item.getPrice() + "$");
             itemId = item.getId();
         }
