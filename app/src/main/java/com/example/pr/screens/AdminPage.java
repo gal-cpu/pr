@@ -61,4 +61,7 @@ public class AdminPage extends AppCompatActivity {
         Intent go = new Intent(AdminPage.this, MainActivity.class);
         startActivity(go);
     }
+
+    public void OnClickOrdersTable(View view) {
+    }
 }

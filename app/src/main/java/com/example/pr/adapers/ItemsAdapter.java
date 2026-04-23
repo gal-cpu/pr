@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -21,9 +22,9 @@ import java.util.List;
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
 
     private static final String TAG = "ItemsAdapter";
-
     private List<Item> originalItemsList = new ArrayList<>();
     private ItemClickListener itemClickListener;
+
     public ItemsAdapter(@NonNull ItemClickListener itemClickListener) {
         this.itemClickListener = itemClickListener;
     }
@@ -39,36 +40,25 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     public void onBindViewHolder(ItemViewHolder holder, int position) {
         Item item = originalItemsList.get(position);
         try {
-            Bitmap bitmap = ImageUtil.convertFrom64base(item.getImage());
-            if (bitmap != null) {
-                holder.ivItem.setImageBitmap(bitmap);
-            }
-            holder.tvName.setText(item.getpName());
-            //holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
-            holder.tvPrice.setText(item.getPrice() + "$");
-            holder.tvQuantity.setVisibility(View.INVISIBLE);
-
-            holder.itemId = item.getId();
+            // קריאה לפונקציית הקישור שמעדכנת את כל השדות (כולל הדירוג)
             holder.bindItem(item);
 
-            holder.itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
+            // הגדרת מאזינים ללחיצות
+            holder.itemView.setOnClickListener(v -> {
+                if (itemClickListener != null) {
                     itemClickListener.onClick(item);
                 }
             });
 
             holder.itemView.setOnLongClickListener(v -> {
-                itemClickListener.onLongClick(item, holder.getAdapterPosition());
+                if (itemClickListener != null) {
+                    itemClickListener.onLongClick(item, holder.getAdapterPosition());
+                }
                 return true;
             });
 
         } catch (Exception e) {
-            e.printStackTrace();
-            Log.e(TAG, "position :" + holder.getAdapterPosition());
-            Log.e(TAG, "item :" + item);
-            Log.e(TAG, "item id :" + item.getId());
-            throw e;
+            Log.e(TAG, "Error binding item at position: " + position, e);
         }
     }
 
@@ -77,14 +67,10 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
         return originalItemsList.size();
     }
 
-    public void setItem(List<Item> filteredUsers) {
+    public void setItem(List<Item> items) {
         this.originalItemsList.clear();
-        this.originalItemsList.addAll(filteredUsers);
+        this.originalItemsList.addAll(items);
         notifyDataSetChanged();
-    }
-
-    public List<Item> getItemList() {
-        return originalItemsList;
     }
 
     public interface ItemClickListener {
@@ -95,24 +81,41 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivItem;
         private TextView tvName, tvPrice, tvQuantity;
+        private RatingBar ratingBar;
         private String itemId;
-        private TextView dealtag;
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvItemName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
-            //tvRate = itemView.findViewById(R.id.tvRate);
             ivItem = itemView.findViewById(R.id.ivItem);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
         }
 
         public void bindItem(final Item item) {
-            ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
-            tvName.setText(item.getpName());
-            //tvRate.setText("Rate: " + String.format("%.1f", item.getRate()) + "⭐");
-            tvPrice.setText("Price: " + item.getPrice() + "$");
             itemId = item.getId();
+
+            // הצגת שם ומחיר
+            tvName.setText(item.getpName());
+            tvPrice.setText("Price: " + item.getPrice() + "$");
+
+            // טיפול בכמות (מוסתר כברירת מחדל לפי הקוד הקודם שלך)
+            tvQuantity.setVisibility(View.INVISIBLE);
+
+            // הגדרת הדירוג ב-RatingBar
+            if (ratingBar != null) {
+                // המרה ל-float כי זה מה ש-setRating מקבל
+                ratingBar.setRating((float) item.getRate());
+            }
+
+            // המרה והצגת תמונה
+            if (item.getImage() != null && !item.getImage().isEmpty()) {
+                Bitmap bitmap = ImageUtil.convertFrom64base(item.getImage());
+                if (bitmap != null) {
+                    ivItem.setImageBitmap(bitmap);
+                }
+            }
         }
     }
 }

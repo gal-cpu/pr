@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".screens.TableOrders"
+            android:exported="false" />
+        <activity
             android:name=".screens.ItemOrderProductLight"
             android:exported="false" />
         <activity
