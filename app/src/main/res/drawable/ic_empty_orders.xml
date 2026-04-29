@@ -1,0 +1,36 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="80dp"
+    android:height="80dp"
+    android:viewportWidth="80"
+    android:viewportHeight="80">
+    <!-- Box outline -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#C5CDD8"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M16,24 L16,64 C16,65.06 16.421,66.078 17.172,66.828 C17.922,67.579 18.94,68 20,68 L60,68 C61.06,68 62.078,67.579 62.828,66.828 C63.579,66.078 64,65.06 64,64 L64,24 L52,12 L28,12 Z" />
+    <!-- Box flap line -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#C5CDD8"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M16,24 L64,24" />
+    <!-- Question mark -->
+    <path
+        android:fillColor="@android:color/transparent"
+        android:strokeColor="#C5CDD8"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:strokeLineJoin="round"
+        android:pathData="M34,38 C34,34.686 36.686,32 40,32 C43.314,32 46,34.686 46,38 C46,41.314 40,44 40,48" />
+    <path
+        android:fillColor="#C5CDD8"
+        android:pathData="M40,54 C40,55.105 39.105,56 38.895,56 C38.895,56 41.105,56 41.105,56 C40.895,56 40,55.105 40,54 C40,52.895 40.895,52 41.105,52 C41.105,52 38.895,52 38.895,52 C39.105,52 40,52.895 40,54 Z" />
+    <!-- Dot for question mark -->
+    <path
+        android:fillColor="#C5CDD8"
+        android:pathData="M42,54 C42,55.105 41.105,56 40,56 C38.895,56 38,55.105 38,54 C38,52.895 38.895,52 40,52 C41.105,52 42,52.895 42,54 Z" />
+</vector>
