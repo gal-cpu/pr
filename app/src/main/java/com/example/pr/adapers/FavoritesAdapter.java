@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.R;
 import com.example.pr.model.Item;
 import com.example.pr.util.ImageUtil;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
@@ -22,6 +25,7 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
     private Context context;
     private List<Item> favoriteItems;
     private FavoritesClickListener listener;
+
 
     // ממשק לטיפול בלחיצות על פריטים במועדפים
     public interface FavoritesClickListener {
@@ -52,8 +56,10 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
         // הצגת מחיר הפריט
         holder.tvPrice.setText(String.format("%.2f", item.getPrice()) + "$");
 
-        // הצגת דירוג
-        //holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
+        holder.btnPlus.setVisibility(View.INVISIBLE);
+        holder.btnMinus.setVisibility(View.INVISIBLE);
+
+        holder.ratingBar.setRating((float) item.getRate()); // ← הוסף
 
         // במועדפים בדרך כלל לא מציגים כמות, אז נסתיר את ה-TextView של הכמות
         holder.tvQuantity.setVisibility(View.GONE);
@@ -93,14 +99,20 @@ public class FavoritesAdapter extends RecyclerView.Adapter<FavoritesAdapter.Favo
     public class FavoritesViewHolder extends RecyclerView.ViewHolder {
         ImageView ivItem;
         TextView tvName, tvPrice, tvQuantity;
+        RatingBar ratingBar;
+        MaterialButton btnPlus, btnMinus;
+
 
         public FavoritesViewHolder(@NonNull View itemView) {
             super(itemView);
             ivItem = itemView.findViewById(R.id.ivItem);
             tvName = itemView.findViewById(R.id.tvItemName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
             //tvRate = itemView.findViewById(R.id.tvRate);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
+            btnPlus = itemView.findViewById(R.id.btnPlus);
+            btnMinus = itemView.findViewById(R.id.btnMinus);
         }
     }
 }

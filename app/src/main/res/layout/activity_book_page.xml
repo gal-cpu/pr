@@ -80,7 +80,7 @@
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginTop="16dp"
-        app:cardBackgroundColor="#7B6DAA"
+        app:cardBackgroundColor="#83BCFD"
         app:cardCornerRadius="20dp"
         app:cardElevation="0dp"
         app:layout_constraintEnd_toEndOf="parent"

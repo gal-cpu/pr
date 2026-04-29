@@ -1,5 +1,7 @@
 package com.example.pr.screens;
 
+import static java.lang.Double.sum;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -142,7 +144,13 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
                         .setNegativeButton("ביטול", (dialog, which) -> dialog.dismiss())
                         .show();
             }
+
+            @Override
+            public void onQuantityChanged(ItemCart item, int position) {
+                sumPrice();
+            }
         });
+
 
         recyclerView.setAdapter(cartAdapter);
         fetchCartFromFirebase();

@@ -5,7 +5,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.R;
 import com.example.pr.model.Item;
 import com.example.pr.util.ImageUtil;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,9 +47,12 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
                 holder.ivItem.setImageBitmap(bitmap);
             }
             holder.tvName.setText(item.getpName());
-            //holder.tvRate.setText(String.format("%.1f", item.getRate()) + "⭐");
-            holder.tvPrice.setText(item.getPrice() + "$");
+            holder.tvPrice.setText(String.format("%.2f", item.getPrice()) + "$");
             holder.tvQuantity.setVisibility(View.INVISIBLE);
+            holder.btnPlus.setVisibility(View.INVISIBLE);
+            holder.btnMinus.setVisibility(View.INVISIBLE);
+
+            holder.ratingBar.setRating((float) item.getRate());
 
             holder.itemId = item.getId();
             holder.bindItem(item);
@@ -95,23 +101,27 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
     public class ItemViewHolder extends RecyclerView.ViewHolder {
         private ImageView ivItem;
         private TextView tvName, tvPrice, tvQuantity;
+        private RatingBar ratingBar;   // ← הוסף
         private String itemId;
-        private TextView dealtag;
+        private MaterialButton btnPlus, btnMinus;
+
 
         public ItemViewHolder(View itemView) {
             super(itemView);
             tvName = itemView.findViewById(R.id.tvItemName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
-            //tvRate = itemView.findViewById(R.id.tvRate);
             ivItem = itemView.findViewById(R.id.ivItem);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
+            ratingBar = itemView.findViewById(R.id.ratingBar);  // ← הוסף
+            btnPlus = itemView.findViewById(R.id.btnPlus);
+            btnMinus = itemView.findViewById(R.id.btnMinus);
         }
 
         public void bindItem(final Item item) {
             ivItem.setImageBitmap(ImageUtil.convertFrom64base(item.getImage()));
             tvName.setText(item.getpName());
-            //tvRate.setText("Rate: " + String.format("%.1f", item.getRate()) + "⭐");
-            tvPrice.setText("Price: " + item.getPrice() + "$");
+            tvPrice.setText(item.getPrice() + "$");
+            ratingBar.setRating((float) item.getRate());  // ← הוסף
             itemId = item.getId();
         }
     }

@@ -5,7 +5,9 @@ import android.graphics.Bitmap;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import com.example.pr.R;
 import com.example.pr.model.Item;
 import com.example.pr.model.ItemCart;
 import com.example.pr.util.ImageUtil;
+import com.google.android.material.button.MaterialButton;
 
 import java.util.List;
 
@@ -26,6 +29,8 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public interface CartClickListener {
         void onClick(ItemCart item);
         void onLongClick(ItemCart item, int position);
+
+        void onQuantityChanged(ItemCart item, int position);
     }
 
     public CartAdapter( List<ItemCart> cartItems, CartClickListener listener) {
@@ -49,9 +54,9 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
         if (item == null || item.getItem() == null) {
             holder.tvName.setText("מוצר לא זמין");
             holder.tvPrice.setText("");
-            //holder.tvRate.setText("");
             holder.tvQuantity.setVisibility(View.GONE);
             holder.ivItem.setImageBitmap(null);
+            holder.ratingBar.setRating(0); // ← כאן, לפני ה-return
             return;
         }
 
@@ -60,11 +65,28 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
 
         // חישוב מחיר שורה
         holder.tvPrice.setText(String.format("%.2f", item.getItem().getPrice()) + "$");
-        //holder.tvRate.setText(String.format("%.1f", item.getItem().getRate()) + "⭐");
+
+        holder.ratingBar.setRating((float) item.getItem().getRate());
 
         // הצגת כמות
-        holder.tvQuantity.setText("x" + item.getAmount());
+        holder.tvQuantity.setText("" + item.getAmount());
         holder.tvQuantity.setVisibility(View.VISIBLE);
+
+        holder.btnPlus.setOnClickListener(v -> {
+            item.setAmount(item.getAmount() + 1);
+            holder.tvQuantity.setText("" + item.getAmount());
+            if (listener != null) listener.onQuantityChanged(item, position);
+        });
+
+        holder.btnMinus.setOnClickListener(v -> {
+            if (item.getAmount() > 1) {
+                item.setAmount(item.getAmount() - 1);
+                holder.tvQuantity.setText("" + item.getAmount());
+                if (listener != null) listener.onQuantityChanged(item, position);
+            }
+            // אם רוצים להסיר פריט כשכמות מגיעה ל-0:
+            // else { cartItems.remove(position); notifyItemRemoved(position); }
+        });
 
         // טעינת תמונה
         holder.ivItem.setImageBitmap(null);
@@ -100,14 +122,20 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public class CartViewHolder extends RecyclerView.ViewHolder {
         ImageView ivItem;
         TextView tvName, tvPrice, tvQuantity;
+        RatingBar ratingBar;
+        MaterialButton btnPlus, btnMinus;
 
         public CartViewHolder(@NonNull View itemView) {
             super(itemView);
             ivItem = itemView.findViewById(R.id.ivItem);
             tvName = itemView.findViewById(R.id.tvItemName);
             tvPrice = itemView.findViewById(R.id.tvPrice);
+            ratingBar = itemView.findViewById(R.id.ratingBar);
             //tvRate = itemView.findViewById(R.id.tvRate);
             tvQuantity = itemView.findViewById(R.id.tvQuantity);
+            btnPlus = itemView.findViewById(R.id.btnPlus);
+            btnMinus = itemView.findViewById(R.id.btnMinus);
+
         }
     }
 }
