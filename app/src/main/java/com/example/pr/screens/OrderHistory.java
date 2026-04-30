@@ -1,5 +1,6 @@
 package com.example.pr.screens;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -158,7 +159,9 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onOrderClick(Order order) {
-
+        Intent go = new Intent(OrderHistory.this, UpdateOrder.class);
+        go.putExtra("order", order);
+        startActivity(go);
     }
 
     // מימוש ה-Interface של האדפטר (לחיצה רגילה)

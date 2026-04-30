@@ -11,6 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".screens.UpdateOrder"
+            android:exported="false" />
+        <activity
             android:name=".screens.OrderHistoryUser"
             android:exported="false" />
         <activity

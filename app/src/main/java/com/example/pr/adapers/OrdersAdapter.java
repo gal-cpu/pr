@@ -55,7 +55,7 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
 
         // Buyer details
         if (order.getUser() != null) {
-            holder.tvUserName.setText(order.getUser().getfName() + " " + order.getUser().getlName());
+            holder.tvUserName.setText(order.getUser().getfName() + " " +order.getUser().getlName());
             holder.tvBuyerPhone.setText(order.getUser().getPhone());
         }
 
