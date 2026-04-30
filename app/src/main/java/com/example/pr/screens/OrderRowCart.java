@@ -1,4 +1,4 @@
-package com.example.pr;
+package com.example.pr.screens;
 
 import static android.content.ContentValues.TAG;
 
@@ -13,6 +13,8 @@ import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.example.pr.R;
 import com.example.pr.adapers.OrdersAdapter;
 import com.example.pr.model.Order;
 import com.example.pr.services.DatabaseService;

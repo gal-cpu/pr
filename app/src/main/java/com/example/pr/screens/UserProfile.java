@@ -10,7 +10,7 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
-import com.example.pr.OrderHistory;
+import com.example.pr.screens.OrderHistory;
 import com.example.pr.R;
 import com.example.pr.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
@@ -76,7 +76,7 @@ public class UserProfile extends AppCompatActivity {
     }
 
     public void OnClickHistory(View view) {
-        Intent go = new Intent(UserProfile.this, OrderHistory.class);
+        Intent go = new Intent(UserProfile.this, OrderHistoryUser.class);
         startActivity(go);
     }
 }

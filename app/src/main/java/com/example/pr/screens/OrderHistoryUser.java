@@ -18,18 +18,21 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.R;
 import com.example.pr.adapers.OrdersAdapter;
 import com.example.pr.model.Order;
+import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
+import com.google.firebase.auth.FirebaseAuth;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistory extends AppCompatActivity implements View.OnClickListener, OrdersAdapter.OrderClickListener {
+public class OrderHistoryUser extends AppCompatActivity implements View.OnClickListener, OrdersAdapter.OrderClickListener {
 
     private static final String TAG = "OrderHistory";
     private DatabaseService databaseService;
     private OrdersAdapter orderAdapter;
     private RecyclerView rcOrders;
     private View btnShowOptionsOrder;
+    private String current_userId = "";
     private LinearLayout optionsContainerOrder;
     private TextView option1, option2, option3, option4;
     private List<Order> allOrders = new ArrayList<>();
@@ -39,7 +42,8 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         EdgeToEdge.enable(this);
-        setContentView(R.layout.activity_order_history);
+        setContentView(R.layout.activity_order_history_user);
+
 
         // הגדרת Padding למערכת (סטטוס בר וכו')
         View mainView = findViewById(R.id.main);
@@ -55,19 +59,23 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
         setupRecyclerView();
 
         databaseService = DatabaseService.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
+        if (mAuth.getCurrentUser() != null) {
+            current_userId = mAuth.getCurrentUser().getUid();
+        }
         fetchOrdersFromFirebase();
     }
 
     private void initViews() {
-        rcOrders = findViewById(R.id.rcOrders);
-        btnShowOptionsOrder = findViewById(R.id.btnShowOptionsOrder);
-        optionsContainerOrder = findViewById(R.id.optionsContainerOrder);
+        rcOrders = findViewById(R.id.rcOrdersUser);
+        btnShowOptionsOrder = findViewById(R.id.btnShowOptionsOrderUser);
+        optionsContainerOrder = findViewById(R.id.optionsContainerOrderUser);
 
         // קישור האופציות מה-XML שלך
-        option1 = findViewById(R.id.option1); // without
-        option2 = findViewById(R.id.option2); // date
-        option3 = findViewById(R.id.option3); // price (השתמשתי ב-option3 למחיר)
-        option4 = findViewById(R.id.option4); // Committed
+        option1 = findViewById(R.id.option1User); // without
+        option2 = findViewById(R.id.option2User); // date
+        option3 = findViewById(R.id.option3User); // price (השתמשתי ב-option3 למחיר)
+        option4 = findViewById(R.id.option4User); // Committed
 
         // הגדרת מאזינים
         btnShowOptionsOrder.setOnClickListener(this);
@@ -85,7 +93,7 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
     }
 
     private void fetchOrdersFromFirebase() {
-        databaseService.getAllOrders(new DatabaseService.DatabaseCallback<List<Order>>() {
+        databaseService.getUserOrders(current_userId, new DatabaseService.DatabaseCallback<List<Order>>() {
             @Override
             public void onCompleted(List<Order> orders) {
                 if (orders != null) {
@@ -97,7 +105,7 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
             @Override
             public void onFailed(Exception e) {
                 Log.e(TAG, "Failed to load orders", e);
-                Toast.makeText(OrderHistory.this, "שגיאה בטעינת נתונים", Toast.LENGTH_SHORT).show();
+                Toast.makeText(OrderHistoryUser.this, "שגיאה בטעינת נתונים", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -161,17 +169,16 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    // מימוש ה-Interface של האדפטר (לחיצה רגילה)
     @Override
     public void onClick(Order order) {
         Toast.makeText(this, "הזמנה: " + order.getOrderId(), Toast.LENGTH_SHORT).show();
         // כאן תוכל להוסיף מעבר למסך פרטי הזמנה (Intent)
     }
 
-    // מימוש ה-Interface של האדפטר (לחיצה ארוכה)
     @Override
     public void onLongClick(Order order, int position) {
         // דוגמה: הצגת הודעה בלחיצה ארוכה
         Log.d(TAG, "Long click on: " + order.getOrderId());
+
     }
 }

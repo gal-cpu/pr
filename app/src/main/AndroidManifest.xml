@@ -11,19 +11,22 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.Pr">
         <activity
+            android:name=".screens.OrderHistoryUser"
+            android:exported="false" />
+        <activity
             android:name=".screens.TableOrders"
             android:exported="false" />
         <activity
             android:name=".screens.ItemOrderProductLight"
             android:exported="false" />
         <activity
-            android:name=".OrderHistory"
+            android:name=".screens.OrderHistory"
             android:exported="false" />
         <activity
             android:name=".screens.OneOrder"
             android:exported="false" />
         <activity
-            android:name=".OrderRowCart"
+            android:name=".screens.OrderRowCart"
             android:exported="false" />
         <activity
             android:name=".screens.Payment_page"

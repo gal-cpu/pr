@@ -277,7 +277,7 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
 
 
         Toast.makeText(CartList.this, "הזמנה נשמרה!"+ order.toString(), Toast.LENGTH_LONG).show();
-        databaseService.createNewOreder(order, new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.createNewOreder(order, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void object) {
                 Toast.makeText(CartList.this, "הזמנה נשמרה!", Toast.LENGTH_SHORT).show();
@@ -302,7 +302,7 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
     }
 
     public void goUpdateCart(Cart cart){
-        databaseService.updateCart(current_userId, cart, new DatabaseService.DatabaseCallback<Void>() {
+        databaseService.updateCart(current_userId, cart, new DatabaseService.DatabaseCallback<>() {
             @Override
             public void onCompleted(Void object) {
                 cartAdapter.notifyDataSetChanged();

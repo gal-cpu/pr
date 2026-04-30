@@ -93,16 +93,11 @@ public class Payment_page extends AppCompatActivity {
                 }
 
                 // בדיקת מספר כרטיס אשראי - לא פחות מ-16 ספרות
-                if (cardNumber.length() < 16) {
-                    Toast.makeText(Payment_page.this, "מספר כרטיס האשראי קצר מדי, נדרשות לפחות 16 ספרות", Toast.LENGTH_SHORT).show();
+                if (cardNumber.length() != 16) {
+                    Toast.makeText(Payment_page.this, "מספר כרטיס האשראי נדרש 16 ספרות", Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                // בדיקת מספר כרטיס אשראי - לא מעל מ-16 ספרות
-                if (cardNumber.length() > 16) {
-                    Toast.makeText(Payment_page.this, "מספר כרטיס האשראי גדול מדי, נדרשות מינימום 16 ספרות", Toast.LENGTH_SHORT).show();
-                    return;
-                }
 
                 // בדיקת CVV - חייב להיות בדיוק 3 ספרות
                 if (cvv.length() != 3) {

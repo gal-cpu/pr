@@ -63,5 +63,7 @@ public class AdminPage extends AppCompatActivity {
     }
 
     public void OnClickOrdersTable(View view) {
+        Intent go = new Intent(AdminPage.this, OrderHistory.class);
+        startActivity(go);
     }
 }
