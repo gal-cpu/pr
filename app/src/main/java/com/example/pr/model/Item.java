@@ -3,7 +3,9 @@ package com.example.pr.model;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item  implements Serializable {
     protected String id;
     protected String pName; //שם המוצר
     protected String pNote; //הערה בהתאם למוצר

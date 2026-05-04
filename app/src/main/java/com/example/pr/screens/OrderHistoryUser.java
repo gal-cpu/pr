@@ -25,7 +25,7 @@ import com.google.firebase.auth.FirebaseAuth;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistoryUser extends AppCompatActivity implements View.OnClickListener, OrdersAdapter.OrderClickListener {
+public class OrderHistoryUser extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "OrderHistory";
     private DatabaseService databaseService;
@@ -88,7 +88,17 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
         // שליחת this פעמיים: פעם אחת כ-Context ופעם אחת כ-OrderClickListener
-        orderAdapter = new OrdersAdapter(this, this);
+        orderAdapter = new OrdersAdapter(allOrders, new OrdersAdapter.OrderClickListener() {
+            @Override
+            public void onOrderClick(Order order) {
+
+            }
+
+            @Override
+            public void onOrderLongClick(Order order) {
+
+            }
+        });
         rcOrders.setAdapter(orderAdapter);
     }
 
@@ -135,7 +145,8 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
                 break;
         }
 
-        orderAdapter.updateOrders(filteredList);
+        orderAdapter.setOrderList(filteredList);
+        orderAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -164,21 +175,9 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    @Override
-    public void onOrderClick(Order order) {
-
-    }
 
     @Override
-    public void onClick(Order order) {
-        Toast.makeText(this, "הזמנה: " + order.getOrderId(), Toast.LENGTH_SHORT).show();
-        // כאן תוכל להוסיף מעבר למסך פרטי הזמנה (Intent)
-    }
-
-    @Override
-    public void onLongClick(Order order, int position) {
-        // דוגמה: הצגת הודעה בלחיצה ארוכה
-        Log.d(TAG, "Long click on: " + order.getOrderId());
-
+    public void onPointerCaptureChanged(boolean hasCapture) {
+        super.onPointerCaptureChanged(hasCapture);
     }
 }

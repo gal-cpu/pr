@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -251,4 +253,61 @@ public class Book_page extends AppCompatActivity implements View.OnClickListener
                 break;
         }
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        getMenuInflater().inflate(R.menu.user_menu, menu);
+
+        return true;
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
+        if(  item.getItemId()==R.id.menu_user) {
+            Intent go = new Intent(Book_page.this, UserProfile.class);
+            startActivity(go);
+            return true;
+        }
+
+        if(  item.getItemId()==R.id.menu_history) {
+            Intent go = new Intent(Book_page.this, OrderHistory.class);
+            startActivity(go);
+            return true;
+        }
+        if(  item.getItemId()==R.id.menu_favorites) {
+            Intent go = new Intent(Book_page.this, Favorites.class);
+            startActivity(go);
+            return true;
+        }
+
+        if(  item.getItemId()==R.id.menu_cart) {
+            Intent go = new Intent(Book_page.this, CartList.class);
+            startActivity(go);
+            return true;
+        }
+
+        if(  item.getItemId()==R.id.menu_logout) {
+            Intent go = new Intent(Book_page.this, LogIn.class);
+            startActivity(go);
+            return true;
+        }
+
+        if(  item.getItemId()==R.id.menu_admin) {
+
+            if(LogIn.isAdmin) {
+                Intent go = new Intent(Book_page.this, AdminPage.class);
+                startActivity(go);
+            }
+            return true;
+        }
+
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
 }

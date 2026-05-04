@@ -29,7 +29,7 @@ public class OrderRowCart extends AppCompatActivity {
     private RecyclerView rcOrders;
     private FirebaseAuth mAuth;
     private String current_userId = "";
-    private List<Order> order = new ArrayList<>();
+    private List<Order> orderList = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,7 +56,17 @@ public class OrderRowCart extends AppCompatActivity {
 
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
-        ordersAdapter = new OrdersAdapter(this, (OrdersAdapter.OrderClickListener) this);
+        ordersAdapter = new OrdersAdapter(orderList, new OrdersAdapter.OrderClickListener() {
+            @Override
+            public void onOrderClick(Order order) {
+
+            }
+
+            @Override
+            public void onOrderLongClick(Order order) {
+
+            }
+        });
         rcOrders.setAdapter(ordersAdapter);
     }
 
@@ -65,7 +75,7 @@ public class OrderRowCart extends AppCompatActivity {
             @Override
             public void onCompleted(List<Order> orders) {
                 if (orders != null) {
-                    order = orders;
+                    orderList = orders;
                 }
             }
 

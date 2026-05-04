@@ -2,6 +2,8 @@ package com.example.pr.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import androidx.activity.EdgeToEdge;
@@ -57,4 +59,65 @@ public class MainActivity extends AppCompatActivity {
         Intent go = new Intent(MainActivity.this, MainActivity.class);
         startActivity(go);
     }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+            getMenuInflater().inflate(R.menu.user_menu, menu);
+
+        return true;
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+
+            if(  item.getItemId()==R.id.menu_user) {
+                Intent go = new Intent(MainActivity.this, UserProfile.class);
+                startActivity(go);
+                return true;
+            }
+
+        if(  item.getItemId()==R.id.menu_history) {
+                Intent go = new Intent(MainActivity.this, OrderHistory.class);
+                startActivity(go);
+                return true;
+            }
+        if(  item.getItemId()==R.id.menu_favorites) {
+                Intent go = new Intent(MainActivity.this, Favorites.class);
+                startActivity(go);
+                return true;
+            }
+
+        if(  item.getItemId()==R.id.menu_cart) {
+                Intent go = new Intent(MainActivity.this, CartList.class);
+                startActivity(go);
+                return true;
+            }
+
+        if(  item.getItemId()==R.id.menu_logout) {
+                Intent go = new Intent(MainActivity.this, LogIn.class);
+                startActivity(go);
+                return true;
+            }
+
+        if(  item.getItemId()==R.id.menu_admin) {
+
+            if(LogIn.isAdmin) {
+                Intent go = new Intent(MainActivity.this, AdminPage.class);
+                startActivity(go);
+            }
+                return true;
+            }
+
+
+            return super.onOptionsItemSelected(item);
+        }
+
+
+
+
 }

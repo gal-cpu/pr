@@ -30,6 +30,8 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     DatabaseService databaseService;
     SharedPreferences sharedpreferences;
 
+    public  static  boolean isAdmin=false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,8 +91,11 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                                 if (current_user.isAd()) {
                                     go = new Intent(LogIn.this, AdminPage.class);
 
+                                    isAdmin=true;
+
                                 } else {
                                     go = new Intent(LogIn.this, MainActivity.class);
+                                    isAdmin=false;
                                 }
                                 startActivity(go);
                                 finish();

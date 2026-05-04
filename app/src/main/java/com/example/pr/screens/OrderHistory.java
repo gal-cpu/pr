@@ -24,7 +24,7 @@ import com.example.pr.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistory extends AppCompatActivity implements View.OnClickListener, OrdersAdapter.OrderClickListener {
+public class OrderHistory extends AppCompatActivity implements OrdersAdapter.OrderClickListener, View.OnClickListener {
 
     private static final String TAG = "OrderHistory";
     private DatabaseService databaseService;
@@ -81,7 +81,22 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
         // שליחת this פעמיים: פעם אחת כ-Context ופעם אחת כ-OrderClickListener
-        orderAdapter = new OrdersAdapter(this, this);
+        orderAdapter = new OrdersAdapter(allOrders, new OrdersAdapter.OrderClickListener() {
+            @Override
+            public void onOrderClick(Order order) {
+                Intent go = new Intent(OrderHistory.this, UpdateOrder.class);
+            //    go.putExtra("order", order);
+                startActivity(go);
+
+            }
+
+            @Override
+            public void onOrderLongClick(Order order) {
+                // דוגמה: הצגת הודעה בלחיצה ארוכה
+                Log.d(TAG, "Long click on: " + order.getOrderId());
+
+            }
+        });
         rcOrders.setAdapter(orderAdapter);
     }
 
@@ -92,6 +107,7 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
                 if (orders != null) {
                     allOrders = orders;
                     applyFiltersAndSorting();
+                    orderAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -128,7 +144,8 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
                 break;
         }
 
-        orderAdapter.updateOrders(filteredList);
+        orderAdapter.setOrderList(filteredList);
+        orderAdapter.notifyDataSetChanged();
     }
 
     @Override
@@ -157,24 +174,14 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
         }
     }
 
+
     @Override
     public void onOrderClick(Order order) {
-        Intent go = new Intent(OrderHistory.this, UpdateOrder.class);
-        go.putExtra("order", order);
-        startActivity(go);
+
     }
 
-    // מימוש ה-Interface של האדפטר (לחיצה רגילה)
     @Override
-    public void onClick(Order order) {
-        Toast.makeText(this, "הזמנה: " + order.getOrderId(), Toast.LENGTH_SHORT).show();
-        // כאן תוכל להוסיף מעבר למסך פרטי הזמנה (Intent)
-    }
+    public void onOrderLongClick(Order order) {
 
-    // מימוש ה-Interface של האדפטר (לחיצה ארוכה)
-    @Override
-    public void onLongClick(Order order, int position) {
-        // דוגמה: הצגת הודעה בלחיצה ארוכה
-        Log.d(TAG, "Long click on: " + order.getOrderId());
     }
 }

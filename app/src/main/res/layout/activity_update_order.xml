@@ -44,7 +44,7 @@
                     android:alpha="0.8"/>
 
                 <TextView
-                    android:id="@+id/tvOrderIdValueO"
+                    android:id="@+id/tvOrderIdValueOUp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="#12345"
@@ -55,7 +55,7 @@
 
             <!-- Status Chip -->
             <TextView
-                android:id="@+id/tvStatusBadge"
+                android:id="@+id/tvStatusBadgeUp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="ממתין"
@@ -134,7 +134,7 @@
                         android:layout_marginEnd="6dp"/>
 
                     <TextView
-                        android:id="@+id/tvUserValueO"
+                        android:id="@+id/tvUserValueOUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="ישראל ישראלי"
@@ -166,7 +166,7 @@
                         android:layout_marginEnd="6dp"/>
 
                     <TextView
-                        android:id="@+id/tvBuyerPhone"
+                        android:id="@+id/tvBuyerPhoneUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="050-123-4567"
@@ -234,7 +234,7 @@
                             android:textSize="11sp"/>
 
                         <TextView
-                            android:id="@+id/tvTimestampValueO"
+                            android:id="@+id/tvTimestampValueOUp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="13/05/2025"
@@ -260,7 +260,7 @@
                             android:textSize="11sp"/>
 
                         <TextView
-                            android:id="@+id/tvPaymentMethod"
+                            android:id="@+id/tvPaymentMethodUp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Bit"
@@ -316,7 +316,7 @@
                         android:layout_weight="1"/>
 
                     <TextView
-                        android:id="@+id/tvTotalPriceValueO"
+                        android:id="@+id/tvTotalPriceValueOUp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="₪149.90"

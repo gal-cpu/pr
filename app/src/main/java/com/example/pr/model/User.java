@@ -5,7 +5,9 @@ import androidx.annotation.NonNull;
 import com.example.pr.screens.Favorites;
 import com.google.firebase.database.Exclude;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable {
     protected String id;
     protected String fName;
     protected String lName;

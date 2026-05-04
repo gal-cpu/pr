@@ -1,6 +1,8 @@
 package com.example.pr.model;
 
-public class ItemCart {
+import java.io.Serializable;
+
+public class ItemCart  implements Serializable {
     protected Item item;
     protected int amount;
 

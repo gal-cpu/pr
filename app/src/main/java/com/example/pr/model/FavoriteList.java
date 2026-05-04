@@ -1,8 +1,9 @@
 package com.example.pr.model;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class FavoriteList {
+public class FavoriteList implements Serializable {
     protected ArrayList<Item> favoriteItemsList;
 
     public FavoriteList(ArrayList<Item> favoriteItemsList) {

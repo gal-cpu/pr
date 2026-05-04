@@ -18,7 +18,7 @@ import java.util.List;
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewHolder> {
 
     private List<Order> orderList;
-    private Context context;
+
     private OrderClickListener listener;
 
     // הגדרת הממשק ללחיצות
@@ -26,16 +26,21 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         void onOrderClick(Order order);
 
         // מימוש ה-Interface של האדפטר (לחיצה רגילה)
-        void onClick(Order order);
+
 
         // מימוש ה-Interface של האדפטר (לחיצה ארוכה)
-        void onLongClick(Order order, int position);
+        void onOrderLongClick(Order order);
     }
 
     // ה-Constructor המעודכן שמקבל Context ו-Listener
-    public OrdersAdapter(Context context, OrderClickListener listener) {
-        this.context = context;
+    public OrdersAdapter( OrderClickListener listener) {
         this.listener = listener;
+    }
+
+
+    public OrdersAdapter( List<Order> orderList,OrderClickListener listener) {
+        this.listener = listener;
+        this.orderList = orderList;
     }
 
     @NonNull
@@ -75,6 +80,14 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             }
         });
 
+        holder.itemView.setOnLongClickListener(v -> {
+            if (listener != null) {
+                listener.onOrderLongClick(order);
+            }
+            return false;
+        });
+
+
         // Items RecyclerView
         if (order.getItems() != null) {
             com.example.pr.adapers.OrderItemAdapter itemAdapter = new com.example.pr.adapers.OrderItemAdapter(order.getItems());
@@ -89,9 +102,9 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
         return orderList != null ? orderList.size() : 0;
     }
 
-    public void updateOrders(List<Order> newOrders) {
+    public void setOrderList(List<Order> newOrders) {
         this.orderList = newOrders;
-        notifyDataSetChanged();
+
     }
 
     public static class OrderViewHolder extends RecyclerView.ViewHolder {
