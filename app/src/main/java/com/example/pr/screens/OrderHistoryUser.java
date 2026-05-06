@@ -88,7 +88,7 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
         // שליחת this פעמיים: פעם אחת כ-Context ופעם אחת כ-OrderClickListener
-        orderAdapter = new OrdersAdapter(allOrders, new OrdersAdapter.OrderClickListener() {
+        orderAdapter = new OrdersAdapter(allOrders, new OrdersAdapter.OnOrderClickListener() {
             @Override
             public void onOrderClick(Order order) {
 

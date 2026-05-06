@@ -24,7 +24,7 @@ import com.example.pr.services.DatabaseService;
 import java.util.ArrayList;
 import java.util.List;
 
-public class OrderHistory extends AppCompatActivity implements OrdersAdapter.OrderClickListener, View.OnClickListener {
+public class OrderHistory extends AppCompatActivity implements View.OnClickListener {
 
     private static final String TAG = "OrderHistory";
     private DatabaseService databaseService;
@@ -81,11 +81,13 @@ public class OrderHistory extends AppCompatActivity implements OrdersAdapter.Ord
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
         // שליחת this פעמיים: פעם אחת כ-Context ופעם אחת כ-OrderClickListener
-        orderAdapter = new OrdersAdapter(allOrders, new OrdersAdapter.OrderClickListener() {
+        orderAdapter = new OrdersAdapter(allOrders, new OrdersAdapter.OnOrderClickListener() {
             @Override
             public void onOrderClick(Order order) {
                 Intent go = new Intent(OrderHistory.this, UpdateOrder.class);
-            //    go.putExtra("order", order);
+               // go.putExtra("order", order);
+
+                go.putExtra("orderId", order.getOrderId());
                 startActivity(go);
 
             }
@@ -175,13 +177,4 @@ public class OrderHistory extends AppCompatActivity implements OrdersAdapter.Ord
     }
 
 
-    @Override
-    public void onOrderClick(Order order) {
-
-    }
-
-    @Override
-    public void onOrderLongClick(Order order) {
-
-    }
 }

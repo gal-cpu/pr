@@ -23,6 +23,16 @@ import java.util.List;
 /// @see User
 public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> {
 
+
+
+
+
+    public interface OnUserClickListener {
+        void onUserClick(User user);
+
+        void onLongUserClick(User user);
+    }
+
     private final List<User> userList;
     private final OnUserClickListener onUserClickListener;
     public UsersAdapter(@Nullable final OnUserClickListener onUserClickListener) {
@@ -135,11 +145,6 @@ public class UsersAdapter extends RecyclerView.Adapter<UsersAdapter.ViewHolder> 
     ///
     /// @see User
     ///
-    public interface OnUserClickListener {
-        void onUserClick(User user);
-
-        void onLongUserClick(User user);
-    }
 
     /// View holder for the items adapter
     ///

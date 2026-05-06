@@ -23,6 +23,16 @@ import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
 
+
+
+
+
+
+    public interface ItemClickListener {
+        void onClick(Item item);
+        void onLongClick(Item item, int position);
+    }
+
     private static final String TAG = "ItemsAdapter";
 
     private List<Item> originalItemsList = new ArrayList<>();
@@ -91,11 +101,6 @@ public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHold
 
     public List<Item> getItemList() {
         return originalItemsList;
-    }
-
-    public interface ItemClickListener {
-        void onClick(Item item);
-        void onLongClick(Item item, int position);
     }
 
     public class ItemViewHolder extends RecyclerView.ViewHolder {

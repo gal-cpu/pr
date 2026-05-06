@@ -596,8 +596,21 @@ public class DatabaseService {
     }
 
 
+
+    public void getOrder( @NotNull final String orderId,   @NotNull final DatabaseCallback<Order> callback) {
+        getData(ORDER_PATH+"/"+ orderId,  Order.class, callback);
+
+    }
+
     public void getAllOrders(@NotNull final DatabaseCallback<List<Order>> callback) {
         getDataList(ORDER_PATH, Order.class, callback);
+
+    }
+
+    public void updateOrder(@NotNull final Order order,  @Nullable final DatabaseCallback<Void> callback){
+        writeData(ORDER_PATH + "/"+order.getOrderId(), order, callback);
+        writeData(USERS_ORDERS_PATH +"/"+order.getUser().getId()+"/"+ order.getOrderId(), order, callback);
+
 
     }
 

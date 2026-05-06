@@ -12,33 +12,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.pr.R;
 import com.example.pr.model.Order;
+import com.example.pr.model.User;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewHolder> {
 
-    private List<Order> orderList;
-
-    private OrderClickListener listener;
 
     // הגדרת הממשק ללחיצות
-    public interface OrderClickListener {
+    public interface OnOrderClickListener {
         void onOrderClick(Order order);
 
-        // מימוש ה-Interface של האדפטר (לחיצה רגילה)
+
 
 
         // מימוש ה-Interface של האדפטר (לחיצה ארוכה)
         void onOrderLongClick(Order order);
     }
 
+    private List<Order> orderList;
+
+    private OnOrderClickListener listener;
+
+
+
+
     // ה-Constructor המעודכן שמקבל Context ו-Listener
-    public OrdersAdapter( OrderClickListener listener) {
+    public OrdersAdapter( OnOrderClickListener listener) {
         this.listener = listener;
+        this.orderList=new ArrayList<>();
     }
 
 
-    public OrdersAdapter( List<Order> orderList,OrderClickListener listener) {
+    public OrdersAdapter( List<Order> orderList,OnOrderClickListener listener) {
         this.listener = listener;
         this.orderList = orderList;
     }
@@ -84,8 +91,10 @@ public class OrdersAdapter extends RecyclerView.Adapter<OrdersAdapter.OrderViewH
             if (listener != null) {
                 listener.onOrderLongClick(order);
             }
-            return false;
+            return true;
         });
+
+
 
 
         // Items RecyclerView

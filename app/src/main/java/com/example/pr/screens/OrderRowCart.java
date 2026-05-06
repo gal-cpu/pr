@@ -56,7 +56,7 @@ public class OrderRowCart extends AppCompatActivity {
 
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
-        ordersAdapter = new OrdersAdapter(orderList, new OrdersAdapter.OrderClickListener() {
+        ordersAdapter = new OrdersAdapter(orderList, new OrdersAdapter.OnOrderClickListener() {
             @Override
             public void onOrderClick(Order order) {
 
