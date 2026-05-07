@@ -64,7 +64,6 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
 
-
             getMenuInflater().inflate(R.menu.user_menu, menu);
 
         return true;
@@ -72,8 +71,6 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-
-
 
             if(  item.getItemId()==R.id.menu_user) {
                 Intent go = new Intent(MainActivity.this, UserProfile.class);
@@ -113,11 +110,6 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
 
-
             return super.onOptionsItemSelected(item);
         }
-
-
-
-
 }

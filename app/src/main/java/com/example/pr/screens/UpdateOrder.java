@@ -3,6 +3,7 @@ package com.example.pr.screens;
 import static android.widget.Toast.LENGTH_LONG;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -19,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.R;
 import com.example.pr.model.Order;
 import com.example.pr.services.DatabaseService;
+import com.example.pr.services.NotificationHelper;
 
 public class UpdateOrder extends AppCompatActivity {
 
@@ -49,6 +51,10 @@ public class UpdateOrder extends AppCompatActivity {
             return insets;
         });
 
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            requestPermissions(new String[]{android.Manifest.permission.POST_NOTIFICATIONS}, 1);
+        }
+
         initViews();
         takeit=getIntent();
 
@@ -71,13 +77,7 @@ public class UpdateOrder extends AppCompatActivity {
 
                 }
             });
-
-
-
         }
-
-
-
     }
 
     private void setData() {
@@ -130,28 +130,29 @@ public class UpdateOrder extends AppCompatActivity {
     }
 
     public void UpdateOrderAndSave(View view) {
-
         currentOrder.setStatus("Done");
         databaseService.updateOrder(currentOrder, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
 
-                Toast.makeText(UpdateOrder.this, "Order status update", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UpdateOrder.this, AdminPage.class);
+                // ✅ שלח התראה
+                NotificationHelper.sendOrderReadyNotification(
+                        UpdateOrder.this,
+                        currentOrder.getOrderId()
+                );
+
+                Toast.makeText(UpdateOrder.this, "Order status updated", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UpdateOrder.this, OrderHistory.class);
                 startActivity(intent);
                 finish();
-
             }
 
             @Override
             public void onFailed(Exception e) {
                 Intent intent = new Intent(UpdateOrder.this, TableOrders.class);
                 startActivity(intent);
-
             }
         });
-
-
     }
 
     public void goBackToAllOrders(View view) {

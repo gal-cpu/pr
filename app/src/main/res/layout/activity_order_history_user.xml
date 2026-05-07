@@ -140,7 +140,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="Commited"
+                    android:text="Done"
                     android:textColor="#333333" />
             </LinearLayout>
         </LinearLayout>

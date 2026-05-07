@@ -134,11 +134,11 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
                 // מהישן לחדש
                 filteredList.sort((a, b) -> Double.compare(a.getTimestamp(), b.getTimestamp()));
                 break;
-            case "committed":
+            case "Done":
                 // סינון רק של אלו שסטטוס שלהם Committed
                 List<Order> onlyCommitted = new ArrayList<>();
                 for (Order o : allOrders) {
-                    if ("Committed".equalsIgnoreCase(o.getStatus())) {
+                    if ("Done".equalsIgnoreCase(o.getStatus())) {
                         onlyCommitted.add(o);
                     }
                 }
@@ -170,11 +170,9 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
             applyFiltersAndSorting();
             optionsContainerOrder.setVisibility(View.GONE);
         } else if (id == R.id.option4) {
-            selectedSort = "committed";
+            selectedSort = "Done";
             applyFiltersAndSorting();
             optionsContainerOrder.setVisibility(View.GONE);
         }
     }
-
-
 }
