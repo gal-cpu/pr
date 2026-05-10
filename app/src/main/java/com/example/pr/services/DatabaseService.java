@@ -314,6 +314,19 @@ public class DatabaseService {
                 });
     }
 
+   public   void   saveUserToken( @NotNull final String userId, final String token,  @Nullable final DatabaseCallback<Void> callback){
+        writeData(USERS_PATH+"/"+userId+"/fcmToken/",token,callback);
+
+   }
+
+    public   void   getUserToken( @NotNull final String userId,  @Nullable final DatabaseCallback<String> callback){
+        getData(USERS_PATH+"/"+userId+"/fcmToken/",String.class,callback);
+
+    }
+
+
+
+
     /// get a user from the database
     ///
     /// @param uid      the id of the user to get

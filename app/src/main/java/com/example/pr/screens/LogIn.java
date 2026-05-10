@@ -18,6 +18,7 @@ import androidx.core.view.WindowInsetsCompat;
 import com.example.pr.R;
 import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
+import com.google.firebase.messaging.FirebaseMessaging;
 
 public class LogIn extends AppCompatActivity implements View.OnClickListener {
     public static final String MyPREFERENCES = "MyPrefs";
@@ -94,6 +95,30 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                                     isAdmin=true;
 
                                 } else {
+
+
+//Save User Token
+                                    FirebaseMessaging.getInstance().getToken()
+                                            .addOnCompleteListener(task -> {
+                                                if (!task.isSuccessful()) {
+                                                    return;
+                                                }
+
+                                                String token = task.getResult();
+
+                                                // שמור במסד הנתונים תחת המשתמש
+                                                databaseService.saveUserToken(userId, token, new DatabaseService.DatabaseCallback<Void>() {
+                                                    @Override
+                                                    public void onCompleted(Void object) {
+
+                                                    }
+
+                                                    @Override
+                                                    public void onFailed(Exception e) {
+
+                                                    }
+                                                });
+                                            });
                                     go = new Intent(LogIn.this, MainActivity.class);
                                     isAdmin=false;
                                 }

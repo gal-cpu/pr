@@ -17,6 +17,7 @@ public class User implements Serializable {
     protected boolean isAd;
     protected Cart cart;
     protected Favorites favorites;
+    private String fcmToken;
 
     public User(String email, String fName, String id, String lName,
                 String password, String phone, boolean isAd) {
@@ -29,6 +30,20 @@ public class User implements Serializable {
         this.isAd = isAd;
         this.cart = new Cart();
         this.favorites = new Favorites();
+    }
+
+
+    public User(Cart cart, String email, Favorites favorites, String fcmToken, String fName, String id, boolean isAd, String lName, String password, String phone) {
+        this.cart = cart;
+        this.email = email;
+        this.favorites = favorites;
+        this.fcmToken = fcmToken;
+        this.fName = fName;
+        this.id = id;
+        this.isAd = isAd;
+        this.lName = lName;
+        this.password = password;
+        this.phone = phone;
     }
 
     public User() {
@@ -118,6 +133,14 @@ public class User implements Serializable {
 
     public void setCart(Cart cart) {
         this.cart = cart;
+    }
+
+    public String getFcmToken() {
+        return fcmToken;
+    }
+
+    public void setFcmToken(String fcmToken) {
+        this.fcmToken = fcmToken;
     }
 
     @NonNull

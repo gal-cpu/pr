@@ -2,15 +2,25 @@ package com.example.pr.screens;
 
 import static android.widget.Toast.LENGTH_LONG;
 
+
+import android.Manifest;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -20,7 +30,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.R;
 import com.example.pr.model.Order;
 import com.example.pr.services.DatabaseService;
+import com.example.pr.services.FCMHelper;
 import com.example.pr.services.NotificationHelper;
+import com.google.android.material.bottomsheet.BottomSheetDialog;
+import com.google.android.material.slider.RangeSlider;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class UpdateOrder extends AppCompatActivity {
 
@@ -31,15 +47,16 @@ public class UpdateOrder extends AppCompatActivity {
     TextView tvTotalPrice;
     TextView tvPaymentMethod;
     TextView tvStatus;
-    Order currentOrder=null;
+    Order currentOrder = null;
 
-    String orderId=null;
+    String orderId = null;
     private RecyclerView rcOrderItems;
 
     Intent takeit;
 
 
     DatabaseService databaseService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,16 +73,16 @@ public class UpdateOrder extends AppCompatActivity {
         }
 
         initViews();
-        takeit=getIntent();
+        takeit = getIntent();
 
-        orderId=  takeit.getStringExtra("orderId");
+        orderId = takeit.getStringExtra("orderId");
 
-        if(orderId!=null) {
+        if (orderId != null) {
 
             databaseService.getOrder(orderId, new DatabaseService.DatabaseCallback<Order>() {
                 @Override
                 public void onCompleted(Order order) {
-                    currentOrder=order;
+                    currentOrder = order;
 
 
                     setData();
@@ -87,21 +104,20 @@ public class UpdateOrder extends AppCompatActivity {
 
         // Buyer details
         if (currentOrder.getUser() != null) {
-            tvUserName.setText(currentOrder.getUser().getfName() + " " +currentOrder.getUser().getlName());
+            tvUserName.setText(currentOrder.getUser().getfName() + " " + currentOrder.getUser().getlName());
             tvBuyerPhone.setText(currentOrder.getUser().getPhone());
         }
 
         // Date
-     tvTimestamp.setText(currentOrder.getFormattedDate());
+        tvTimestamp.setText(currentOrder.getFormattedDate());
 
         // Total price
         tvTotalPrice.setText(String.format("₪%.2f", currentOrder.getTotalPrice()));
 
         // Status badge
-       tvStatus.setText(currentOrder.getStatus());
+        tvStatus.setText(currentOrder.getStatus());
 
         // הגדרת לחיצה על כל השורה
-
 
 
         // Items RecyclerView
@@ -111,22 +127,22 @@ public class UpdateOrder extends AppCompatActivity {
             rcOrderItems.setLayoutManager(new LinearLayoutManager(this));
 
             rcOrderItems.setAdapter(itemAdapter);
-           rcOrderItems.setNestedScrollingEnabled(false);
+            rcOrderItems.setNestedScrollingEnabled(false);
         }
     }
 
     private void initViews() {
 
-        databaseService=DatabaseService.getInstance();
+        databaseService = DatabaseService.getInstance();
 
-        tvOrderId       = findViewById(R.id.tvOrderIdValueOUp);
-        tvUserName      = findViewById(R.id.tvUserValueOUp);
-        tvBuyerPhone    = findViewById(R.id.tvBuyerPhoneUp);
-        tvTimestamp     = findViewById(R.id.tvTimestampValueOUp);
-        tvTotalPrice    = findViewById(R.id.tvTotalPriceValueOUp);
+        tvOrderId = findViewById(R.id.tvOrderIdValueOUp);
+        tvUserName = findViewById(R.id.tvUserValueOUp);
+        tvBuyerPhone = findViewById(R.id.tvBuyerPhoneUp);
+        tvTimestamp = findViewById(R.id.tvTimestampValueOUp);
+        tvTotalPrice = findViewById(R.id.tvTotalPriceValueOUp);
         tvPaymentMethod = findViewById(R.id.tvPaymentMethodUp);
-        tvStatus        = findViewById(R.id.tvStatusBadgeUp);
-        rcOrderItems     = findViewById(R.id.rcOrderItemsUp);
+        tvStatus = findViewById(R.id.tvStatusBadgeUp);
+        rcOrderItems = findViewById(R.id.rcOrderItemsUp);
     }
 
     public void UpdateOrderAndSave(View view) {
@@ -140,6 +156,43 @@ public class UpdateOrder extends AppCompatActivity {
                         UpdateOrder.this,
                         currentOrder.getOrderId()
                 );
+
+
+                // שליפת המשתמש של ההזמנה
+                databaseService.getUserToken(currentOrder.getUser().getId(), new DatabaseService.DatabaseCallback<String>() {
+                            @Override
+                            public void onCompleted(String userToken) {
+
+
+                                // שליחת notification ללקוח
+                                FCMHelper.sendPushNotification(
+                                        userToken,
+                                        "ההזמנה אושרה",
+                                        "ההזמנה שלך אושרה "
+                                );
+
+
+                                Toast.makeText(UpdateOrder.this,
+                                        "Order status updated",
+                                        Toast.LENGTH_SHORT).show();
+
+                            }
+
+                            @Override
+                            public void onFailed(Exception e) {
+
+                            }
+                        });
+
+
+
+
+
+
+
+
+
+
 
                 Toast.makeText(UpdateOrder.this, "Order status updated", Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(UpdateOrder.this, OrderHistory.class);
@@ -157,4 +210,12 @@ public class UpdateOrder extends AppCompatActivity {
 
     public void goBackToAllOrders(View view) {
     }
+
+
+
+
+
+
+
+
 }
