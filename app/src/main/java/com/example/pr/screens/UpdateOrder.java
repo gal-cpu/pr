@@ -5,22 +5,15 @@ import static android.widget.Toast.LENGTH_LONG;
 
 import android.Manifest;
 import android.content.Intent;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.view.View;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.activity.EdgeToEdge;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
@@ -30,13 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.R;
 import com.example.pr.model.Order;
 import com.example.pr.services.DatabaseService;
-import com.example.pr.services.FCMHelper;
-import com.example.pr.services.NotificationHelper;
-import com.google.android.material.bottomsheet.BottomSheetDialog;
-import com.google.android.material.slider.RangeSlider;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.pr.services.OrderApprovedService;
 
 public class UpdateOrder extends AppCompatActivity {
 
@@ -53,6 +40,8 @@ public class UpdateOrder extends AppCompatActivity {
     private RecyclerView rcOrderItems;
 
     Intent takeit;
+
+    String uToken=null;
 
 
     DatabaseService databaseService;
@@ -83,6 +72,27 @@ public class UpdateOrder extends AppCompatActivity {
                 @Override
                 public void onCompleted(Order order) {
                     currentOrder = order;
+
+
+
+
+                    // שליפת המשתמש של ההזמנה
+                    databaseService.getUserToken(currentOrder.getUser().getId(), new DatabaseService.DatabaseCallback<String>() {
+                        @Override
+                        public void onCompleted(String userToken) {
+
+                                uToken=userToken;
+
+
+
+                        }
+
+                        @Override
+                        public void onFailed(Exception e) {
+
+                        }
+                    });
+
 
 
                     setData();
@@ -147,46 +157,43 @@ public class UpdateOrder extends AppCompatActivity {
 
     public void UpdateOrderAndSave(View view) {
         currentOrder.setStatus("Done");
+
+
+//       if(uToken!=null) {
+//            שליחת notification ללקוח
+//           FCMHelper.sendPushNotification(
+//                   uToken,
+//                   "ההזמנה אושרה",
+//                   "ההזמנה שלך אושרה "
+//           );
+//       }
+
+
+
+
         databaseService.updateOrder(currentOrder, new DatabaseService.DatabaseCallback<Void>() {
             @Override
             public void onCompleted(Void object) {
 
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+
+                    requestPermissions(
+                            new String[]{
+                                    Manifest.permission.SEND_SMS
+                            },
+                            1
+                    );
+                }
+
+
+                sendSMS(currentOrder.getUser().getPhone(), "שלום, זו הודעה אוטומטית!");
+
+
                 // ✅ שלח התראה
-                NotificationHelper.sendOrderReadyNotification(
-                        UpdateOrder.this,
-                        currentOrder.getOrderId()
-                );
-
-
-                // שליפת המשתמש של ההזמנה
-                databaseService.getUserToken(currentOrder.getUser().getId(), new DatabaseService.DatabaseCallback<String>() {
-                            @Override
-                            public void onCompleted(String userToken) {
-
-
-                                // שליחת notification ללקוח
-                                FCMHelper.sendPushNotification(
-                                        userToken,
-                                        "ההזמנה אושרה",
-                                        "ההזמנה שלך אושרה "
-                                );
-
-
-                                Toast.makeText(UpdateOrder.this,
-                                        "Order status updated",
-                                        Toast.LENGTH_SHORT).show();
-
-                            }
-
-                            @Override
-                            public void onFailed(Exception e) {
-
-                            }
-                        });
-
-
-
-
+//                NotificationHelper.sendOrderReadyNotification(
+//                        UpdateOrder.this,
+//                        currentOrder.getOrderId()
+//                );
 
 
 
@@ -195,8 +202,8 @@ public class UpdateOrder extends AppCompatActivity {
 
 
                 Toast.makeText(UpdateOrder.this, "Order status updated", Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(UpdateOrder.this, OrderHistory.class);
-                startActivity(intent);
+                Intent intent2 = new Intent(UpdateOrder.this, OrderHistory.class);
+                startActivity(intent2);
                 finish();
             }
 
@@ -211,11 +218,17 @@ public class UpdateOrder extends AppCompatActivity {
     public void goBackToAllOrders(View view) {
     }
 
+    private void sendSMS(String phoneNumber, String message) {
+        Intent intent = new Intent(Intent.ACTION_SENDTO);
+        intent.setData(Uri.parse("smsto:" + phoneNumber));
+        intent.putExtra("sms_body", message);
 
-
-
-
-
+        if (intent.resolveActivity(getPackageManager()) != null) {
+            startActivity(intent);
+        } else {
+            Toast.makeText(this, "לא נמצאה אפליקציית SMS מותקנת", Toast.LENGTH_SHORT).show();
+        }
+    }
 
 
 }

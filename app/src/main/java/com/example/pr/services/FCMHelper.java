@@ -15,7 +15,7 @@ import java.net.URL;
 
         // 🔴 הכנס כאן את SERVER KEY של Firebase
         private static final String SERVER_KEY =
-                "YOUR_FIREBASE_SERVER_KEY";
+                "BMPix6V4hiq4w2E1PgT02EM-YE_KmWlPECaubpYbgePrOXbd2_9MsRO0vPNr1Vtk0oiCzSMICwnL8Tx3q_oyzbM";
 
         private static final String FCM_URL =
                 "https://fcm.googleapis.com/fcm/send";

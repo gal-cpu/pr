@@ -1,7 +1,5 @@
 package com.example.pr.screens;
 
-import static java.lang.Double.sum;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
@@ -284,7 +282,7 @@ public class CartList extends AppCompatActivity implements View.OnClickListener 
                 cart = new Cart();
 
 
-             //   goUpdateCart(cart);
+                goUpdateCart(cart);
                 Intent goLog = new Intent(CartList.this, Payment_page.class);
                 goLog.putExtra("total", sum);
                 startActivity(goLog);

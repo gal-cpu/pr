@@ -32,6 +32,7 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
     SharedPreferences sharedpreferences;
 
     public  static  boolean isAdmin=false;
+    public String token;
 
 
     @Override
@@ -86,6 +87,28 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                             @Override
                             public void onCompleted(User user) {
 
+                                FirebaseMessaging.getInstance().getToken()
+                                        .addOnCompleteListener(task -> {
+                                            if (!task.isSuccessful()) {
+                                                return;
+                                            }
+
+                                            token = task.getResult();
+
+                                            // שמור במסד הנתונים תחת המשתמש
+                                            databaseService.saveUserToken(userId, token, new DatabaseService.DatabaseCallback<Void>() {
+                                                @Override
+                                                public void onCompleted(Void object) {
+
+                                                }
+
+                                                @Override
+                                                public void onFailed(Exception e) {
+
+                                                }
+                                            });
+                                        });
+
                                 current_user = user;
 
                                 Intent go;
@@ -96,37 +119,18 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
 
                                 } else {
 
-
-//Save User Token
-                                    FirebaseMessaging.getInstance().getToken()
-                                            .addOnCompleteListener(task -> {
-                                                if (!task.isSuccessful()) {
-                                                    return;
-                                                }
-
-                                                String token = task.getResult();
-
-                                                // שמור במסד הנתונים תחת המשתמש
-                                                databaseService.saveUserToken(userId, token, new DatabaseService.DatabaseCallback<Void>() {
-                                                    @Override
-                                                    public void onCompleted(Void object) {
-
-                                                    }
-
-                                                    @Override
-                                                    public void onFailed(Exception e) {
-
-                                                    }
-                                                });
-                                            });
-                                    go = new Intent(LogIn.this, MainActivity.class);
                                     isAdmin=false;
+
+                                    go = new Intent(LogIn.this, MainActivity.class);
+
                                 }
                                 startActivity(go);
                                 finish();
                             }
                             @Override
                             public void onFailed(Exception e) {
+                                mNotExist = "The user is not found";
+                                tvNotExist.setText(mNotExist);
                             }
                         });
                     }
@@ -134,7 +138,6 @@ public class LogIn extends AppCompatActivity implements View.OnClickListener {
                     @Override
                     public void onFailed(Exception e) {
                         // SharedPreferencesUtils.signOutUser(LogIn.this);
-
 
                         mNotExist = "The user is not found";
                         tvNotExist.setText(mNotExist);
