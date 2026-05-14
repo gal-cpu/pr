@@ -23,11 +23,6 @@ import java.util.List;
 
 public class ItemsAdapter extends RecyclerView.Adapter<ItemsAdapter.ItemViewHolder> {
 
-
-
-
-
-
     public interface ItemClickListener {
         void onClick(Item item);
         void onLongClick(Item item, int position);

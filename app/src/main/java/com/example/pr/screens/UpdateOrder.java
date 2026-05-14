@@ -188,6 +188,10 @@ public class UpdateOrder extends AppCompatActivity {
 
                 sendSMS(currentOrder.getUser().getPhone(), "שלום, זו הודעה אוטומטית!");
 
+                Intent startAlarmService = new Intent(UpdateOrder.this, OrderApprovedService.class);
+                startAlarmService.setAction( currentOrder.getOrderId());
+                startService(startAlarmService);  // הפעל התראה
+
 
                 // ✅ שלח התראה
 //                NotificationHelper.sendOrderReadyNotification(
@@ -202,9 +206,9 @@ public class UpdateOrder extends AppCompatActivity {
 
 
                 Toast.makeText(UpdateOrder.this, "Order status updated", Toast.LENGTH_SHORT).show();
-                Intent intent2 = new Intent(UpdateOrder.this, OrderHistory.class);
-                startActivity(intent2);
-                finish();
+//                Intent intent2 = new Intent(UpdateOrder.this, OrderHistory.class);
+//                startActivity(intent2);
+//                finish();
             }
 
             @Override

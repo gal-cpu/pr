@@ -30,9 +30,13 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
     private static final String TAG = "ItemsActivity";
     DatabaseService databaseService;
     private ItemsAdapter itemsAdapter;
+    // *** תיקון: שמירת reference ל-RecyclerView וה-LayoutManager לשחזור מיקום ***
+    private RecyclerView recyclerView;
+    private LinearLayoutManager layoutManager;
+
     ScrollView scrollViewFilter1, scrollViewFilter2;
     private TextView optionFore, optionFive, optionSix, optionSeven, optionEight, optionNine, optionTen, optionEleven, optionTwelve;
-   private View ToggleFilter1, ToggleFilter2;
+    private View ToggleFilter1, ToggleFilter2;
     private LinearLayout optionsContainer1, optionsContainer2;
     private String selectedCategory1 = "without", selectedCategory2 = "all";
     private List<Item> allItems = new ArrayList<>();
@@ -51,7 +55,7 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         });
 
         databaseService = DatabaseService.getInstance();
-        RecyclerView recyclerView = findViewById(R.id.RcItemes);
+        recyclerView = findViewById(R.id.RcItemes);
 
         scrollViewFilter1 = findViewById(R.id.ScrollViewFilterItem1);
         scrollViewFilter2 = findViewById(R.id.ScrollViewFilterItem2);
@@ -72,7 +76,6 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         optionEleven = findViewById(R.id.option11);
         optionTwelve = findViewById(R.id.option12);
 
-        // הגדרת מאזינים
         ToggleFilter1.setOnClickListener(this);
         ToggleFilter2.setOnClickListener(this);
         optionFore.setOnClickListener(this);
@@ -85,7 +88,10 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         optionEleven.setOnClickListener(this);
         optionTwelve.setOnClickListener(this);
 
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        // *** תיקון: שמירת ה-LayoutManager כמשתנה מחלקה ***
+        layoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(layoutManager);
+
         itemsAdapter = new ItemsAdapter(new ItemsAdapter.ItemClickListener() {
             @Override
             public void onLongClick(Item item, int position) {}
@@ -109,8 +115,8 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
                 if (items != null) {
                     allItems = items;
                     filteredItems = new ArrayList<>(allItems);
+                    // *** תיקון: בטעינה ראשונית בלבד מותר לאפס מיקום ***
                     itemsAdapter.setItem(filteredItems);
-                    itemsAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -132,8 +138,7 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             filteredItems.sort((a, b) -> Double.compare(b.getRate(), a.getRate()));
         }
 
-        itemsAdapter.setItem(filteredItems);
-        itemsAdapter.notifyDataSetChanged();
+        updateAdapterKeepScroll();
     }
 
     private void filterUsersByCategory() {
@@ -142,7 +147,7 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         if ("all".equals(selectedCategory2)) {
             filteredItems = new ArrayList<>(allItems);
         } else {
-            filteredItems.clear();
+            filteredItems = new ArrayList<>();
             for (Item item : allItems) {
                 if (item.getType() != null && item.getType().equals(selectedCategory2)) {
                     filteredItems.add(item);
@@ -152,11 +157,27 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
         filterUsersBySorting();
     }
 
+    /**
+     * *** תיקון מרכזי ***
+     * שומר את מיקום הגלילה לפני עדכון הרשימה ומשחזר אותו אחרי.
+     * כך ה-RecyclerView לא קופץ לראש בכל פילטור/מיון.
+     */
+    private void updateAdapterKeepScroll() {
+        // שמירת מיקום נוכחי
+        int firstVisible = layoutManager.findFirstVisibleItemPosition();
+        View firstView = recyclerView.findViewWithTag(firstVisible);
+        int offset = (firstView != null) ? firstView.getTop() : 0;
+
+        itemsAdapter.setItem(filteredItems);
+
+        // שחזור מיקום
+        layoutManager.scrollToPositionWithOffset(firstVisible, offset);
+    }
+
     @Override
     public void onClick(View v) {
         int id = v.getId();
 
-        // טיפול בתפריט 1 (מיון)
         if (id == R.id.btnShowOptionsItem1) {
             optionsContainer2.setVisibility(View.GONE);
             optionsContainer1.setVisibility(optionsContainer1.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
@@ -176,10 +197,7 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             selectedCategory1 = "rate";
             filterUsersByCategory();
             optionsContainer1.setVisibility(View.GONE);
-        }
-
-        // טיפול בתפריט 2 (קטגוריות)
-        else if (id == R.id.btnShowOptionsItem2) {
+        } else if (id == R.id.btnShowOptionsItem2) {
             optionsContainer1.setVisibility(View.GONE);
             optionsContainer2.setVisibility(optionsContainer2.getVisibility() == View.GONE ? View.VISIBLE : View.GONE);
         } else if (id == R.id.option8) {
@@ -187,19 +205,19 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
             filterUsersByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option9) {
-            selectedCategory2 = "book"; // שנה לשם הקטגוריה האמיתי שלך
+            selectedCategory2 = "book";
             filterUsersByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option10) {
-            selectedCategory2 = "toy"; // שנה לשם הקטגוריה האמיתי שלך
+            selectedCategory2 = "toy";
             filterUsersByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option11) {
-            selectedCategory2 = "device"; // שנה לשם הקטגוריה האמיתי שלך
+            selectedCategory2 = "device";
             filterUsersByCategory();
             optionsContainer2.setVisibility(View.GONE);
         } else if (id == R.id.option12) {
-            selectedCategory2 = "shoe"; // שנה לשם הקטגוריה האמיתי שלך
+            selectedCategory2 = "shoe";
             filterUsersByCategory();
             optionsContainer2.setVisibility(View.GONE);
         }

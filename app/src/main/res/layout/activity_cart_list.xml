@@ -8,155 +8,203 @@
     tools:context=".screens.CartList">
 
     <ImageView
-        android:id="@+id/imageView5"
+        android:id="@+id/imageCardCart"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="130dp"
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
-        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103"
+        app:layout_constraintVertical_bias="0.073"
         app:srcCompat="@drawable/image_transition_page" />
 
     <TextView
-        android:id="@+id/TvItemsTable"
+        android:id="@+id/tvTitleCart"
         android:layout_width="211dp"
         android:layout_height="103dp"
         android:gravity="center"
-        android:text="@string/cart"
+        android:text="Cart"
         android:textColor="@color/white"
-        android:textSize="35sp"
+        android:textSize="35dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.18"
+        app:layout_constraintHorizontal_bias="0.17"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.132"
+        app:layout_constraintVertical_bias="0.095"
         tools:ignore="MissingConstraints" />
 
     <ImageView
-        android:id="@+id/imageView7"
+        android:id="@+id/ivTitleIteams"
         android:layout_width="93dp"
         android:layout_height="95dp"
-        android:importantForAccessibility="no"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.817"
+        app:layout_constraintHorizontal_bias="0.811"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.143"
-        app:srcCompat="@drawable/icon_users_table" />
+        app:layout_constraintVertical_bias="0.094"
+        app:srcCompat="@drawable/cart_page" />
 
-    <!-- חלק הסינון - גמיש וצמוד מתחת לתמונה -->
-    <ScrollView
-        android:id="@+id/ScrollViewFilterCart"
-        android:layout_width="wrap_content"
+    <!-- ===== SEARCH + SORT ROW ===== -->
+    <LinearLayout
+        android:id="@+id/searchAndFilterRow"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="220dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="14dp"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView5">
+        app:layout_constraintTop_toBottomOf="@+id/imageCardCart">
 
+        <!-- שדה חיפוש -->
+        <EditText
+            android:id="@+id/edSearch"
+            android:layout_width="0dp"
+            android:layout_height="50dp"
+            android:layout_weight="1"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/search_edit_background"
+            android:drawableEnd="@drawable/searchicon"
+            android:drawablePadding="10dp"
+            android:elevation="0dp"
+            android:hint="Search items..."
+            android:imeOptions="actionSearch"
+            android:inputType="text"
+            android:paddingStart="16dp"
+            android:paddingEnd="12dp"
+            android:textColorHint="#A89DC8"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+        <!-- כפתור מיון -->
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:id="@+id/btnShowOptionsCart"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:background="@drawable/sort_btn_bg"
+            android:clickable="true"
+            android:elevation="0dp"
+            android:focusable="true"
+            android:gravity="center"
+            android:orientation="horizontal">
 
-            <!-- הכפתור המעוצב -->
-            <LinearLayout
-                android:id="@+id/btnShowOptionsCart"
-                android:layout_width="170dp"
-                android:layout_height="50dp"
-                android:background="@drawable/filter_btn_design"
-                android:clickable="true"
-                android:elevation="4dp"
-                android:focusable="true"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="12dp">
+            <ImageView
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:importantForAccessibility="no"
+                android:src="@android:drawable/ic_menu_manage"
+                app:tint="#7B6DAA" />
 
-                <ImageView
-                    android:layout_width="20dp"
-                    android:layout_height="20dp"
-                    android:importantForAccessibility="no"
-                    android:src="@android:drawable/ic_menu_manage"
-                    app:tint="#7E57C2" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:text="@string/sortCart"
-                    android:textColor="#7E57C2"
-                    android:textSize="16sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- רשימת האופציות - נסתרת בהתחלה -->
-            <LinearLayout
-                android:id="@+id/optionsContainerCart"
-                android:layout_width="170dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:layout_marginEnd="25dp"
-                android:background="@drawable/scroll_bg"
-                android:elevation="2dp"
-                android:orientation="vertical"
-                android:visibility="gone">
-
-                <TextView android:id="@+id/option1"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/without"
-                    android:textColor="#333333" />
-
-                <TextView
-                    android:id="@+id/option2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/high_to_lowCart"
-                    android:textColor="#333333" />
-
-                <TextView
-                    android:id="@+id/option3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/low_to_highCart"
-                    android:textColor="#333333" />
-
-                <TextView
-                    android:id="@+id/option4"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:padding="15dp"
-                    android:text="@string/rateCart"
-                    android:textColor="#333333" />
-
-            </LinearLayout>
         </LinearLayout>
-    </ScrollView>
 
-    <!-- ה-RecyclerView גמיש ותופס את כל המרחב שבין הסינון לבין כפתור התשלום -->
+    </LinearLayout>
+
+    <!-- ===== DROPDOWN מיון ===== -->
+    <LinearLayout
+        android:id="@+id/optionsContainerCart"
+        android:layout_width="180dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/dropdown_bg"
+        android:elevation="8dp"
+        android:orientation="vertical"
+        android:visibility="gone"
+        app:layout_constraintEnd_toEndOf="@+id/searchAndFilterRow"
+        app:layout_constraintTop_toBottomOf="@+id/searchAndFilterRow">
+
+        <TextView
+            android:id="@+id/option1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:text="Default order"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E8E4F4"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/option2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:text="Price: high to low"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E8E4F4"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/option3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:text="Price: low to high"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.5dp"
+            android:background="#E8E4F4"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"/>
+
+        <TextView
+            android:id="@+id/option4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"
+            android:paddingTop="13dp"
+            android:paddingBottom="13dp"
+            android:text="Top rated"
+            android:textColor="#2D1F6E"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+
+    <!-- ===== RECYCLER VIEW ===== -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RcCart"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginBottom="15dp"
-        app:layout_constraintTop_toBottomOf="@+id/ScrollViewFilterCart"
-        app:layout_constraintBottom_toTopOf="@+id/bottomContainer"
-        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginTop="12dp"
+        android:layout_marginBottom="96dp"
+        android:clipToPadding="false"
+        android:paddingBottom="8dp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        tools:listitem="@android:layout/simple_list_item_1" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/searchAndFilterRow" />
 
     <LinearLayout
         android:id="@+id/bottomContainer"

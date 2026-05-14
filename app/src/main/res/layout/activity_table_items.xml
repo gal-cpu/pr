@@ -16,12 +16,10 @@
         android:layout_marginStart="25dp"
         android:layout_marginEnd="25dp"
         android:importantForAccessibility="no"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.103"
         app:srcCompat="@drawable/image_transition_page" />
 
     <TextView
@@ -32,7 +30,6 @@
         android:text="@string/items_table"
         android:textColor="@color/white"
         android:textSize="35sp"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.18"
         app:layout_constraintStart_toStartOf="parent"
@@ -45,7 +42,6 @@
         android:layout_width="93dp"
         android:layout_height="95dp"
         android:importantForAccessibility="no"
-        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.817"
         app:layout_constraintStart_toStartOf="parent"
@@ -53,7 +49,27 @@
         app:layout_constraintVertical_bias="0.143"
         app:srcCompat="@drawable/icon_users_table" />
 
-    <!-- חלק הסינון 1 - מיון -->
+    <!--
+        *** תיקון מרכזי ***
+        ה-RecyclerView מוצמד לתחתית imageView5 בגובה קבוע.
+        התפריטים (ScrollView) מוצמדים גם הם לתחתית imageView5,
+        ומרחפים מעל ה-RecyclerView הודות ל-elevation גבוה.
+        כך פתיחת/סגירת תפריט לא זז את ה-RecyclerView בכלל.
+    -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/RcItemes"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="60dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView5" />
+
+    <!-- חלק הסינון 1 - מיון (מרחף מעל ה-RecyclerView) -->
     <ScrollView
         android:id="@+id/ScrollViewFilterItem1"
         android:layout_width="170dp"
@@ -117,7 +133,7 @@
         </LinearLayout>
     </ScrollView>
 
-    <!-- חלק הסינון 2 - קטגוריות -->
+    <!-- חלק הסינון 2 - קטגוריות (מרחף מעל ה-RecyclerView) -->
     <ScrollView
         android:id="@+id/ScrollViewFilterItem2"
         android:layout_width="170dp"
@@ -181,26 +197,5 @@
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
-
-    <!-- המחסום הדינמי - דואג ששני התפריטים ידחפו את הרשימה -->
-    <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/filterBarrier"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:barrierDirection="bottom"
-        app:constraint_referenced_ids="ScrollViewFilterItem1,ScrollViewFilterItem2" />
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/RcItemes"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/filterBarrier" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

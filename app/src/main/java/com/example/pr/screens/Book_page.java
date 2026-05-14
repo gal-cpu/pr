@@ -296,8 +296,7 @@ public class Book_page extends AppCompatActivity implements View.OnClickListener
             return true;
         }
 
-        if(  item.getItemId()==R.id.menu_admin) {
-
+        if( item.getItemId()==R.id.menu_admin) {
             if(LogIn.isAdmin) {
                 Intent go = new Intent(Book_page.this, AdminPage.class);
                 startActivity(go);
@@ -305,9 +304,6 @@ public class Book_page extends AppCompatActivity implements View.OnClickListener
             return true;
         }
 
-
         return super.onOptionsItemSelected(item);
     }
-
-
 }

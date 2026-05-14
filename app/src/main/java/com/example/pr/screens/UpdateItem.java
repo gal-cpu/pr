@@ -36,17 +36,10 @@ public class UpdateItem extends AppCompatActivity {
     private ImageView ivItemField;
     private Button updateBtn, deleteBtn;
 
-    // אובייקט לניהול בחירת תמונה מהגלריה
-    private final ActivityResultLauncher<Intent> galleryLauncher = registerForActivityResult(
-            new ActivityResultContracts.StartActivityForResult(),
-            result -> {
-                if (result.getResultCode() == RESULT_OK && result.getData() != null) {
-                    Uri imageUri = result.getData().getData();
-                    // עדכון ה-ImageView בתמונה החדשה שנבחרה
-                    ivItemField.setImageURI(imageUri);
-                }
-            }
-    );
+    int SELECT_PICTURE = 200;
+
+    // לכידת תמונה מהמצלמה — בדיוק כמו ב-AddItem
+    private ActivityResultLauncher<Intent> captureImageLauncher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,10 +51,22 @@ public class UpdateItem extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
+
         initViews();
         databaseService = DatabaseService.getInstance();
 
-        // קבלת ה-ID של המוצר מה-Intent
+        ImageUtil.requestPermission(this);
+
+        // רישום launcher למצלמה — בדיוק כמו ב-AddItem
+        captureImageLauncher = registerForActivityResult(
+                new ActivityResultContracts.StartActivityForResult(),
+                result -> {
+                    if (result.getResultCode() == RESULT_OK && result.getData() != null) {
+                        Bitmap bitmap = (Bitmap) Objects.requireNonNull(result.getData().getExtras()).get("data");
+                        ivItemField.setImageBitmap(bitmap);
+                    }
+                });
+
         if (getIntent().getSerializableExtra("Item_UID") != null) {
             String selectedItemId = Objects.requireNonNull(getIntent().getSerializableExtra("Item_UID")).toString();
 
@@ -78,9 +83,7 @@ public class UpdateItem extends AppCompatActivity {
                     Toast.makeText(UpdateItem.this, "שגיאה בטעינת המוצר", Toast.LENGTH_SHORT).show();
                 }
             });
-
         }
-
     }
 
     private void initViews() {
@@ -89,36 +92,49 @@ public class UpdateItem extends AppCompatActivity {
         noteField = findViewById(R.id.ItemNoteUpdate);
         priceField = findViewById(R.id.ItemPriceUpdate);
         ivItemField = findViewById(R.id.imageViewPicture);
-
         updateBtn = findViewById(R.id.updatItemrBtn);
         deleteBtn = findViewById(R.id.deleteItemBtn);
     }
 
     private void setupListeners() {
-        // כפתור עדכון
         updateBtn.setOnClickListener(v -> updateItem());
-
-        // כפתור מחיקה
         deleteBtn.setOnClickListener(v -> deleteItem());
 
-        // לחיצה על התמונה פותחת את הגלריה
-        ivItemField.setOnClickListener(v -> {
-            Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-            galleryLauncher.launch(intent);
-        });
+        // לחיצה על התמונה — פתיחת גלריה בדיוק כמו ב-AddItem
+        ivItemField.setOnClickListener(v -> imageChooser());
+    }
+
+    // בדיוק אותה פונקציה כמו ב-AddItem
+    void imageChooser() {
+        Intent i = new Intent();
+        i.setType("image/*");
+        i.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(i, "Select Picture"), SELECT_PICTURE);
+    }
+
+    // בדיוק אותה פונקציה כמו ב-AddItem
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == SELECT_PICTURE) {
+                Uri selectedImageUri = data.getData();
+                if (selectedImageUri != null) {
+                    ivItemField.setImageURI(selectedImageUri);
+                }
+            }
+        }
     }
 
     @SuppressLint("SetTextI18n")
     private void populateFields() {
-
         if (current_item != null) {
-
             namelField.setText(current_item.getpName());
             typeField.setText(current_item.getType());
-            typeField.setEnabled(false); // בדרך כלל לא משנים סוג מוצר קיים
+            typeField.setEnabled(false);
             noteField.setText(current_item.getpNote());
             priceField.setText(current_item.getPrice() + "");
-            // המרת המחרוזת מה-DB חזרה לתמונה
+
             @Nullable Bitmap iv = ImageUtil.convertFrom64base(current_item.getImage());
             if (iv != null) {
                 ivItemField.setImageBitmap(iv);
@@ -133,28 +149,24 @@ public class UpdateItem extends AppCompatActivity {
         String note = noteField.getText().toString().trim();
         String price = priceField.getText().toString().trim();
 
-
         if (name.isEmpty() || note.isEmpty() || price.isEmpty()) {
             Toast.makeText(this, "נא למלא את כל השדות", Toast.LENGTH_SHORT).show();
             return;
         }
+
         try {
             double priceD = Double.parseDouble(price);
 
-            // 1. עדכון נתוני הטקסט באובייקט
             current_item.setpName(name);
             current_item.setpNote(note);
             current_item.setPrice(priceD);
 
-            // 2. המרת התמונה שמוצגת כרגע ב-ImageView ל-Base64
-            // שים לב: השם הוא convertTo64base עם b קטנה בדיוק כמו ב-ImageUtil שלך
+            // בדיוק כמו ב-AddItem — convertTo64Base מקבל את ה-ImageView
             String updatedImageBase64 = ImageUtil.convertTo64Base(ivItemField);
-
             if (updatedImageBase64 != null) {
                 current_item.setImage(updatedImageBase64);
             }
 
-            // 3. שמירה ב-Firebase
             databaseService.updateItem(current_item, new DatabaseService.DatabaseCallback<>() {
                 @Override
                 public void onCompleted(Void v) {
@@ -178,9 +190,11 @@ public class UpdateItem extends AppCompatActivity {
     private void deleteItem() {
         if (current_item == null) return;
 
-        databaseService.deleteItem(current_item.getId(), new DatabaseService.DatabaseCallback<>() {            @Override
+        databaseService.deleteItem(current_item.getId(), new DatabaseService.DatabaseCallback<>() {
+            @Override
             public void onCompleted(Void v) {
-            Toast.makeText(UpdateItem.this, "המוצר נמחק", Toast.LENGTH_SHORT).show();                Intent intent = new Intent(UpdateItem.this, TableItems.class);
+                Toast.makeText(UpdateItem.this, "המוצר נמחק", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(UpdateItem.this, TableItems.class);
                 startActivity(intent);
                 finish();
             }
@@ -191,7 +205,4 @@ public class UpdateItem extends AppCompatActivity {
             }
         });
     }
-
 }
-
-
