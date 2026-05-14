@@ -3,6 +3,8 @@ package com.example.pr.screens;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
@@ -177,5 +179,58 @@ public class Favorites extends AppCompatActivity implements View.OnClickListener
             filteredItems.sort((a, b) -> Double.compare(b.getRate(), a.getRate()));
         }
         favoritesAdapter.setFavoriteItems(filteredItems);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+
+
+        getMenuInflater().inflate(R.menu.user_menu, menu);
+
+        return true;
+
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        
+
+        if(  item.getItemId()==R.id.menu_user) {
+            Intent go = new Intent(Favorites.this, UserProfile.class);
+            startActivity(go);
+            return true;
+        }
+
+        if(  item.getItemId()==R.id.menu_history) {
+            Intent go = new Intent(Favorites.this, OrderHistory.class);
+            startActivity(go);
+            return true;
+        }
+        if(  item.getItemId()==R.id.menu_favorites) {
+            Intent go = new Intent(Favorites.this, Favorites.class);
+            startActivity(go);
+            return true;
+        }
+
+        if(  item.getItemId()==R.id.menu_cart) {
+            Intent go = new Intent(Favorites.this, CartList.class);
+            startActivity(go);
+            return true;
+        }
+
+        if(  item.getItemId()==R.id.menu_logout) {
+            Intent go = new Intent(Favorites.this, LogIn.class);
+            startActivity(go);
+            return true;
+        }
+
+        if( item.getItemId()==R.id.menu_admin) {
+            if(LogIn.isAdmin) {
+                Intent go = new Intent(Favorites.this, AdminPage.class);
+                startActivity(go);
+            }
+            return true;
+        }
+
+        return super.onOptionsItemSelected(item);
     }
 }

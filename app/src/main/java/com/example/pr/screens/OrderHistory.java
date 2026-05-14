@@ -32,7 +32,7 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
     private RecyclerView rcOrders;
     private View btnShowOptionsOrder;
     private LinearLayout optionsContainerOrder;
-    private TextView option1, option2, option3, option4;
+    private TextView option1, option2, option3, option4, option5;
     private List<Order> allOrders = new ArrayList<>();
     private String selectedSort = "without";
 
@@ -69,6 +69,7 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
         option2 = findViewById(R.id.option2); // date
         option3 = findViewById(R.id.option3); // price (השתמשתי ב-option3 למחיר)
         option4 = findViewById(R.id.option4); // Committed
+        option5 =findViewById((R.id.option5));
 
         // הגדרת מאזינים
         btnShowOptionsOrder.setOnClickListener(this);
@@ -76,6 +77,7 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
         option2.setOnClickListener(this);
         option3.setOnClickListener(this);
         option4.setOnClickListener(this);
+        option5.setOnClickListener(this);
     }
 
     private void setupRecyclerView() {
@@ -144,6 +146,16 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
                 }
                 filteredList = onlyCommitted;
                 break;
+            case "new":
+                // סינון רק של אלו שסטטוס שלהם Committed
+                List<Order> onlyNew = new ArrayList<>();
+                for (Order o : allOrders) {
+                    if ("new".equalsIgnoreCase(o.getStatus())) {
+                        onlyNew.add(o);
+                    }
+                }
+                filteredList = onlyNew;
+                break;
         }
 
         orderAdapter.setOrderList(filteredList);
@@ -171,6 +183,10 @@ public class OrderHistory extends AppCompatActivity implements View.OnClickListe
             optionsContainerOrder.setVisibility(View.GONE);
         } else if (id == R.id.option4) {
             selectedSort = "Done";
+            applyFiltersAndSorting();
+            optionsContainerOrder.setVisibility(View.GONE);
+        }else if (id == R.id.option5) {
+            selectedSort = "new";
             applyFiltersAndSorting();
             optionsContainerOrder.setVisibility(View.GONE);
         }

@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="date"
+                    android:text="date: last to first"
                     android:textColor="#333333" />
 
                 <TextView
@@ -131,7 +131,7 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="date"
+                    android:text="date: first to last"
                     android:textColor="#333333" />
 
                 <TextView
@@ -140,7 +140,16 @@
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackground"
                     android:padding="15dp"
-                    android:text="Commited"
+                    android:text="Done"
+                    android:textColor="#333333" />
+
+                <TextView
+                    android:id="@+id/option5"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="?attr/selectableItemBackground"
+                    android:padding="15dp"
+                    android:text="new"
                     android:textColor="#333333" />
             </LinearLayout>
         </LinearLayout>

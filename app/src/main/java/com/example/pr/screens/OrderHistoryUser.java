@@ -18,7 +18,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.pr.R;
 import com.example.pr.adapers.OrdersAdapter;
 import com.example.pr.model.Order;
-import com.example.pr.model.User;
 import com.example.pr.services.DatabaseService;
 import com.google.firebase.auth.FirebaseAuth;
 
@@ -34,7 +33,7 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
     private View btnShowOptionsOrder;
     private String current_userId = "";
     private LinearLayout optionsContainerOrder;
-    private TextView option1, option2, option3, option4;
+    private TextView option1, option2, option3, option4, option5;
     private List<Order> allOrders = new ArrayList<>();
     private String selectedSort = "without";
 
@@ -44,8 +43,6 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
         EdgeToEdge.enable(this);
         setContentView(R.layout.activity_order_history_user);
 
-
-        // הגדרת Padding למערכת (סטטוס בר וכו')
         View mainView = findViewById(R.id.main);
         if (mainView != null) {
             ViewCompat.setOnApplyWindowInsetsListener(mainView, (v, insets) -> {
@@ -71,33 +68,28 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
         btnShowOptionsOrder = findViewById(R.id.btnShowOptionsOrderUser);
         optionsContainerOrder = findViewById(R.id.optionsContainerOrderUser);
 
-        // קישור האופציות מה-XML שלך
-        option1 = findViewById(R.id.option1User); // without
-        option2 = findViewById(R.id.option2User); // date
-        option3 = findViewById(R.id.option3User); // price (השתמשתי ב-option3 למחיר)
-        option4 = findViewById(R.id.option4User); // Committed
+        option1 = findViewById(R.id.option1User);
+        option2 = findViewById(R.id.option2User);
+        option3 = findViewById(R.id.option3User);
+        option4 = findViewById(R.id.option4User);
+        option5= findViewById(R.id.option5User);
 
-        // הגדרת מאזינים
         btnShowOptionsOrder.setOnClickListener(this);
         option1.setOnClickListener(this);
         option2.setOnClickListener(this);
         option3.setOnClickListener(this);
         option4.setOnClickListener(this);
+        option5.setOnClickListener(this);
     }
 
     private void setupRecyclerView() {
         rcOrders.setLayoutManager(new LinearLayoutManager(this));
-        // שליחת this פעמיים: פעם אחת כ-Context ופעם אחת כ-OrderClickListener
         orderAdapter = new OrdersAdapter(allOrders, new OrdersAdapter.OnOrderClickListener() {
             @Override
-            public void onOrderClick(Order order) {
-
-            }
+            public void onOrderClick(Order order) {}
 
             @Override
-            public void onOrderLongClick(Order order) {
-
-            }
+            public void onOrderLongClick(Order order) {}
         });
         rcOrders.setAdapter(orderAdapter);
     }
@@ -123,25 +115,30 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
     private void applyFiltersAndSorting() {
         List<Order> filteredList = new ArrayList<>(allOrders);
 
-        // לוגיקת מיון וסינון
         switch (selectedSort) {
             case "date ftl":
-                // מהחדש לישן
                 filteredList.sort((a, b) -> Long.compare(b.getTimestamp(), a.getTimestamp()));
                 break;
             case "date ltf":
-                // מהישן לחדש
-                filteredList.sort((a, b) -> Double.compare(a.getTimestamp(), b.getTimestamp()));
+                filteredList.sort((a, b) -> Long.compare(a.getTimestamp(), b.getTimestamp()));
                 break;
-            case "committed":
-                // סינון רק של אלו שסטטוס שלהם Committed
+            case "Done":
                 List<Order> onlyCommitted = new ArrayList<>();
                 for (Order o : allOrders) {
-                    if ("Committed".equalsIgnoreCase(o.getStatus())) {
+                    if ("Done".equalsIgnoreCase(o.getStatus())) {
                         onlyCommitted.add(o);
                     }
                 }
                 filteredList = onlyCommitted;
+                break;
+            case "new":
+                List<Order> onlyNew = new ArrayList<>();
+                for (Order o : allOrders) {
+                    if ("new".equalsIgnoreCase(o.getStatus())) {
+                        onlyNew.add(o);
+                    }
+                }
+                filteredList = onlyNew;
                 break;
         }
 
@@ -153,31 +150,30 @@ public class OrderHistoryUser extends AppCompatActivity implements View.OnClickL
     public void onClick(View v) {
         int id = v.getId();
 
-        if (id == R.id.btnShowOptionsOrder) {
+        // *** תיקון: שימוש ב-IDs הנכונים עם סיומת User ***
+        if (id == R.id.btnShowOptionsOrderUser) {
             int visibility = (optionsContainerOrder.getVisibility() == View.GONE) ? View.VISIBLE : View.GONE;
             optionsContainerOrder.setVisibility(visibility);
-        } else if (id == R.id.option1) {
+        } else if (id == R.id.option1User) {
             selectedSort = "without";
             applyFiltersAndSorting();
             optionsContainerOrder.setVisibility(View.GONE);
-        } else if (id == R.id.option2) {
+        } else if (id == R.id.option2User) {
             selectedSort = "date ftl";
             applyFiltersAndSorting();
             optionsContainerOrder.setVisibility(View.GONE);
-        } else if (id == R.id.option3) {
-            selectedSort = "date  ltf";
+        } else if (id == R.id.option3User) {
+            selectedSort = "date ltf"; // *** תיקון נוסף: היה רווח כפול "date  ltf" ***
             applyFiltersAndSorting();
             optionsContainerOrder.setVisibility(View.GONE);
-        } else if (id == R.id.option4) {
+        } else if (id == R.id.option4User) {
             selectedSort = "committed";
             applyFiltersAndSorting();
             optionsContainerOrder.setVisibility(View.GONE);
+        }else if (id == R.id.option5User) {
+            selectedSort = "new";
+            applyFiltersAndSorting();
+            optionsContainerOrder.setVisibility(View.GONE);
         }
-    }
-
-
-    @Override
-    public void onPointerCaptureChanged(boolean hasCapture) {
-        super.onPointerCaptureChanged(hasCapture);
     }
 }
