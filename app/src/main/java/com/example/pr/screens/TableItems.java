@@ -94,7 +94,8 @@ public class TableItems extends AppCompatActivity implements View.OnClickListene
 
         itemsAdapter = new ItemsAdapter(new ItemsAdapter.ItemClickListener() {
             @Override
-            public void onLongClick(Item item, int position) {}
+            public void onLongClick(Item item, int position) {
+            }
 
             @Override
             public void onClick(Item item) {
