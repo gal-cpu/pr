@@ -66,8 +66,13 @@ public class MainActivity extends AppCompatActivity {
 
             getMenuInflater().inflate(R.menu.user_menu, menu);
 
-        return true;
+        MenuItem adminItem = menu.findItem(R.id.menu_admin);
+        if (adminItem != null) {
+            // הצגה רק אם המשתמש הוא מנהל
+            adminItem.setVisible(LogIn.isAdmin);
+        }
 
+        return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -101,15 +106,11 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             }
 
-        if(  item.getItemId()==R.id.menu_admin) {
-
-            if(LogIn.isAdmin) {
+            if (item.getItemId() == R.id.menu_admin) {
                 Intent go = new Intent(MainActivity.this, AdminPage.class);
                 startActivity(go);
-            }
                 return true;
             }
-
             return super.onOptionsItemSelected(item);
         }
 }

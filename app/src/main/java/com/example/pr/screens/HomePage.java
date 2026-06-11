@@ -33,7 +33,7 @@ public class HomePage extends AppCompatActivity {
             v.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom);
             return insets;
         });
-        checkNotificationPermission();
+        //checkNotificationPermission();
     }
 
     public void onClicksignUp(View view) {
@@ -53,19 +53,19 @@ public class HomePage extends AppCompatActivity {
 
 
 
-    private void checkNotificationPermission() {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
-                    != PackageManager.PERMISSION_GRANTED) {
-
-                ActivityCompat.requestPermissions(
-                        this,
-                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
-                        NOTIFICATION_PERMISSION_CODE
-                );
-            }
-        }
-    }
+//    private void checkNotificationPermission() {
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+//            if (ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+//                    != PackageManager.PERMISSION_GRANTED) {
+//
+ //                ActivityCompat.requestPermissions(
+//                        this,
+//                        new String[]{Manifest.permission.POST_NOTIFICATIONS},
+//                        NOTIFICATION_PERMISSION_CODE
+//                );
+//            }
+ //       }
+//    }
 
     // ---- שליחת הודעה למשתמש בעת אישור/דחיית ההרשאה ----
     @Override

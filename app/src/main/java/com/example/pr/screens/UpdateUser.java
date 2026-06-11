@@ -2,6 +2,7 @@ package com.example.pr.screens;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -102,6 +103,11 @@ public class UpdateUser extends AppCompatActivity {
             lastnameField.setText(current_user.getlName());
             phoneField.setText(current_user.getPhone());
             isAdminCheckBox.setChecked(current_user.isAd());
+            if (current_user.isAd()){
+                isAdminCheckBox.setVisibility(View.VISIBLE);
+            }else{
+                isAdminCheckBox.setVisibility(View.GONE);
+            }
         }
     }
 

@@ -259,51 +259,52 @@ public class Book_page extends AppCompatActivity implements View.OnClickListener
 
         getMenuInflater().inflate(R.menu.user_menu, menu);
 
+        MenuItem adminItem = menu.findItem(R.id.menu_admin);
+        if (adminItem != null) {
+            // הצגה רק אם המשתמש הוא מנהל
+            adminItem.setVisible(LogIn.isAdmin);
+        }
+
         return true;
 
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-
-
-        if(  item.getItemId()==R.id.menu_user) {
+        if (item.getItemId() == R.id.menu_user) {
             Intent go = new Intent(Book_page.this, UserProfile.class);
             startActivity(go);
             return true;
         }
 
-        if(  item.getItemId()==R.id.menu_history) {
+        if (item.getItemId() == R.id.menu_history) {
             Intent go = new Intent(Book_page.this, OrderHistory.class);
             startActivity(go);
             return true;
         }
-        if(  item.getItemId()==R.id.menu_favorites) {
+        if (item.getItemId() == R.id.menu_favorites) {
             Intent go = new Intent(Book_page.this, Favorites.class);
             startActivity(go);
             return true;
         }
 
-        if(  item.getItemId()==R.id.menu_cart) {
+        if (item.getItemId() == R.id.menu_cart) {
             Intent go = new Intent(Book_page.this, CartList.class);
             startActivity(go);
             return true;
         }
 
-        if(  item.getItemId()==R.id.menu_logout) {
+        if (item.getItemId() == R.id.menu_logout) {
             Intent go = new Intent(Book_page.this, LogIn.class);
             startActivity(go);
             return true;
         }
 
-        if( item.getItemId()==R.id.menu_admin) {
-            if(LogIn.isAdmin) {
-                Intent go = new Intent(Book_page.this, AdminPage.class);
-                startActivity(go);
-            }
-            return true;
+        if (item.getItemId() == R.id.menu_admin) {
+            Intent go = new Intent(Book_page.this, AdminPage.class);
+            startActivity(go);
+        return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

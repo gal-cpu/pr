@@ -29,7 +29,6 @@ public class CartAdapter extends RecyclerView.Adapter<CartAdapter.CartViewHolder
     public interface CartClickListener {
         void onClick(ItemCart item);
         void onLongClick(ItemCart item, int position);
-
         void onQuantityChanged(ItemCart item, int position);
     }
 

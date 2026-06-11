@@ -49,13 +49,6 @@
         app:layout_constraintVertical_bias="0.143"
         app:srcCompat="@drawable/icon_users_table" />
 
-    <!--
-        *** תיקון מרכזי ***
-        ה-RecyclerView מוצמד לתחתית imageView5 בגובה קבוע.
-        התפריטים (ScrollView) מוצמדים גם הם לתחתית imageView5,
-        ומרחפים מעל ה-RecyclerView הודות ל-elevation גבוה.
-        כך פתיחת/סגירת תפריט לא זז את ה-RecyclerView בכלל.
-    -->
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RcItemes"
@@ -125,10 +118,10 @@
                 android:orientation="vertical"
                 android:visibility="gone">
 
-                <TextView android:id="@+id/option4" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="without" android:textColor="#333333" />
-                <TextView android:id="@+id/option5" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="high to low" android:textColor="#333333" />
-                <TextView android:id="@+id/option6" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="low to high" android:textColor="#333333" />
-                <TextView android:id="@+id/option7" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="rate" android:textColor="#333333" />
+                <TextView android:id="@+id/option4" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="Default order" android:textColor="#333333" />
+                <TextView android:id="@+id/option5" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="Price: high to low" android:textColor="#333333" />
+                <TextView android:id="@+id/option6" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="Price: low to high" android:textColor="#333333" />
+                <TextView android:id="@+id/option7" android:layout_width="match_parent" android:layout_height="wrap_content" android:padding="15dp" android:text="Top rated" android:textColor="#333333" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>
